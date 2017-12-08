@@ -10,7 +10,7 @@ export const userSuccessRegister = userData => ({
 export const userTryToRegister = data => (dispatch) => {
   const register = async () => {
     try {
-      console.log(data)
+      console.log(data);
       const result = await axios.post(`${DEV_API_URL}/api/sender/create`, data);
       console.log(result.data);
       return result.data;
@@ -22,6 +22,16 @@ export const userTryToRegister = data => (dispatch) => {
   register();
 };
 
-export const test = data => (dispatch) => {
-
+export const userTryToLogin = data => (dispatch) => {
+  const login = async () => {
+    try {
+      const result = await axios.get(`${DEV_API_URL}/api/sender/login`, data);
+      console.log(result.data);
+      return result;
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  };
+  login();
 };

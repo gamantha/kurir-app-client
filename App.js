@@ -4,15 +4,14 @@ import { Provider } from 'react-redux';
 
 import store from './src/store';
 
-import UserOnboarding from './src/components/userOnboarding';
+import UserRegistration from './src/components/userRegistration';
 
 const App = () => (
   <Provider store={store}>
     <Container>
-      <UserOnboarding />
+      <UserRegistration />
     </Container>
   </Provider>
 );
 
 export default App;
-
