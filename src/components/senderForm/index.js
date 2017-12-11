@@ -19,9 +19,9 @@ class SenderFormPage extends React.Component {
   render() {
     return (
       <Form>
-        <Item rounded>
+        <Item floatingLabel>
+          <Label>nama barang (misal: hadiah)</Label>
           <Input
-            placeholder="nama barang (misal: hadiah)"
             onChangeText={name =>
               this.setState({
                 senderData: { ...this.state.senderData, name },
@@ -31,10 +31,11 @@ class SenderFormPage extends React.Component {
             autoCapitalize="none"
           />
         </Item>
-        <DatePicker mode="date" format="DD-MM-YYYY" />
-        <Item rounded>
+        <Label>kapan barang ini harus sampai?</Label>
+        <DatePicker cancelBtnText="Undo" confirmBtnText="Done" mode="date" format="DD-MM-YYYY" />
+        <Item floatingLabel>
+          <Label>berat barang (dalam kg)</Label>
           <Input
-            placeholder="berat barang"
             onChangeText={weight =>
               this.setState({
                 senderData: { ...this.state.senderData, weight },
@@ -42,12 +43,12 @@ class SenderFormPage extends React.Component {
             }
             value={this.state.senderData.weight}
             autoCapitalize="none"
-            secureTextEntry
+            keyboardType="numeric"
           />
         </Item>
-        <Item rounded>
+        <Item floatingLabel>
+          <Label>perkiraan nilai barang (rupiah)</Label>
           <Input
-            placeholder="perkiraan nilai barang"
             onChangeText={value =>
               this.setState({
                 senderData: { ...this.state.senderData, value },
@@ -55,23 +56,10 @@ class SenderFormPage extends React.Component {
             }
             value={this.state.senderData.value}
             autoCapitalize="none"
-            secureTextEntry
+            keyboardType="numeric"
           />
         </Item>
-        <Item rounded>
-          <Input
-            placeholder="catatan kamu buat pengirim"
-            onChangeText={note =>
-              this.setState({
-                senderData: { ...this.state.senderData, note },
-              })
-            }
-            value={this.state.senderData.note}
-            autoCapitalize="none"
-            secureTextEntry
-          />
-        </Item>
-        <Button rounded primary>
+        <Button primary>
           <Text>Submit</Text>
         </Button>
       </Form>
