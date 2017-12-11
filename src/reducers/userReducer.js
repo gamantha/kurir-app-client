@@ -12,12 +12,11 @@ const userTryToRegister = (state, payload) => {
   console.log(payload);
 };
 
-const loginUser = (state, payload) => {
+const loginUser = (state) => {
   const newState = {
     ...state,
     isLoggedIn: true,
   };
-  console.log(payload);
   return newState;
 };
 
@@ -33,6 +32,14 @@ const userClickRegisterLabel = (state) => {
   const newState = {
     ...state,
     userOnLoginPage: false,
+  };
+  return newState;
+};
+
+const userClickLogoutLabel = (state) => {
+  const newState = {
+    ...state,
+    isLoggedIn: false,
   };
   return newState;
 };

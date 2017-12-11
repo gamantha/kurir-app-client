@@ -18,10 +18,15 @@ export const userTryToLogin = data => (dispatch) => {
     }
   };
   login();
+  dispatch({
+    type: actionTypes.LOGIN_USER,
+  });
 };
 
 export const userClickRegisterLabel = () => ({
   type: actionTypes.USER_CLICK_REGISTER_LABEL,
 });
 
-export const test = () => {};
+export const userClickLogout = () => ({
+  type: actionTypes.USER_CLICK_LOGOUT_LABEL,
+});

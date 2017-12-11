@@ -5,11 +5,12 @@ import { Provider } from 'react-redux';
 import store from './src/store';
 
 import UserRegistration from './src/components/userRegistration';
+import Home from './src/components/home';
 
 const App = () => (
   <Provider store={store}>
     <Container>
-      <UserRegistration />
+      <Home />
     </Container>
   </Provider>
 );
