@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import UserLogin from '../userLogin';
 
-import { userTryToRegister } from './actions';
+import { userTryToRegister, userClickLoginLabel } from './actions';
 
 class UserRegistration extends React.Component {
   constructor(props) {
@@ -19,7 +19,6 @@ class UserRegistration extends React.Component {
         password: '',
         retype: '',
       },
-      isTryToLogin: false,
     };
   }
 
@@ -32,7 +31,7 @@ class UserRegistration extends React.Component {
   }
 
   render() {
-    if (!this.state.isTryToLogin) {
+    if (!this.props.userReducer.userOnLoginPage) {
       return (
         <Container>
           <Header />
@@ -91,7 +90,7 @@ class UserRegistration extends React.Component {
               <Button rounded primary onPress={() => this.onClickRegister(this.state.registerData)}>
                 <Text>SIGNUP</Text>
               </Button>
-              <Label onPress={() => this.setState({ isTryToLogin: true })}>Or Sign in</Label>
+              <Label onPress={() => this.props.userClickLoginLabel()}>Or Sign in</Label>
             </Form>
           </Content>
         </Container>
@@ -108,6 +107,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   userTryToRegister: (data) => {
     dispatch(userTryToRegister(data));
+  },
+  userClickLoginLabel: (data) => {
+    dispatch(userClickLoginLabel(data));
   },
 });
 

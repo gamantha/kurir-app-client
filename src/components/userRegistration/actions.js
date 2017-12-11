@@ -22,16 +22,6 @@ export const userTryToRegister = data => (dispatch) => {
   register();
 };
 
-export const userTryToLogin = data => (dispatch) => {
-  const login = async () => {
-    try {
-      const result = await axios.get(`${DEV_API_URL}/api/sender/login`, data);
-      console.log(result.data);
-      return result;
-    } catch (err) {
-      console.log(err);
-      return err;
-    }
-  };
-  login();
-};
+export const userClickLoginLabel = () => ({
+  type: actionType.USER_CLICK_LOGIN_LABEL,
+});

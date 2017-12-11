@@ -3,7 +3,9 @@ import { Container, Header, Content, Form, Item, Input, Label, Button, Text } fr
 
 import { connect } from 'react-redux';
 
-import { userTryToLogin } from './actions';
+import Expo from 'expo';
+
+import { userTryToLogin, userClickRegisterLabel } from './actions';
 
 class UserLogin extends React.Component {
   constructor(props) {
@@ -14,6 +16,12 @@ class UserLogin extends React.Component {
         password: '',
       },
     };
+  }
+
+  componentDidMount() {
+    Expo.SecureStore.getItemAsync('token').then((result) => {
+      console.log(result);
+    });
   }
 
   onClickLogin(data) {
@@ -48,11 +56,13 @@ class UserLogin extends React.Component {
                 }
                 value={this.state.loginData.password}
                 autoCapitalize="none"
+                secureTextEntry
               />
             </Item>
             <Button rounded primary onPress={() => this.onClickLogin(this.state.loginData)}>
               <Text>Submit</Text>
             </Button>
+            <Label onPress={() => this.props.userClickRegisterLabel()}>Go back to Register</Label>
           </Form>
         </Content>
       </Container>
@@ -67,6 +77,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   userTryToLogin: (data) => {
     dispatch(userTryToLogin(data));
+  },
+  userClickRegisterLabel: () => {
+    dispatch(userClickRegisterLabel());
   },
 });
 
