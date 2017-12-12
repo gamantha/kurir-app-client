@@ -13,9 +13,15 @@ import {
   Title,
 } from 'native-base';
 
+import { connect } from 'react-redux';
+
+import Expo from 'expo';
+
 import { DrawerNavigator } from 'react-navigation';
 
 import SenderForm from '../senderForm';
+import Profile from '../profile';
+import UserLogin from '../userLogin';
 
 const HomeScreen = () => (
   <Container>
@@ -37,6 +43,12 @@ const RootDrawer = DrawerNavigator({
       drawerLabel: 'Home',
     },
   },
+  Profile: {
+    screen: Profile,
+    navigationOptions: {
+      drawerLabel: 'Profile',
+    },
+  },
 });
 
 class Home extends React.Component {
@@ -49,4 +61,8 @@ class Home extends React.Component {
   }
 }
 
-export default RootDrawer;
+const mapStateToProps = state => ({
+  userReducer: state.userReducer,
+});
+
+export default connect(mapStateToProps, null)(RootDrawer);

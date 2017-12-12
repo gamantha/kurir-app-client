@@ -60,7 +60,7 @@ class SenderFormPage extends React.Component {
           />
         </Item>
         <Button primary>
-          <Text>Submit</Text>
+          <Text>Kirim</Text>
         </Button>
       </Form>
     );

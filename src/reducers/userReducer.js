@@ -54,6 +54,8 @@ const userReducer = (state = initialState, { type, payload }) => {
       return userClickLoginLabel(state, payload);
     case actionType.USER_CLICK_REGISTER_LABEL:
       return userClickRegisterLabel(state, payload);
+    case actionType.USER_CLICK_LOGOUT_LABEL:
+      return userClickLogoutLabel(state, payload);
     default:
       return state;
   }

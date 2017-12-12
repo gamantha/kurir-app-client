@@ -18,11 +18,11 @@ class UserLogin extends React.Component {
     };
   }
 
-  componentDidMount() {
-    Expo.SecureStore.getItemAsync('token').then((result) => {
-      console.log(result);
-    });
-  }
+  // componentDidMount() {
+  //   Expo.SecureStore.getItemAsync('token').then((result) => {
+  //     console.log(result);
+  //   });
+  // }
 
   onClickLogin(data) {
     this.props.userTryToLogin(data);

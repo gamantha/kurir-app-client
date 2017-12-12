@@ -4,7 +4,6 @@ import Expo from 'expo';
 import * as actionTypes from '../../actions/constants';
 
 export const userTryToLogin = data => (dispatch) => {
-  console.log(data);
   const login = async () => {
     try {
       const result = await axios.post(`${DEV_API_URL}/api/sender/login`, data);
@@ -12,21 +11,17 @@ export const userTryToLogin = data => (dispatch) => {
         return result.data;
       }
       Expo.SecureStore.setItemAsync('token', result.data.token);
+      dispatch({
+        type: actionTypes.LOGIN_USER,
+      });
       return result.data;
     } catch (err) {
       return err;
     }
   };
   login();
-  dispatch({
-    type: actionTypes.LOGIN_USER,
-  });
 };
 
 export const userClickRegisterLabel = () => ({
   type: actionTypes.USER_CLICK_REGISTER_LABEL,
-});
-
-export const userClickLogout = () => ({
-  type: actionTypes.USER_CLICK_LOGOUT_LABEL,
 });
