@@ -1,11 +1,12 @@
 import React from 'react';
 import { Container, Header, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
 
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 
 // import Expo from 'expo';
 
 import UserLogin from '../userLogin';
+import store from '../../store';
 
 import { userTryToRegister, userClickLoginLabel } from './actions';
 
@@ -31,8 +32,10 @@ class UserRegistration extends React.Component {
   }
 
   render() {
-    if (!this.props.userReducer.userOnLoginPage) {
-      return (
+    const { navigate } = this.props.navigation;
+    // if (!state.userReducer.userOnLoginPage) {
+    return (
+      <Provider store={store}>
         <Container>
           <Header />
           <Content>
@@ -90,15 +93,23 @@ class UserRegistration extends React.Component {
               <Button rounded primary onPress={() => this.onClickRegister(this.state.registerData)}>
                 <Text>SIGNUP</Text>
               </Button>
-              <Label onPress={() => this.props.userClickLoginLabel()}>Or Sign in</Label>
+              <Label onPress={() => navigate('Login')}>Or Sign in</Label>
             </Form>
           </Content>
         </Container>
-      );
-    }
-    return <UserLogin />;
+      </Provider>
+    );
+    // }
+    // return <UserLogin />;
   }
 }
+
+const connectWithStore = (store, WrappedComponent, ...args) => {
+  const ConnectedWrappedComponent = connect(...args)(WrappedComponent);
+  return function (props) {
+    return <ConnectedWrappedComponent {...props} store={store} />;
+  };
+};
 
 const mapStateToProps = state => ({
   userReducer: state.userReducer,
@@ -113,4 +124,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserRegistration);
+export default connectWithStore(store, UserRegistration, mapStateToProps, mapDispatchToProps);

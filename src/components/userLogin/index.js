@@ -1,9 +1,11 @@
 import React from 'react';
 import { Container, Header, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
 
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 
 import Expo from 'expo';
+
+import store from '../../store';
 
 import { userTryToLogin, userClickRegisterLabel } from './actions';
 
@@ -70,6 +72,13 @@ class UserLogin extends React.Component {
   }
 }
 
+const connectWithStore = (store, WrappedComponent, ...args) => {
+  const ConnectedWrappedComponent = connect(...args)(WrappedComponent);
+  return function (props) {
+    return <ConnectedWrappedComponent {...props} store={store} />;
+  };
+};
+
 const mapStateToProps = state => ({
   userReducer: state.userReducer,
 });
@@ -83,4 +92,5 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserLogin);
+export default connectWithStore(store, UserLogin, mapStateToProps, mapDispatchToProps);
+// export default connect(mapStateToProps, mapDispatchToProps)(UserLogin);

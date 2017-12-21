@@ -9,4 +9,3 @@ const middlewares = applyMiddleware(thunk, logger);
 const store = createStore(rootReducer, compose(middlewares));
 
 export default store;
-
