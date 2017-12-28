@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { DEV_API_URL } from 'react-native-dotenv';
+import { DEV_API_URL_LOCALHOST } from 'react-native-dotenv';
 import * as actionTypes from '../../actions/constants';
 
 export const userSuccessRegister = userData => ({
@@ -11,7 +11,7 @@ export const userTryToRegister = data => (dispatch) => {
   const register = async () => {
     try {
       console.log(data);
-      const result = await axios.post(`${DEV_API_URL}/api/sender/create`, data);
+      const result = await axios.post(`${DEV_API_URL_LOCALHOST}/api/sender/create`, data);
       console.log(result.data);
       return result.data;
     } catch (err) {

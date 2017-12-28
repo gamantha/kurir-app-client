@@ -1,5 +1,17 @@
 import React from 'react';
-import { Container, Header, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
+import {
+  Container,
+  Header,
+  Content,
+  Form,
+  Item,
+  Input,
+  Label,
+  Button,
+  Text,
+  Toast,
+  Root,
+} from 'native-base';
 
 import { connect, Provider } from 'react-redux';
 
@@ -31,43 +43,52 @@ class UserLogin extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
-      <Container>
-        <Header />
-        <Content>
-          <Form>
-            <Label>Enter your email</Label>
-            <Item rounded>
-              <Input
-                onChangeText={email =>
-                  this.setState({
-                    loginData: { ...this.state.loginData, email },
-                  })
-                }
-                value={this.state.loginData.email}
-                autoCapitalize="none"
-              />
-            </Item>
-            <Label>Enter your password</Label>
-            <Item rounded>
-              <Input
-                onChangeText={password =>
-                  this.setState({
-                    loginData: { ...this.state.loginData, password },
-                  })
-                }
-                value={this.state.loginData.password}
-                autoCapitalize="none"
-                secureTextEntry
-              />
-            </Item>
-            <Button rounded primary onPress={() => this.onClickLogin(this.state.loginData)}>
-              <Text>Submit</Text>
-            </Button>
-            <Label onPress={() => this.props.userClickRegisterLabel()}>Go back to Register</Label>
-          </Form>
-        </Content>
-      </Container>
+      <Root>
+        <Container>
+          <Header />
+          <Content>
+            <Form>
+              <Label>Enter your email</Label>
+              <Item rounded>
+                <Input
+                  onChangeText={email =>
+                    this.setState({
+                      loginData: { ...this.state.loginData, email },
+                    })
+                  }
+                  value={this.state.loginData.email}
+                  autoCapitalize="none"
+                />
+              </Item>
+              <Label>Enter your password</Label>
+              <Item rounded>
+                <Input
+                  onChangeText={password =>
+                    this.setState({
+                      loginData: { ...this.state.loginData, password },
+                    })
+                  }
+                  value={this.state.loginData.password}
+                  autoCapitalize="none"
+                  secureTextEntry
+                />
+              </Item>
+              <Button
+                rounded
+                primary
+                onPress={() => {
+                  this.onClickLogin(this.state.loginData);
+                }}
+              >
+                <Text>Submit</Text>
+              </Button>
+              <Label onPress={() => this.props.userClickRegisterLabel()}>Go back to Register</Label>
+            </Form>
+          </Content>
+        </Container>
+      </Root>
     );
   }
 }
@@ -80,6 +101,7 @@ const connectWithStore = (store, WrappedComponent, ...args) => {
 };
 
 const mapStateToProps = state => ({
+  msgReducer: state.msgReducer,
   userReducer: state.userReducer,
 });
 

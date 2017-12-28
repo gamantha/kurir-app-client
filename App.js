@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Label } from 'native-base';
+import { Container, Label, Root } from 'native-base';
 import { Provider, connect } from 'react-redux';
 import {
   StackRouter,
@@ -78,8 +78,10 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <Container>
-          <AppNavigator navigation={this.props.navigation} />
-          <Register navigation={this.props.navigation} />
+          <Root>
+            <AppNavigator navigation={this.props.navigation} />
+            <Register navigation={this.props.navigation} />
+          </Root>
         </Container>
       </Provider>
     );

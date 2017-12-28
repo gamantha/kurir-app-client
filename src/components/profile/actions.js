@@ -1,5 +1,4 @@
-// import axios from 'axios';
-// import { DEV_API_URL } from 'react-native-dotenv';
+
 import * as actionTypes from '../../actions/constants';
 
 export const userClickLogout = () => ({
