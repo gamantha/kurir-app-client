@@ -7,6 +7,7 @@ import { connect, Provider } from 'react-redux';
 
 import UserLogin from '../userLogin';
 import store from '../../store';
+import inputStyles from '../../helpers/styles';
 
 import { userTryToRegister, userClickLoginLabel } from './actions';
 
@@ -33,6 +34,7 @@ class UserRegistration extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
+    console.log(inputStyles);
     // if (!state.userReducer.userOnLoginPage) {
     return (
       <Provider store={store}>
