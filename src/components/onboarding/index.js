@@ -2,8 +2,12 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Button, Image } from 'react-native';
 import { StackNavigator, StackRouter } from 'react-navigation';
 import Swiper from 'react-native-swiper';
+import Expo from 'expo';
+import { connect } from 'react-redux';
 
 import Register from '../userRegistration';
+import Home from '../home';
+import store from '../../store';
 
 const styles = {
   wrapper: {},
@@ -55,9 +59,23 @@ const styles = {
 };
 
 class OnboardingComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      token: null,
+    };
+  }
+  componentDidMount() {
+    Expo.SecureStore.getItemAsync('token').then((data) => {
+      this.setState({ token: data });
+    });
+  }
+
   render() {
     const { navigate } = this.props.navigation;
-    console.log(this.props);
+    if (this.state.token) {
+      return <Home />;
+    }
     return (
       <Swiper style={styles.wrapper} activeDotColor="#d7283b" loop={false} ref="swiper">
         <View style={styles.slide1}>
@@ -116,6 +134,13 @@ class OnboardingComponent extends React.Component {
   }
 }
 
+const connectWithStore = (store, WrappedComponent, ...args) => {
+  const ConnectedWrappedComponent = connect(...args)(WrappedComponent);
+  return function (props) {
+    return <ConnectedWrappedComponent {...props} store={store} />;
+  };
+};
+
 // const OnboardingStack = StackRouter(
 //   {
 //     Onboarding: { screen: OnboardingComponent },
@@ -134,4 +159,5 @@ class OnboardingComponent extends React.Component {
 //   { initialRouteName: 'Onboarding' },
 // );
 
-export default OnboardingComponent;
+export default connectWithStore(store, OnboardingComponent, null, null);
+// export default OnboardingComponent;

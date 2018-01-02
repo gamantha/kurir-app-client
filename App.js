@@ -18,7 +18,7 @@ import Login from './src/components/userLogin';
 import Onboarding from './src/components/onboarding';
 import AppWithNavigationState from './src/components/navigator';
 
-let token = null;
+// let token = null;
 
 // export const AppNavigator = StackNavigator(
 //   {
@@ -53,17 +53,17 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const getToken = async () => {
-      try {
-        const result = Expo.SecureStore.getItemAsync('token');
-        return result.data;
-      } catch (err) {
-        return err;
-      }
-    };
-    token = getToken();
-  }
+  // componentDidMount() {
+  //   const getToken = async () => {
+  //     try {
+  //       const result = Expo.SecureStore.getItemAsync('token');
+  //       return result.data;
+  //     } catch (err) {
+  //       return err;
+  //     }
+  //   };
+  //   token = getToken();
+  // }
 
   render() {
     // if (!token) {

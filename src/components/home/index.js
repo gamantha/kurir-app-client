@@ -19,6 +19,7 @@ import Expo from 'expo';
 
 import { DrawerNavigator } from 'react-navigation';
 
+import store from '../../store';
 import SenderForm from '../senderForm';
 import Profile from '../profile';
 import UserLogin from '../userLogin';
@@ -61,8 +62,16 @@ class Home extends React.Component {
   }
 }
 
+const connectWithStore = (store, WrappedComponent, ...args) => {
+  const ConnectedWrappedComponent = connect(...args)(WrappedComponent);
+  return function (props) {
+    return <ConnectedWrappedComponent {...props} store={store} />;
+  };
+};
+
 const mapStateToProps = state => ({
   userReducer: state.userReducer,
 });
 
-export default connect(mapStateToProps, null)(RootDrawer);
+export default connectWithStore(store, RootDrawer, mapStateToProps, null);
+// export default connect(mapStateToProps, null)(RootDrawer);

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { DEV_API_URL_LOCALHOST } from 'react-native-dotenv';
+import { DEV_API_URL_IP_2 } from 'react-native-dotenv';
 import Expo from 'expo';
 import { Toast } from 'native-base';
 import * as actionTypes from '../../actions/constants';
@@ -15,9 +15,10 @@ export const userTryToLogin = data => (dispatch) => {
   const login = async () => {
     try {
       console.log(data);
-      const result = await axios.post(`${DEV_API_URL_LOCALHOST}/api/sender/login`, data);
+      const result = await axios.post(`${DEV_API_URL_IP_2}/api/sender/login`, data);
       console.log(result.data);
       if (result.data.ok) {
+        Expo.SecureStore.setItemAsync('token', result.data.token);
         dispatch({
           type: actionTypes.LOGIN_USER,
           payload: result.data.msg,
@@ -28,7 +29,6 @@ export const userTryToLogin = data => (dispatch) => {
           buttonText: 'Okay',
         });
         return result.data;
-        // Expo.SecureStore.setItemAsync('token', result.data.token);
       }
       dispatch({
         type: actionTypes.LOGIN_USER,
