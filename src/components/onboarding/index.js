@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import Register from '../userRegistration';
 import Home from '../home';
 import store from '../../store';
+import { connectWithStore } from '../../helpers/utils';
 
 const styles = {
   wrapper: {},
@@ -93,7 +94,7 @@ class OnboardingComponent extends React.Component {
           >
             <Text style={styles.nextText}> NEXT </Text>
           </TouchableOpacity>
-          <Button onPress={() => console.log('test')} color="#424242" title="Skip" />
+          <Button onPress={() => navigate('Register')} color="#424242" title="Skip" />
         </View>
         <View style={styles.slide2}>
           <Image style={styles.imageMargin} source={require('../../assets/images/splash-2.png')} />
@@ -110,7 +111,7 @@ class OnboardingComponent extends React.Component {
           >
             <Text style={styles.nextText}> NEXT </Text>
           </TouchableOpacity>
-          <Button onPress={() => console.log('test')} color="#424242" title="Skip" />
+          <Button onPress={() => navigate('Register')} color="#424242" title="Skip" />
         </View>
         <View style={styles.slide3}>
           <Image style={styles.imageMargin} source={require('../../assets/images/splash-3.png')} />
@@ -127,19 +128,12 @@ class OnboardingComponent extends React.Component {
           >
             <Text style={styles.nextText}>REGISTER</Text>
           </TouchableOpacity>
-          <Button onPress={() => console.log('login')} color="#424242" title="Or login" />
+          <Button onPress={() => navigate('Login')} color="#424242" title="Or login" />
         </View>
       </Swiper>
     );
   }
 }
-
-const connectWithStore = (store, WrappedComponent, ...args) => {
-  const ConnectedWrappedComponent = connect(...args)(WrappedComponent);
-  return function (props) {
-    return <ConnectedWrappedComponent {...props} store={store} />;
-  };
-};
 
 // const OnboardingStack = StackRouter(
 //   {

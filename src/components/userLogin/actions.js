@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { DEV_API_URL_IP_2 } from 'react-native-dotenv';
+import { DEV_API_URL_LOCALHOST } from 'react-native-dotenv';
 import Expo from 'expo';
-import { Toast } from 'native-base';
 import * as actionTypes from '../../actions/constants';
 
 export const userTryToLogin = data => (dispatch) => {
@@ -15,7 +14,7 @@ export const userTryToLogin = data => (dispatch) => {
   const login = async () => {
     try {
       console.log(data);
-      const result = await axios.post(`${DEV_API_URL_IP_2}/api/sender/login`, data);
+      const result = await axios.post(`${DEV_API_URL_LOCALHOST}/api/sender/login`, data);
       console.log(result.data);
       if (result.data.ok) {
         Expo.SecureStore.setItemAsync('token', result.data.token);
@@ -23,22 +22,22 @@ export const userTryToLogin = data => (dispatch) => {
           type: actionTypes.LOGIN_USER,
           payload: result.data.msg,
         });
-        Toast.show({
-          text: `${result.data.msg}`,
-          position: 'bottom',
-          buttonText: 'Okay',
-        });
+        // Toast.show({
+        //   text: `${result.data.msg}`,
+        //   position: 'bottom',
+        //   buttonText: 'Okay',
+        // });
         return result.data;
       }
       dispatch({
         type: actionTypes.LOGIN_USER,
         payload: result.data.msg,
       });
-      Toast.show({
-        text: `${result.data.msg}`,
-        position: 'bottom',
-        buttonText: 'Okay',
-      });
+      // Toast.show({
+      //   text: `${result.data.msg}`,
+      //   position: 'bottom',
+      //   buttonText: 'Okay',
+      // });
       return result.data;
     } catch (err) {
       return err;
@@ -46,7 +45,3 @@ export const userTryToLogin = data => (dispatch) => {
   };
   login();
 };
-
-export const userClickRegisterLabel = () => ({
-  type: actionTypes.USER_CLICK_REGISTER_LABEL,
-});

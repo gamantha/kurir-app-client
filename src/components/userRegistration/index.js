@@ -8,6 +8,7 @@ import { connect, Provider } from 'react-redux';
 import UserLogin from '../userLogin';
 import store from '../../store';
 import inputStyles from '../../helpers/styles';
+import { connectWithStore } from '../../helpers/utils';
 
 import { userTryToRegister, userClickLoginLabel } from './actions';
 
@@ -34,7 +35,6 @@ class UserRegistration extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    console.log(inputStyles);
     // if (!state.userReducer.userOnLoginPage) {
     return (
       <Provider store={store}>
@@ -105,13 +105,6 @@ class UserRegistration extends React.Component {
     // return <UserLogin />;
   }
 }
-
-const connectWithStore = (store, WrappedComponent, ...args) => {
-  const ConnectedWrappedComponent = connect(...args)(WrappedComponent);
-  return function (props) {
-    return <ConnectedWrappedComponent {...props} store={store} />;
-  };
-};
 
 const mapStateToProps = state => ({
   userReducer: state.userReducer,

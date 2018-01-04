@@ -28,14 +28,6 @@ const userClickLoginLabel = (state) => {
   return newState;
 };
 
-const userClickRegisterLabel = (state) => {
-  const newState = {
-    ...state,
-    userOnLoginPage: false,
-  };
-  return newState;
-};
-
 const userClickLogoutLabel = (state) => {
   const newState = {
     ...state,
@@ -52,8 +44,6 @@ const userReducer = (state = initialState, { type, payload }) => {
       return loginUser(state, payload);
     case actionType.USER_CLICK_LOGIN_LABEL:
       return userClickLoginLabel(state, payload);
-    case actionType.USER_CLICK_REGISTER_LABEL:
-      return userClickRegisterLabel(state, payload);
     case actionType.USER_CLICK_LOGOUT_LABEL:
       return userClickLogoutLabel(state, payload);
     default:

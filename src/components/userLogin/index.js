@@ -13,13 +13,13 @@ import {
   Root,
 } from 'native-base';
 
-import { connect, Provider } from 'react-redux';
+import { connect } from 'react-redux';
 
-import Expo from 'expo';
+import { connectWithStore } from '../../helpers/utils';
 
 import store from '../../store';
 
-import { userTryToLogin, userClickRegisterLabel } from './actions';
+import { userTryToLogin } from './actions';
 
 class UserLogin extends React.Component {
   constructor(props) {
@@ -43,62 +43,53 @@ class UserLogin extends React.Component {
   }
 
   render() {
-    console.log(this.props);
+    const { navigate } = this.props.navigation;
     return (
-      <Root>
-        <Container>
-          <Header />
-          <Content>
-            <Form>
-              <Label>Enter your email</Label>
-              <Item rounded>
-                <Input
-                  onChangeText={email =>
-                    this.setState({
-                      loginData: { ...this.state.loginData, email },
-                    })
-                  }
-                  value={this.state.loginData.email}
-                  autoCapitalize="none"
-                />
-              </Item>
-              <Label>Enter your password</Label>
-              <Item rounded>
-                <Input
-                  onChangeText={password =>
-                    this.setState({
-                      loginData: { ...this.state.loginData, password },
-                    })
-                  }
-                  value={this.state.loginData.password}
-                  autoCapitalize="none"
-                  secureTextEntry
-                />
-              </Item>
-              <Button
-                rounded
-                primary
-                onPress={() => {
-                  this.onClickLogin(this.state.loginData);
-                }}
-              >
-                <Text>Submit</Text>
-              </Button>
-              <Label onPress={() => this.props.userClickRegisterLabel()}>Go back to Register</Label>
-            </Form>
-          </Content>
-        </Container>
-      </Root>
+      <Container>
+        <Header />
+        <Content>
+          <Form>
+            <Label>Enter your email</Label>
+            <Item rounded>
+              <Input
+                onChangeText={email =>
+                  this.setState({
+                    loginData: { ...this.state.loginData, email },
+                  })
+                }
+                value={this.state.loginData.email}
+                autoCapitalize="none"
+              />
+            </Item>
+            <Label>Enter your password</Label>
+            <Item rounded>
+              <Input
+                onChangeText={password =>
+                  this.setState({
+                    loginData: { ...this.state.loginData, password },
+                  })
+                }
+                value={this.state.loginData.password}
+                autoCapitalize="none"
+                secureTextEntry
+              />
+            </Item>
+            <Button
+              rounded
+              primary
+              onPress={() => {
+                this.onClickLogin(this.state.loginData);
+              }}
+            >
+              <Text>Submit</Text>
+            </Button>
+            <Label onPress={() => navigate('ForgotPassword')}>Forgot password</Label>
+          </Form>
+        </Content>
+      </Container>
     );
   }
 }
-
-const connectWithStore = (store, WrappedComponent, ...args) => {
-  const ConnectedWrappedComponent = connect(...args)(WrappedComponent);
-  return function (props) {
-    return <ConnectedWrappedComponent {...props} store={store} />;
-  };
-};
 
 const mapStateToProps = state => ({
   msgReducer: state.msgReducer,

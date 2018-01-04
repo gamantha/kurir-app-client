@@ -5039,6 +5039,12 @@ react-native-scripts@1.8.1:
     rimraf "^2.6.1"
     xdl "47.0.4"
 
+react-native-step-indicator@0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-step-indicator/-/react-native-step-indicator-0.0.7.tgz#e9111b5f7f89bd00f1ec5d8af7beb868f4b5b706"
+  dependencies:
+    prop-types "^15.6.0"
+
 "react-native-svg@https://github.com/expo/react-native-svg/archive/5.5.1-exp.1.tar.gz":
   version "5.5.1"
   resolved "https://github.com/expo/react-native-svg/archive/5.5.1-exp.1.tar.gz#0c6e373dbe63cfcbdd465f5b2965ebe011c8962f"
@@ -5065,6 +5071,13 @@ react-native-vector-icons@4.4.2, react-native-vector-icons@~4.4.2:
     lodash "^4.0.0"
     prop-types "^15.5.10"
     yargs "^8.0.2"
+
+react-native-viewpager@^0.2.13:
+  version "0.2.13"
+  resolved "https://registry.yarnpkg.com/react-native-viewpager/-/react-native-viewpager-0.2.13.tgz#75e421ae90e89efcd77d2c077c0525382b7c39c5"
+  dependencies:
+    react-timer-mixin "^0.13.3"
+    warning "^2.1.0"
 
 react-native@0.50.3:
   version "0.50.3"
@@ -6347,6 +6360,12 @@ walker@~1.0.5:
   resolved "https://registry.yarnpkg.com/walker/-/walker-1.0.7.tgz#2f7f9b8fd10d677262b18a884e28d19618e028fb"
   dependencies:
     makeerror "1.0.x"
+
+warning@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/warning/-/warning-2.1.0.tgz#21220d9c63afc77a8c92111e011af705ce0c6901"
+  dependencies:
+    loose-envify "^1.0.0"
 
 watch@~0.18.0:
   version "0.18.0"
