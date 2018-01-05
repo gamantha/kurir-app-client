@@ -16,6 +16,7 @@ import {
 import { sendForgotPassVerificationCode } from './actions';
 import store from '../../store';
 import { connectWithStore } from '../../helpers/utils';
+import VerifCodeInput from '../verifCode';
 
 class ForgotPasswordInput extends React.Component {
   constructor(props) {
@@ -31,7 +32,9 @@ class ForgotPasswordInput extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    console.log(this.props.msgReducer);
+    if (this.props.msgReducer.forgotPassMsg.isSuccess) {
+      return <VerifCodeInput />;
+    }
     return (
       <Container>
         <Header />

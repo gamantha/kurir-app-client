@@ -17,7 +17,8 @@ import Home from './src/components/home';
 import Login from './src/components/userLogin';
 import Onboarding from './src/components/onboarding';
 import ForgotPassword from './src/components/forgotPassword';
-import AppWithNavigationState from './src/components/navigator';
+import VerifCodeInput from './src/components/verifCode';
+// import AppWithNavigationState from './src/components/navigator';
 
 // let token = null;
 
@@ -101,6 +102,7 @@ const AppNavigator = StackNavigator(
     Register: { screen: Register },
     Login: { screen: Login },
     ForgotPassword: { screen: ForgotPassword },
+    VerifCodeInput: { screen: VerifCodeInput },
   },
   { initialRouteName: 'Onboarding', headerMode: 'none' },
 );
