@@ -33,7 +33,7 @@ class ForgotPasswordInput extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     if (this.props.msgReducer.forgotPassMsg.isSuccess) {
-      return <VerifCodeInput />;
+      return <VerifCodeInput email={this.state.email} />;
     }
     return (
       <Container>

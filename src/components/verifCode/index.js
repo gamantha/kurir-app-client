@@ -16,17 +16,20 @@ import {
 
 import store from '../../store';
 import { connectWithStore } from '../../helpers/utils';
+import { checkVeriCode } from './actions';
 
 class VerifCodeInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
       veriCode: '',
     };
   }
 
-  onPressSendVeriCode(veriCode, email) {}
+  onPressSendVeriCode(veriCode, email) {
+    const requestBody = { veriCode, email };
+    this.props.checkVeriCode(requestBody);
+  }
 
   render() {
     return (
@@ -51,6 +54,12 @@ class VerifCodeInput extends React.Component {
             >
               <Text>NEXT</Text>
             </Button>
+            <Text>
+              {this.props.msgReducer.checkVerifCodeMsg.isLoading ? 'loading' : 'tidak loading'}
+            </Text>
+            <Text>
+              {this.props.msgReducer.checkVerifCodeMsg.isSuccess ? 'sukses' : 'tidak sukses'}
+            </Text>
           </Form>
         </Content>
       </Container>
@@ -63,10 +72,10 @@ const mapStateToProps = state => ({
   userReducer: state.userReducer,
 });
 
-// const mapDispatchToProps = dispatch => ({
-//   sendForgotPassVerificationCode: (email) => {
-//     dispatch(sendForgotPassVerificationCode(email));
-//   },
-// });
+const mapDispatchToProps = dispatch => ({
+  checkVeriCode: (requestBody) => {
+    dispatch(checkVeriCode(requestBody));
+  },
+});
 
-export default connectWithStore(store, VerifCodeInput, mapStateToProps, null);
+export default connectWithStore(store, VerifCodeInput, mapStateToProps, mapDispatchToProps);
