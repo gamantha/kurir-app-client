@@ -22,22 +22,12 @@ export const userTryToLogin = data => (dispatch) => {
           type: actionTypes.LOGIN_USER,
           payload: result.data.msg,
         });
-        // Toast.show({
-        //   text: `${result.data.msg}`,
-        //   position: 'bottom',
-        //   buttonText: 'Okay',
-        // });
         return result.data;
       }
       dispatch({
         type: actionTypes.LOGIN_USER,
         payload: result.data.msg,
       });
-      // Toast.show({
-      //   text: `${result.data.msg}`,
-      //   position: 'bottom',
-      //   buttonText: 'Okay',
-      // });
       return result.data;
     } catch (err) {
       return err;
@@ -45,3 +35,5 @@ export const userTryToLogin = data => (dispatch) => {
   };
   login();
 };
+
+export const test = () => {};
