@@ -13,7 +13,7 @@ import Expo from 'expo';
 import store from './src/store';
 
 import Register from './src/components/userRegistration';
-import Home from './src/components/home';
+import SendPackage from './src/components/sendPackage';
 import Login from './src/components/userLogin';
 import Onboarding from './src/components/onboarding';
 import ForgotPassword from './src/components/forgotPassword';
@@ -97,7 +97,7 @@ import VerifCodeInput from './src/components/verifCode';
 
 const AppNavigator = StackNavigator(
   {
-    Home: { screen: Home },
+    SendPackage: { screen: SendPackage },
     Onboarding: { screen: Onboarding },
     Register: { screen: Register },
     Login: { screen: Login },
