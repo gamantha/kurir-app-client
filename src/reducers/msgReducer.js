@@ -12,6 +12,11 @@ const initialState = {
     msg: null,
     isSuccess: false,
   },
+  changePassMsg: {
+    isLoading: false,
+    msg: null,
+    isSuccess: false,
+  },
 };
 
 const msgFromLoginUser = (state, payload) => {
@@ -94,6 +99,41 @@ const msgFromCheckVerifCodeForgotPassErr = (state, payload) => {
   return newState;
 };
 
+const showLoadingInChangePasswordInput = (state) => {
+  const newState = {
+    ...state,
+    changePassMsg: {
+      ...state.changePassMsg,
+      isLoading: true,
+    },
+  };
+  return newState;
+};
+
+const msgFromChangeUserPasswordSuccess = (state, payload) => {
+  const newState = {
+    ...state,
+    changePassMsg: {
+      isLoading: false,
+      msg: payload,
+      isSuccess: true,
+    },
+  };
+  return newState;
+};
+
+const msgFromChangeUserPasswordErr = (state, payload) => {
+  const newState = {
+    ...state,
+    changePassMsg: {
+      isLoading: false,
+      msg: payload,
+      isSuccess: false,
+    },
+  };
+  return newState;
+};
+
 const msgReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case actionType.LOGIN_USER:
@@ -110,6 +150,12 @@ const msgReducer = (state = initialState, { type, payload }) => {
       return msgFromCheckVerifCodeForgotPassSuccess(state);
     case actionType.CHECK_VERI_CODE_FORGOT_PASS_ERR:
       return msgFromCheckVerifCodeForgotPassErr(state);
+    case actionType.SHOW_LOADING_IN_NEW_PASSWORD_INPUT:
+      return showLoadingInChangePasswordInput(state);
+    case actionType.CHANGE_USER_PASSWORD_SUCCESS:
+      return msgFromChangeUserPasswordSuccess(state);
+    case actionType.CHANGE_USER_PASSWORD_ERR:
+      return msgFromChangeUserPasswordErr(state);
     default:
       return state;
   }

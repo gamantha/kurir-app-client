@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   Container,
   Header,
@@ -16,36 +15,41 @@ import {
 
 import store from '../../store';
 import { connectWithStore } from '../../helpers/utils';
-import { checkVeriCode } from './actions';
-import NewPasswordInput from '../newPassword';
+import { changeUserPassword } from './actions';
 
-class VerifCodeInput extends React.Component {
+class NewPasswordInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      veriCode: '',
+      password: '',
+      retypePassword: '',
     };
   }
 
-  onPressSendVeriCode(veriCode, email) {
-    const requestBody = { veriCode, email };
-    this.props.checkVeriCode(requestBody);
+  onPressChangePassword(password, email) {
+    const requestBody = { password, email };
+    this.props.changeUserPassword(requestBody);
   }
 
   render() {
-    if (this.props.msgReducer.checkVerifCodeMsg.isSuccess) {
-      return <NewPasswordInput email={this.props.email} />;
-    }
     return (
       <Container>
         <Header />
         <Content>
           <Form>
-            <Label>Enter your verification code:</Label>
+            <Label>Your new password</Label>
             <Item rounded>
               <Input
-                onChangeText={veriCode => this.setState({ veriCode })}
-                value={this.state.veriCode}
+                onChangeText={password => this.setState({ password })}
+                value={this.state.password}
+                autoCapitalize="none"
+              />
+            </Item>
+            <Label>Retype your new password</Label>
+            <Item rounded>
+              <Input
+                onChangeText={retypePassword => this.setState({ retypePassword })}
+                value={this.state.retypePassword}
                 autoCapitalize="none"
               />
             </Item>
@@ -53,10 +57,10 @@ class VerifCodeInput extends React.Component {
               rounded
               primary
               onPress={() => {
-                this.onPressSendVeriCode(this.state.veriCode, this.props.email);
+                this.onPressChangePassword(this.state.password, this.props.email);
               }}
             >
-              <Text>NEXT</Text>
+              <Text>SAVE</Text>
             </Button>
             <Text>
               {this.props.msgReducer.checkVerifCodeMsg.isLoading ? 'loading' : 'tidak loading'}
@@ -77,9 +81,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  checkVeriCode: (requestBody) => {
-    dispatch(checkVeriCode(requestBody));
+  changeUserPassword: (requestBody) => {
+    dispatch(changeUserPassword(requestBody));
   },
 });
 
-export default connectWithStore(store, VerifCodeInput, mapStateToProps, mapDispatchToProps);
+export default connectWithStore(store, NewPasswordInput, mapStateToProps, mapDispatchToProps);
