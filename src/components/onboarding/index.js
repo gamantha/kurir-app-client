@@ -6,7 +6,7 @@ import Expo from 'expo';
 import { connect } from 'react-redux';
 
 import Register from '../userRegistration';
-import SendPackage from '../sendPackage';
+import SendPackagePage from '../sendPackagePage';
 import store from '../../store';
 import { connectWithStore } from '../../helpers/utils';
 
@@ -75,7 +75,7 @@ class OnboardingComponent extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     if (this.state.token) {
-      return <SendPackage />;
+      return <SendPackagePage />;
     }
     return (
       <Swiper style={styles.wrapper} activeDotColor="#d7283b" loop={false} ref="swiper">

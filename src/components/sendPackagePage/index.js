@@ -13,9 +13,7 @@ import {
   Title,
 } from 'native-base';
 
-import Swiper from 'react-native-swiper';
-
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 
 import StepIndicator from 'react-native-step-indicator';
 
@@ -26,90 +24,7 @@ import { DrawerNavigator } from 'react-navigation';
 import { connectWithStore } from '../../helpers/utils';
 import store from '../../store';
 import Profile from '../profile';
-
-const styles = StyleSheet.create({
-  wrapper: {},
-  pageOne: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  pageTwo: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  pageThree: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  pageFour: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  pageFive: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
-  },
-});
-
-const Form1 = () => (
-  <Form>
-    <Label>Step 1 of 5 - Sender Details</Label>
-    <Label>City</Label>
-    <Item rounded>
-      <Input />
-    </Item>
-    <Label>Sender Name</Label>
-    <Item rounded>
-      <Input />
-    </Item>
-    <Label>Address</Label>
-    <Item rounded>
-      <Input />
-    </Item>
-    <Label>Phone Number</Label>
-    <Item rounded>
-      <Input />
-    </Item>
-    <Button rounded primary>
-      <Text>Next</Text>
-    </Button>
-  </Form>
-);
-
-const SendItemForms = props => (
-  <Swiper
-    style={styles.wrapper}
-    onIndexChanged={props.onIndexChanged}
-    loop={false}
-    showsPagination={false}
-  >
-    <View style={styles.pageOne}>
-      <Form1 />
-    </View>
-    <View style={styles.pageTwo}>
-      <Text style={styles.text}>Beautiful</Text>
-    </View>
-    <View style={styles.pageThree}>
-      <Text style={styles.text}>And simple</Text>
-    </View>
-    <View style={styles.pageFour}>
-      <Text style={styles.text}>And simple</Text>
-    </View>
-    <View style={styles.pageFive}>
-      <Text style={styles.text}>And simple</Text>
-    </View>
-  </Swiper>
-);
+import SendItemForms from './forms';
 
 const indicatorStyles = {
   stepIndicatorSize: 25,
@@ -182,6 +97,7 @@ const RootDrawer = DrawerNavigator({
 
 const mapStateToProps = state => ({
   userReducer: state.userReducer,
+  msgReducer: state.msgReducer,
 });
 
 export default connectWithStore(store, RootDrawer, mapStateToProps, null);

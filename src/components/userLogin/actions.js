@@ -4,17 +4,18 @@ import Expo from 'expo';
 import * as actionTypes from '../../actions/constants';
 
 export const userTryToLogin = data => (dispatch) => {
-  // axios.get('http://192.168.0.105:3000/api/sender/').then((res) => {
+  // axios.get('http://192.168.0.105:3000/api/user/').then((res) => {
   //   console.log(res.data);
   // });
-  // fetch(`${DEV_API_URL}/api/sender/`).then((response) => {
+  // fetch(`${DEV_API_URL}/api/user/`).then((response) => {
   //   console.log(response.json);
   //   return response.json();
   // });
+  console.log(data);
   const login = async () => {
     try {
       console.log(data);
-      const result = await axios.post(`${DEV_API_URL_LOCALHOST}/api/sender/login`, data);
+      const result = await axios.post(`${DEV_API_URL_LOCALHOST}/api/user/login`, data);
       console.log(result.data);
       if (result.data.ok) {
         Expo.SecureStore.setItemAsync('token', result.data.token);

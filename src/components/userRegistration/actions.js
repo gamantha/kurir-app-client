@@ -11,7 +11,7 @@ export const userTryToRegister = data => (dispatch) => {
   const register = async () => {
     try {
       console.log(data);
-      const result = await axios.post(`${DEV_API_URL_LOCALHOST}/api/sender/create`, data);
+      const result = await axios.post(`${DEV_API_URL_LOCALHOST}/api/user/create`, data);
       console.log(result.data);
       return result.data;
     } catch (err) {

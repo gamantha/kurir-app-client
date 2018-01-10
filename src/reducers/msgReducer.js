@@ -17,6 +17,11 @@ const initialState = {
     msg: null,
     isSuccess: false,
   },
+  sendPackageMsg: {
+    isLoading: false,
+    msg: null,
+    isSuccess: false,
+  },
 };
 
 const msgFromLoginUser = (state, payload) => {
@@ -134,6 +139,41 @@ const msgFromChangeUserPasswordErr = (state, payload) => {
   return newState;
 };
 
+const showLoadingInSendPackageForm = (state) => {
+  const newState = {
+    ...state,
+    sendPackageMsg: {
+      ...state.sendPackageMsg,
+      isLoading: true,
+    },
+  };
+  return newState;
+};
+
+const msgFromSendPackageSuccess = (state, payload) => {
+  const newState = {
+    ...state,
+    sendPackageMsg: {
+      isLoading: false,
+      msg: payload,
+      isSuccess: true,
+    },
+  };
+  return newState;
+};
+
+const msgFromSendPackageErr = (state, payload) => {
+  const newState = {
+    ...state,
+    sendPackageMsg: {
+      isLoading: false,
+      msg: payload,
+      isSuccess: false,
+    },
+  };
+  return newState;
+};
+
 const msgReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case actionType.LOGIN_USER:
@@ -156,6 +196,12 @@ const msgReducer = (state = initialState, { type, payload }) => {
       return msgFromChangeUserPasswordSuccess(state);
     case actionType.CHANGE_USER_PASSWORD_ERR:
       return msgFromChangeUserPasswordErr(state);
+    case actionType.SHOW_LOADING_IN_SEND_PACKAGE_FORM:
+      return showLoadingInSendPackageForm(state);
+    case actionType.SEND_PACKAGE_FORM_SUCCESS:
+      return msgFromSendPackageSuccess(state);
+    case actionType.SEND_PACKAGE_FORM_ERR:
+      return msgFromSendPackageErr(state);
     default:
       return state;
   }
