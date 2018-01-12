@@ -73,26 +73,31 @@ class SendItemForms extends React.Component {
         pickupNote: null,
         pickupAddress: null,
       },
-      retrievalMethod: null,
+      isRetrievalSelected: false,
     };
   }
 
   onChangeRetrievalMethod(isCustomPickupAddress) {
-    let retrievalMethod = null;
     if (this.state.item.isCustomPickupAddress) {
-      retrievalMethod = 'Kurir.id office';
-    } else {
-      retrievalMethod = 'Take from my home';
+      this.setState({
+        pickup: { ...this.state.pickup, pickupNote: 'Kurir.id office' },
+        isRetrievalSelected: true,
+        item: { ...this.state.item, isCustomPickupAddress },
+      });
+    } else if (!this.state.item.isCustomPickupAddress) {
+      this.setState({
+        pickup: { ...this.state.pickup, pickupNote: 'Custom' },
+        isRetrievalSelected: true,
+        item: { ...this.state.item, isCustomPickupAddress },
+      });
     }
-    this.setState({ item: { ...this.state.item, isCustomPickupAddress }, retrievalMethod });
+  }
+
+  onChangeKurirAddress(pickupAddress) {
+    this.setState({ pickup: { ...this.state.pickup, pickupAddress } });
   }
 
   onSubmitSendPackageForm() {
-    if (this.state.item.isCustomPickupAddress) {
-      this.state.pickup.pickupNote = 'custom';
-    } else {
-      this.state.pickup.pickupNote = 'kurir.id office';
-    }
     const raw = {
       ...this.state.sender,
       ...this.state.receiver,
@@ -103,7 +108,49 @@ class SendItemForms extends React.Component {
     // this.props.sendPackageData(raw);
   }
 
+  renderPickupAddressInput() {
+    if (this.state.isRetrievalSelected) {
+      if (this.state.item.isCustomPickupAddress) {
+        return (
+          <View>
+            <Label>Input your address</Label>
+            <Item rounded>
+              <Input
+                onChangeText={pickupAddress =>
+                  this.setState({
+                    pickup: { ...this.state.pickup, pickupAddress },
+                  })
+                }
+                value={this.state.pickup.pickupAddress}
+                autoCapitalize="none"
+              />
+            </Item>
+          </View>
+        );
+      }
+      return (
+        <View>
+          <Label>Select location of our office</Label>
+          <Picker
+            iosHeader="Select one"
+            mode="dropdown"
+            placeholder="Pick one"
+            selectedValue={this.state.pickup.pickupAddress}
+            onValueChange={pickupAddress => this.onChangeKurirAddress(pickupAddress)}
+          >
+            <Item label="Kurir.id office Bandung" value="Jalan Sukahaji" />
+            <Item label="Kurir.id office Jakarta" value="Jalan Simatupang" />
+          </Picker>
+        </View>
+      );
+    }
+    return <View />;
+  }
+
   render() {
+    const tempState = {
+      isCustomPickupAddress: null,
+    };
     return (
       <Swiper
         style={styles.wrapper}
@@ -296,6 +343,7 @@ class SendItemForms extends React.Component {
               <Item label="Kurir.id office" value={false} />
               <Item label="Take from my home" value />
             </Picker>
+            {this.renderPickupAddressInput()}
             <Button rounded primary onPress={() => this.refs.swiper.scrollBy(1)}>
               <Text>Next</Text>
             </Button>
@@ -311,8 +359,8 @@ class SendItemForms extends React.Component {
             <Text>{`luggage: ${this.state.item.itemWeight}`}</Text>
             <Text>{`item value: ${this.state.item.itemValue}`}</Text>
             <Text>{`item price: ${this.state.item.itemPrice}`}</Text>
-            <Text>{`retrieval method: ${this.state.retrievalMethod}`}</Text>
-            <Button rounded primary onPress={() => console.log(this.onSubmitSendPackageForm())}>
+            <Text>{`retrieval method: ${this.state.pickup.pickupNote}`}</Text>
+            <Button rounded primary onPress={() => this.onSubmitSendPackageForm()}>
               <Text>Done!</Text>
             </Button>
           </Form>
