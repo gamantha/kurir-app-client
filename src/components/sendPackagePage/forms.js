@@ -148,9 +148,6 @@ class SendItemForms extends React.Component {
   }
 
   render() {
-    const tempState = {
-      isCustomPickupAddress: null,
-    };
     return (
       <Swiper
         style={styles.wrapper}
