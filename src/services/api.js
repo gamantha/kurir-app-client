@@ -11,14 +11,10 @@ class Api {
     this.config = {
       headers: {},
     };
-    this.id = new Date().getTime();
 
     this.client.interceptors.response.use(response => response);
   }
 
-  getId() {
-    return this.id;
-  }
   put(url, json, qs = {}, config) {
     return this.sendRequest('PUT', url, { qs, json, config });
   }
