@@ -1,9 +1,5 @@
 import forgotPasswordService from '../../services/forgotpassword';
-import {
-  SHOW_LOADING,
-  VERIFICATION_SUCCESS,
-  VERIFICATION_ERROR,
-} from './constants';
+import { SHOW_LOADING, VERIFICATION_SUCCESS, VERIFICATION_ERROR, SET_EMAIL } from './constants';
 
 /**
  * Toggle loading status
@@ -14,10 +10,16 @@ import {
 export function showLoading(status) {
   return {
     type: SHOW_LOADING,
-    status,
+    status
   };
 }
 
+export function setEmail(email) {
+  return {
+    type: SET_EMAIL,
+    payload: email
+  };
+}
 /**
  * Api call for forgot password
  * Email will be use to send the verifycation code

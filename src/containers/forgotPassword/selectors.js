@@ -5,34 +5,36 @@ import { createSelector } from 'reselect';
  *
  * @return object
  */
-export const selectForgotPasswordReducer = () => state => state.get('forgotPassword');
+export const selectForgotPasswordReducer = () => (state) => state.get('forgotPassword');
 
 /**
  * Getter for showLoading in reducer.
  *
  * @return object
  */
-export const getShowLoading = () => createSelector(
-  selectForgotPasswordReducer(),
-  state => state.get('showLoading'),
-);
+export const getShowLoading = () =>
+  createSelector(selectForgotPasswordReducer(), (state) => state.get('showLoading'));
 
 /**
  * Getter for message in reducer.
  *
  * @return object
  */
-export const getMessage = () => createSelector(
-  selectForgotPasswordReducer(),
-  state => state.get('message'),
-);
+export const getMessage = () =>
+  createSelector(selectForgotPasswordReducer(), (state) => state.get('message'));
+
+/**
+ * Getter for message in reducer.
+ *
+ * @return object
+ */
+export const getEmail = () =>
+  createSelector(selectForgotPasswordReducer(), (state) => state.get('email'));
 
 /**
  * Getter for isSuccess in reducer.
  *
  * @return object
  */
-export const getIsSuccess = () => createSelector(
-  selectForgotPasswordReducer(),
-  state => state.get('isSuccess'),
-);
+export const getIsSuccess = () =>
+  createSelector(selectForgotPasswordReducer(), (state) => state.get('isSuccess'));
