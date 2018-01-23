@@ -184,12 +184,14 @@ const msgReducer = (state = initialState, { type, payload }) => {
       return msgFromSendEmailForgotPassErr(state, payload);
     case actionType.SHOW_LOADING_IN_SEND_VERIF_CODE_FORGOT_PASS:
       return showLoadingInSendVerifCodeForgotPass(state);
+
     case actionType.SHOW_LOADING_IN_CHECK_VERIF_CODE_FORGOT_PASS:
       return showLoadingInCheckVerifCodeForgotPass(state);
     case actionType.CHECK_VERI_CODE_FORGOT_PASS_SUCCESS:
       return msgFromCheckVerifCodeForgotPassSuccess(state);
     case actionType.CHECK_VERI_CODE_FORGOT_PASS_ERR:
       return msgFromCheckVerifCodeForgotPassErr(state);
+
     case actionType.SHOW_LOADING_IN_NEW_PASSWORD_INPUT:
       return showLoadingInChangePasswordInput(state);
     case actionType.CHANGE_USER_PASSWORD_SUCCESS:
