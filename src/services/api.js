@@ -7,12 +7,12 @@ class Api {
     this.baseUrl = baseUrl;
     this.client = axios.create();
     middleware(this.client);
-    this.client.interceptors.request.use(config => config);
+    this.client.interceptors.request.use((config) => config);
     this.config = {
-      headers: {},
+      headers: {}
     };
 
-    this.client.interceptors.response.use(response => response);
+    this.client.interceptors.response.use((response) => response);
   }
 
   put(url, json, qs = {}, config) {
@@ -54,16 +54,16 @@ class Api {
               ? { 'Content-type': 'application/json' }
               : data.form
                 ? { 'Content-Type': 'application/x-www-form-urlencoded' }
-                : { 'Content-Type': 'multipart/form' },
+                : { 'Content-Type': 'multipart/form' }
           ),
           timeout: 60 * 1000,
-          paramsSerializer: params => querystring.stringify(params),
-          onUploadProgress: data.config.onUploadProgress || null,
+          paramsSerializer: (params) => querystring.stringify(params),
+          onUploadProgress: data.config.onUploadProgress || null
         },
-        data.config,
+        data.config
       )
-      .then(json => Promise.resolve(json))
-      .catch(error => Promise.reject(error));
+      .then((json) => Promise.resolve(json))
+      .catch((error) => Promise.reject(error));
   }
 }
 
