@@ -1,14 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Button, Image } from 'react-native';
-import { StackNavigator, StackRouter } from 'react-navigation';
+import { Actions } from 'react-native-router-flux';
 import Swiper from 'react-native-swiper';
-import Expo from 'expo';
-import { connect } from 'react-redux';
-
-import Register from '../userRegistration';
-import SendPackagePage from '../sendPackagePage';
-import store from '../../store';
-import { connectWithStore } from '../../helpers/utils';
 
 const styles = {
   wrapper: {},
@@ -16,38 +9,38 @@ const styles = {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   slide2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   slide3: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   headline: {
     color: '#424242',
     fontSize: 24,
-    marginBottom: 15,
+    marginBottom: 15
   },
   button: {
     alignItems: 'center',
     backgroundColor: '#d7283b',
     padding: 10,
     borderRadius: 20,
-    width: 150,
+    width: 150
   },
   nextText: {
     color: '#ffffff',
-    padding: 2,
+    padding: 2
   },
   imageMargin: {
-    marginBottom: 30,
+    marginBottom: 30
   },
   body: {
     color: '#424242',
@@ -55,28 +48,12 @@ const styles = {
     marginBottom: 25,
     textAlign: 'center',
     paddingRight: 20,
-    paddingLeft: 20,
-  },
+    paddingLeft: 20
+  }
 };
 
 class OnboardingComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      token: null,
-    };
-  }
-  componentDidMount() {
-    Expo.SecureStore.getItemAsync('token').then((data) => {
-      this.setState({ token: data });
-    });
-  }
-
   render() {
-    const { navigate } = this.props.navigation;
-    if (this.state.token) {
-      return <SendPackagePage />;
-    }
     return (
       <Swiper style={styles.wrapper} activeDotColor="#d7283b" loop={false} ref="swiper">
         <View style={styles.slide1}>
@@ -94,7 +71,7 @@ class OnboardingComponent extends React.Component {
           >
             <Text style={styles.nextText}> NEXT </Text>
           </TouchableOpacity>
-          <Button onPress={() => navigate('Register')} color="#424242" title="Skip" />
+          <Button onPress={() => Actions.userRegister()} color="#424242" title="Skip" />
         </View>
         <View style={styles.slide2}>
           <Image style={styles.imageMargin} source={require('../../assets/images/splash-2.png')} />
@@ -111,7 +88,7 @@ class OnboardingComponent extends React.Component {
           >
             <Text style={styles.nextText}> NEXT </Text>
           </TouchableOpacity>
-          <Button onPress={() => navigate('Register')} color="#424242" title="Skip" />
+          <Button onPress={() => Actions.userRegister()} color="#424242" title="Skip" />
         </View>
         <View style={styles.slide3}>
           <Image style={styles.imageMargin} source={require('../../assets/images/splash-3.png')} />
@@ -121,37 +98,18 @@ class OnboardingComponent extends React.Component {
             fortuna fortis.
           </Text>
           <TouchableOpacity
-            onPress={() => navigate('Register')}
+            onPress={() => Actions.userRegister()}
             style={styles.button}
             title="Test"
             color="#841584"
           >
             <Text style={styles.nextText}>REGISTER</Text>
           </TouchableOpacity>
-          <Button onPress={() => navigate('Login')} color="#424242" title="Or login" />
+          <Button onPress={() => Actions.userLogin()} color="#424242" title="Or login" />
         </View>
       </Swiper>
     );
   }
 }
 
-// const OnboardingStack = StackRouter(
-//   {
-//     Onboarding: { screen: OnboardingComponent },
-//     Register: { screen: Register },
-//   },
-//   {
-//     initialRouteName: 'Onboarding',
-//   },
-// );
-
-// const OnboardingStack = StackNavigator(
-//   {
-//     Onboarding: { screen: OnboardingComponent },
-//     Register: { screen: Register },
-//   },
-//   { initialRouteName: 'Onboarding' },
-// );
-
-export default connectWithStore(store, OnboardingComponent, null, null);
-// export default OnboardingComponent;
+export default OnboardingComponent;
