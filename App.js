@@ -9,6 +9,7 @@ import UserRegister from './src/containers/UserRegister';
 import UserLogin from './src/containers/UserLogin';
 import Onboarding from './src/components/Onboarding';
 import ForgotPassword from './src/containers/ForgotPassword';
+import Profile from './src/containers/Profile';
 // import VerifCodeInput from './src/components/verifCode';
 // import AppWithNavigationState from './src/navigators';
 
@@ -31,6 +32,7 @@ class App extends Component {
             <Scene key="userRegister" component={UserRegister} title="register" type="reset" />
             <Scene key="userLogin" component={UserLogin} title="userLogin" type="reset" />
             <Scene key="forgotPassword" component={ForgotPassword} title="forgotPassword" />
+            <Scene key="profile" component={Profile} title="profile" />
           </Scene>
         </RouterWithRedux>
       </Provider>
