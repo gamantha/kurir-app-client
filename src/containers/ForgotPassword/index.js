@@ -16,16 +16,9 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import * as actions from './actions';
 import * as selectors from './selectors';
-// import VerifCodeInput from '../../components/verifCode';
+import VerificationCodeInput from '../VerificationCode';
 
-class ForgotPasswordInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: ''
-    };
-  }
-
+class ForgotPasswordInput extends Component {
   onPressSendEmail = (email) => {
     this.props.forgotPassword({ email });
   };
@@ -35,9 +28,9 @@ class ForgotPasswordInput extends React.Component {
   };
 
   render() {
-    // if (this.props.msgReducer.forgotPassMsg.isSuccess) {
-    //   return <VerifCodeInput email={this.state.email} />;
-    // }
+    if (this.props.status) {
+      return <VerificationCodeInput email={this.props.email} />;
+    }
     return (
       <Container>
         <Header />
@@ -73,7 +66,8 @@ const mapStateToProps = () =>
   createStructuredSelector({
     isShowLoading: selectors.getShowLoading(),
     message: selectors.getMessage(),
-    email: selectors.getEmail()
+    email: selectors.getEmail(),
+    status: selectors.getStatus()
   });
 
 export default connect(mapStateToProps, actions)(ForgotPasswordInput);
