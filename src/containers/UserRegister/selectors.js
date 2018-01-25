@@ -16,36 +16,24 @@ export const getIsLoading = () =>
   createSelector(selectUserRegistrationReducer(), (state) => state.get('isLoading'));
 
 /**
- * Getter for username object state in reducer
+ * Getter for inputFields object state in reducer
  * @return {object}
  */
-export const getUsername = () =>
-  createSelector(selectUserRegistrationReducer(), (state) => state.get('username'));
+export const getInputFields = () =>
+  createSelector(selectUserRegistrationReducer(), (state) => state.get('inputFields').toJS());
 
 /**
- * Getter for email object state in reducer
+ * Getter for inputFieldvalidation object state in reducer
  * @return {object}
  */
-export const getEmail = () =>
-  createSelector(selectUserRegistrationReducer(), (state) => state.get('email'));
-
-/**
- * Getter for password object state in reducer
- * @return {object}
- */
-export const getPassword = () =>
-  createSelector(selectUserRegistrationReducer(), (state) => state.get('password'));
-
-/**
- * Getter for repassword object state in reducer
- * @return {object}
- */
-export const getRepassword = () =>
-  createSelector(selectUserRegistrationReducer(), (state) => state.get('repassword'));
+export const getInputFieldValidation = () =>
+  createSelector(selectUserRegistrationReducer(), (state) =>
+    state.get('inputFieldValidations').toJS()
+  );
 
 /**
  * Getter for registeredUser data state in reducer
  * @return {object}
  */
 export const getRegisterUser = () =>
-  createSelector(selectUserRegistrationReducer(), (state) => state.get('registeredUser'));
+  createSelector(selectUserRegistrationReducer(), (state) => state.get('registeredUser').toJS());

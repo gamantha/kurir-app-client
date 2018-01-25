@@ -1,12 +1,9 @@
 import { fromJS } from 'immutable';
 import {
-  SET_USERNAME,
-  SET_EMAIL,
-  SET_PASSWORD,
-  SET_REPASSWORD,
   USER_REGISTRATION_SUCCESS,
-  USER_CLICK_LOGIN_LABEL,
-  IS_LOADING
+  IS_LOADING,
+  UPDATE_SINGLE_INPUT_FIELD,
+  INPUT_FIELD_VALIDATION
 } from './constants';
 
 /**
@@ -16,10 +13,18 @@ import {
  */
 const initialState = fromJS({
   isLoading: false,
-  username: '',
-  email: '',
-  password: '',
-  repassword: '',
+  inputFields: {
+    username: '',
+    email: '',
+    password: '',
+    repassword: ''
+  },
+  inputFieldValidations: {
+    isValidName: true,
+    isValidEmail: true,
+    isValidPassword: true,
+    isValidRepassword: true
+  },
   registeredUser: {}
 });
 
@@ -34,16 +39,12 @@ function userRegistrationReducer(state = initialState, action) {
   switch (action.type) {
     case IS_LOADING:
       return state.set('isLoading', action.status);
-    case SET_USERNAME:
-      return state.set('username', action.payload);
-    case SET_PASSWORD:
-      return state.set('password', action.payload);
-    case SET_REPASSWORD:
-      return state.set('repassword', action.payload);
-    case SET_EMAIL:
-      return state.set('email', action.payload);
+    case UPDATE_SINGLE_INPUT_FIELD:
+      return state.setIn(['inputFields', action.field], action.value);
+    case INPUT_FIELD_VALIDATION:
+      return state.setIn(['inputFieldValidations', action.field], action.value);
     case USER_REGISTRATION_SUCCESS:
-      return state.set('registeredUser', fromJS(action.response));
+      return state.set('registeredUser', fromJS(action.payload));
     default:
       return state;
   }
