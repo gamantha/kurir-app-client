@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'redux';
+import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import {
   Container,
@@ -17,7 +17,7 @@ import {
 
 import * as actions from './actions';
 import * as selectors from './selectors';
-import NewPasswordInput from '../newPassword';
+// import NewPasswordInput from '../newPassword';
 
 class VerificationCode extends Component {
   onPressSendVeriCode = (verificationCode, email) => {
@@ -31,9 +31,9 @@ class VerificationCode extends Component {
 
   render() {
     const { verificationStatus } = this.props;
-    if (verificationSuccess) {
-      return <NewPasswordInput email={this.props.email} />;
-    }
+    // if (verificationSuccess) {
+    //   return <NewPasswordInput email={this.props.email} />;
+    // }
     return (
       <Container>
         <Header />
