@@ -20,8 +20,8 @@ export const getShowLoading = () =>
  *
  * @return object
  */
-export const getMessage = () =>
-  createSelector(selectForgotPasswordReducer(), (state) => state.get('message'));
+export const getStatus = () =>
+  createSelector(selectForgotPasswordReducer(), (state) => state.get('status'));
 
 /**
  * Getter for message in reducer.
@@ -36,5 +36,5 @@ export const getEmail = () =>
  *
  * @return object
  */
-export const getIsSuccess = () =>
-  createSelector(selectForgotPasswordReducer(), (state) => state.get('isSuccess'));
+export const getMessage = () =>
+  createSelector(selectForgotPasswordReducer(), (state) => state.get('message'));

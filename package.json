@@ -38,7 +38,6 @@
     "react-native-router-flux": "^4.0.0-beta.28",
     "react-native-step-indicator": "^0.0.7",
     "react-native-swiper": "^1.5.13",
-    "react-navigation": "^1.0.0-beta.27",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-immutable": "^4.0.0",

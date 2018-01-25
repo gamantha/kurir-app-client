@@ -1,5 +1,5 @@
 import forgotPasswordService from '../../services/forgotpassword';
-import { SHOW_LOADING, VERIFICATION_SUCCESS, VERIFICATION_ERROR, SET_EMAIL } from './constants';
+import { SHOW_LOADING, VERIFICATION_STATUS, VERIFICATION_MESSAGE, SET_EMAIL } from './constants';
 
 /**
  * Toggle loading status
@@ -14,36 +14,43 @@ export function showLoading(status) {
   };
 }
 
+/**
+ * Set email value on reducer object
+ *
+ * @param  Boolean status
+ * @return Object
+ */
 export function setEmail(email) {
   return {
     type: SET_EMAIL,
     payload: email
   };
 }
+
 /**
  * Api call for forgot password
- * Email will be use to send the verifycation code
+ * Email will be use to send the verification code
  *
  * @param  Object email - registered user email
  * @return Object
  */
 export function forgotPassword(email) {
-  return (dispatch) => {
-    dispatch(showLoading(true));
+  return async (dispatch) => {
+    try {
+      dispatch(showLoading(true));
 
-    forgotPasswordService
-      .post(email)
-      .then((res) => {
-        if (res.data && res.data.ok) {
-          dispatch({ type: VERIFICATION_SUCCESS, payload: res.data.msg });
-        } else {
-          dispatch({ type: VERIFICATION_ERROR, payload: res.data.msg });
-        }
-        dispatch(showLoading(false));
-      })
-      .catch((err) => {
-        dispatch(showLoading(false));
-        return err;
-      });
+      const res = await forgotPasswordService.post(email);
+      if (res.data && res.data.ok) {
+        dispatch({ type: VERIFICATION_STATUS, payload: true });
+        dispatch({ type: VERIFICATION_MESSAGE, payload: res.data.msg });
+      } else {
+        dispatch({ type: VERIFICATION_STATUS, payload: false });
+        dispatch({ type: VERIFICATION_MESSAGE, payload: res.data.msg });
+      }
+      dispatch(showLoading(false));
+    } catch (err) {
+      dispatch(showLoading(false));
+      return err;
+    }
   };
 }
