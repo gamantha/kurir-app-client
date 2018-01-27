@@ -12,15 +12,8 @@ export const selectUserLoginReducer = () => (state) => state.get('userLogin');
  * Getter for password object state in reducer
  * @return {object}
  */
-export const getPassword = () =>
-  createSelector(selectUserLoginReducer(), (state) => state.get('password'));
-
-/**
- * Getter for email object state in reducer
- * @return {object}
- */
-export const getEmail = () =>
-  createSelector(selectUserLoginReducer(), (state) => state.get('email'));
+export const getLoginInputField = () =>
+  createSelector(selectUserLoginReducer(), (state) => state.get('loginInputField').toJS());
 
 /**
  * Getter for isLoadingUserLogin object state in reducer
