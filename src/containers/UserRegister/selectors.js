@@ -15,6 +15,8 @@ export const selectUserRegistrationReducer = () => (state) => state.get('userReg
 export const getIsLoading = () =>
   createSelector(selectUserRegistrationReducer(), (state) => state.get('isLoading'));
 
+export const getErrorMessage = () =>
+  createSelector(selectUserRegistrationReducer(), (state) => state.get('errorMessage'));
 /**
  * Getter for inputFields object state in reducer
  * @return {object}

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Actions } from 'react-native-router-flux';
+import { ActivityIndicator } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-// import UserLogin from '../userLogin';
 import inputStyles from '../../helpers/styles';
 
 import * as actions from './actions';
@@ -15,7 +15,7 @@ import styles from './styles';
 
 class UserRegister extends React.Component {
   onClickRegister = () => {
-    const { username, email, password, repassword } = this.props;
+    const { username, email, password, repassword } = this.props.inputFields;
     this.props.registerUser(
       {
         username,
@@ -23,7 +23,7 @@ class UserRegister extends React.Component {
         password,
         repassword
       },
-      () => Actions.profile()
+      () => Actions.userLogin({ message: 'Please confirm your email first.' })
     );
   };
 
@@ -36,17 +36,19 @@ class UserRegister extends React.Component {
   };
 
   render() {
-    const { username, email, password, repassword } = this.props.inputFields || {};
-    const { isValidName, isValidEmail, isValidRepassword } = this.props.inputFieldValidation || {};
+    const { isLoading, errorMessage, inputFields, inputFieldValidation } = this.props || {};
+    const { username, email, password, repassword } = inputFields;
+
+    const { isValidName, isValidEmail, isValidRepassword } = inputFieldValidation;
     const signUpButtonStatus = isValidName && isValidEmail && isValidRepassword;
-    console.log('hh', !!repassword && signUpButtonStatus);
+
     return (
       <Container>
         <Header />
         <Content>
           <Form>
             <Label>Enter your name</Label>
-            <Item rounded>
+            <Item style={{ borderColor: '#d7283b' }} rounded>
               <Input
                 onBlur={() => this.inputValidation('isValidName', username)}
                 onChangeText={(value) => this.setInputFields('username', value)}
@@ -55,7 +57,7 @@ class UserRegister extends React.Component {
               />
             </Item>
             <Label>Enter your email</Label>
-            <Item rounded>
+            <Item style={{ borderColor: '#d7283b' }} rounded>
               <Input
                 itemStyle={styles.inputText}
                 onBlur={() => this.inputValidation('isValidEmail', email)}
@@ -68,7 +70,7 @@ class UserRegister extends React.Component {
                 autoCapitalize="none"
               />
             </Item>
-            {isValidEmail ? null : (
+            {email && !isValidEmail ? (
               <Text
                 style={{
                   paddingLeft: 20,
@@ -77,9 +79,9 @@ class UserRegister extends React.Component {
               >
                 Please enter a valid email address
               </Text>
-            )}
+            ) : null}
             <Label>Type your password</Label>
-            <Item rounded last>
+            <Item style={{ borderColor: '#d7283b' }} rounded last>
               <Input
                 onBlur={() => this.inputValidation('isValidPassword', password)}
                 onChangeText={(value) => this.setInputFields('password', value)}
@@ -89,7 +91,7 @@ class UserRegister extends React.Component {
               />
             </Item>
             <Label>Retype your password</Label>
-            <Item rounded last>
+            <Item style={{ borderColor: '#d7283b' }} rounded last>
               <Input
                 onBlur={() => this.inputValidation('isValidRepassword', repassword)}
                 onChangeText={(retype) => this.setInputFields('repassword', retype)}
@@ -98,7 +100,7 @@ class UserRegister extends React.Component {
                 autoCapitalize="none"
               />
             </Item>
-            {isValidRepassword ? null : (
+            {password && !isValidRepassword ? (
               <Text
                 style={{
                   paddingLeft: 20,
@@ -107,15 +109,24 @@ class UserRegister extends React.Component {
               >
                 {'Password does not match'}
               </Text>
+            ) : null}
+            {errorMessage !== '' ? (
+              <Text
+                style={{
+                  paddingLeft: 20,
+                  color: '#F44336'
+                }}
+              >
+                {errorMessage}
+              </Text>
+            ) : null}
+            {isLoading ? (
+              <ActivityIndicator size="large" color="#00ff00" />
+            ) : (
+              <Button rounded disabled={!signUpButtonStatus} onPress={() => this.onClickRegister()}>
+                <Text>SIGNUP</Text>
+              </Button>
             )}
-            <Button
-              disabled={!!repassword && signUpButtonStatus}
-              rounded
-              primary={signUpButtonStatus}
-              onPress={() => this.onClickRegister()}
-            >
-              <Text>SIGNUP</Text>
-            </Button>
             <Label onPress={() => Actions.userLogin()}>Or Sign in</Label>
           </Form>
         </Content>
@@ -127,6 +138,7 @@ class UserRegister extends React.Component {
 const mapStateToProps = () =>
   createStructuredSelector({
     isLoading: selectors.getIsLoading(),
+    errorMessage: selectors.getErrorMessage(),
     inputFields: selectors.getInputFields(),
     registerData: selectors.getRegisterUser(),
     inputFieldValidation: selectors.getInputFieldValidation()

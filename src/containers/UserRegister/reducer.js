@@ -3,7 +3,8 @@ import {
   USER_REGISTRATION_SUCCESS,
   IS_LOADING,
   UPDATE_SINGLE_INPUT_FIELD,
-  INPUT_FIELD_VALIDATION
+  INPUT_FIELD_VALIDATION,
+  SET_ERROR_MESSAGE
 } from './constants';
 
 /**
@@ -13,6 +14,7 @@ import {
  */
 const initialState = fromJS({
   isLoading: false,
+  errorMessage: '',
   inputFields: {
     username: '',
     email: '',
@@ -20,10 +22,10 @@ const initialState = fromJS({
     repassword: ''
   },
   inputFieldValidations: {
-    isValidName: true,
-    isValidEmail: true,
-    isValidPassword: true,
-    isValidRepassword: true
+    isValidName: false,
+    isValidEmail: false,
+    isValidPassword: false,
+    isValidRepassword: false
   },
   registeredUser: {}
 });
@@ -39,6 +41,8 @@ function userRegistrationReducer(state = initialState, action) {
   switch (action.type) {
     case IS_LOADING:
       return state.set('isLoading', action.status);
+    case SET_ERROR_MESSAGE:
+      return state.set('errorMessage', action.payload);
     case UPDATE_SINGLE_INPUT_FIELD:
       return state.setIn(['inputFields', action.field], action.value);
     case INPUT_FIELD_VALIDATION:

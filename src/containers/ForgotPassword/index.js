@@ -53,8 +53,6 @@ class ForgotPasswordInput extends Component {
             >
               <Text>SEND EMAIL</Text>
             </Button>
-            <Text>{null ? 'loading' : 'tidak loading'}</Text>
-            <Text>{null ? 'sukses' : 'tidak sukses'}</Text>
           </Form>
         </Content>
       </Container>
