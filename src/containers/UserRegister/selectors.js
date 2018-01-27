@@ -30,8 +30,7 @@ export const getInputFields = () =>
  */
 export const getInputFieldValidation = () =>
   createSelector(selectUserRegistrationReducer(), (state) =>
-    state.get('inputFieldValidations').toJS()
-  );
+    state.get('inputFieldValidations').toJS());
 
 /**
  * Getter for registeredUser data state in reducer

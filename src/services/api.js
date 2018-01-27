@@ -2,8 +2,6 @@ import axios from 'axios';
 import querystring from 'qs';
 import API_BASE_URL from '../../config/env';
 
-const tes = require('../../config/development').default;
-
 class Api {
   constructor(baseUrl, middleware = () => {}) {
     this.baseUrl = baseUrl;

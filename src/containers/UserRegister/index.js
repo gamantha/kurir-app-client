@@ -6,16 +6,23 @@ import { Container, Header, Content, Form, Item, Input, Label, Button, Text } fr
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import inputStyles from '../../helpers/styles';
+// import inputStyles from '../../helpers/styles';
 
 import * as actions from './actions';
 import * as selectors from './selectors';
 
 import styles from './styles';
 
+// @flow
 class UserRegister extends React.Component {
   onClickRegister = () => {
-    const { username, email, password, repassword } = this.props.inputFields;
+    const {
+      username,
+      email,
+      password,
+      repassword
+    } = this.props.inputFields;
+
     this.props.registerUser(
       {
         username,
@@ -36,8 +43,18 @@ class UserRegister extends React.Component {
   };
 
   render() {
-    const { isLoading, errorMessage, inputFields, inputFieldValidation } = this.props || {};
-    const { username, email, password, repassword } = inputFields;
+    const {
+      isLoading,
+      errorMessage,
+      inputFields,
+      inputFieldValidation
+    } = this.props || {};
+    const {
+      username,
+      email,
+      password,
+      repassword
+    } = inputFields;
 
     const { isValidName, isValidEmail, isValidRepassword } = inputFieldValidation;
     const signUpButtonStatus = isValidName && isValidEmail && isValidRepassword;
