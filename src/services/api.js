@@ -64,8 +64,15 @@ class Api {
         },
         data.config
       )
-      .then((json) => Promise.resolve(json))
-      .catch((error) => Promise.reject(error));
+      .then((json) => {
+        return new Promise((resolve, reject) => {
+          if (json.message) {
+            reject(json);
+          } else {
+            resolve(json);
+          }
+        });
+      });
   }
 }
 
