@@ -36,6 +36,7 @@
     "react": "16.2.0",
     "react-native": "0.52.0",
     "react-native-router-flux": "^4.0.0-beta.28",
+    "react-native-simple-toast": "^0.0.7",
     "react-native-step-indicator": "^0.0.7",
     "react-native-swiper": "^1.5.13",
     "react-redux": "^5.0.6",

@@ -4318,6 +4318,10 @@ react-native-router-flux@^4.0.0-beta.28:
     prop-types "^15.6.0"
     react-navigation "1.0.0-beta.22"
 
+react-native-simple-toast@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-simple-toast/-/react-native-simple-toast-0.0.7.tgz#2ef51bdafd3e98df718f74fdd0bc0ce08608dff8"
+
 react-native-step-indicator@^0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/react-native-step-indicator/-/react-native-step-indicator-0.0.7.tgz#e9111b5f7f89bd00f1ec5d8af7beb868f4b5b706"
