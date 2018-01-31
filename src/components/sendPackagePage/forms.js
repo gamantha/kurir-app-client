@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 
 import { Form, Item, Input, Label, Button, Text, Picker } from 'native-base';
@@ -15,33 +16,33 @@ const styles = StyleSheet.create({
   pageOne: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   pageTwo: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   pageThree: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   pageFour: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   pageFive: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   text: {
     color: '#fff',
     fontSize: 30,
-    fontWeight: 'bold',
-  },
+    fontWeight: 'bold'
+  }
 });
 
 class SendItemForms extends React.Component {
@@ -52,13 +53,13 @@ class SendItemForms extends React.Component {
         senderCity: null,
         senderName: null,
         senderAddress: null,
-        senderPhone: null,
+        senderPhone: null
       },
       receiver: {
         receiverCity: null,
         receiverName: null,
         receiverAddress: null,
-        receiverPhone: null,
+        receiverPhone: null
       },
       item: {
         itemName: null,
@@ -66,14 +67,14 @@ class SendItemForms extends React.Component {
         itemValue: null,
         itemPrice: 'harga masih testing',
         deadline: null,
-        isCustomPickupAddress: null,
+        isCustomPickupAddress: null
       },
       pickup: {
         pickupName: null,
         pickupNote: null,
-        pickupAddress: null,
+        pickupAddress: null
       },
-      isRetrievalSelected: false,
+      isRetrievalSelected: false
     };
   }
 
@@ -82,13 +83,13 @@ class SendItemForms extends React.Component {
       this.setState({
         pickup: { ...this.state.pickup, pickupNote: 'Kurir.id office' },
         isRetrievalSelected: true,
-        item: { ...this.state.item, isCustomPickupAddress },
+        item: { ...this.state.item, isCustomPickupAddress }
       });
     } else if (!this.state.item.isCustomPickupAddress) {
       this.setState({
         pickup: { ...this.state.pickup, pickupNote: 'Custom' },
         isRetrievalSelected: true,
-        item: { ...this.state.item, isCustomPickupAddress },
+        item: { ...this.state.item, isCustomPickupAddress }
       });
     }
   }
@@ -102,7 +103,7 @@ class SendItemForms extends React.Component {
       ...this.state.sender,
       ...this.state.receiver,
       ...this.state.item,
-      ...this.state.pickup,
+      ...this.state.pickup
     };
     console.log(raw);
     // this.props.sendPackageData(raw);
@@ -116,9 +117,9 @@ class SendItemForms extends React.Component {
             <Label>Input your address</Label>
             <Item rounded>
               <Input
-                onChangeText={pickupAddress =>
+                onChangeText={(pickupAddress) =>
                   this.setState({
-                    pickup: { ...this.state.pickup, pickupAddress },
+                    pickup: { ...this.state.pickup, pickupAddress }
                   })
                 }
                 value={this.state.pickup.pickupAddress}
@@ -136,7 +137,7 @@ class SendItemForms extends React.Component {
             mode="dropdown"
             placeholder="Pick one"
             selectedValue={this.state.pickup.pickupAddress}
-            onValueChange={pickupAddress => this.onChangeKurirAddress(pickupAddress)}
+            onValueChange={(pickupAddress) => this.onChangeKurirAddress(pickupAddress)}
           >
             <Item label="Kurir.id office Bandung" value="Jalan Sukahaji" />
             <Item label="Kurir.id office Jakarta" value="Jalan Simatupang" />
@@ -162,9 +163,9 @@ class SendItemForms extends React.Component {
             <Label>City</Label>
             <Item rounded>
               <Input
-                onChangeText={senderCity =>
+                onChangeText={(senderCity) =>
                   this.setState({
-                    sender: { ...this.state.sender, senderCity },
+                    sender: { ...this.state.sender, senderCity }
                   })
                 }
                 value={this.state.sender.senderCity}
@@ -174,9 +175,9 @@ class SendItemForms extends React.Component {
             <Label>Sender Name</Label>
             <Item rounded>
               <Input
-                onChangeText={senderName =>
+                onChangeText={(senderName) =>
                   this.setState({
-                    sender: { ...this.state.sender, senderName },
+                    sender: { ...this.state.sender, senderName }
                   })
                 }
                 value={this.state.sender.senderName}
@@ -186,9 +187,9 @@ class SendItemForms extends React.Component {
             <Label>Address</Label>
             <Item rounded>
               <Input
-                onChangeText={senderAddress =>
+                onChangeText={(senderAddress) =>
                   this.setState({
-                    sender: { ...this.state.sender, senderAddress },
+                    sender: { ...this.state.sender, senderAddress }
                   })
                 }
                 value={this.state.sender.senderAddress}
@@ -198,9 +199,9 @@ class SendItemForms extends React.Component {
             <Label>Phone Number</Label>
             <Item rounded>
               <Input
-                onChangeText={senderPhone =>
+                onChangeText={(senderPhone) =>
                   this.setState({
-                    sender: { ...this.state.sender, senderPhone },
+                    sender: { ...this.state.sender, senderPhone }
                   })
                 }
                 value={this.state.sender.senderPhone}
@@ -218,9 +219,9 @@ class SendItemForms extends React.Component {
             <Label>City</Label>
             <Item rounded>
               <Input
-                onChangeText={receiverCity =>
+                onChangeText={(receiverCity) =>
                   this.setState({
-                    receiver: { ...this.state.receiver, receiverCity },
+                    receiver: { ...this.state.receiver, receiverCity }
                   })
                 }
                 value={this.state.receiver.receiverCity}
@@ -230,9 +231,9 @@ class SendItemForms extends React.Component {
             <Label>Receiver Name</Label>
             <Item rounded>
               <Input
-                onChangeText={receiverName =>
+                onChangeText={(receiverName) =>
                   this.setState({
-                    receiver: { ...this.state.receiver, receiverName },
+                    receiver: { ...this.state.receiver, receiverName }
                   })
                 }
                 value={this.state.receiver.receiverName}
@@ -242,9 +243,9 @@ class SendItemForms extends React.Component {
             <Label>Address</Label>
             <Item rounded>
               <Input
-                onChangeText={receiverAddress =>
+                onChangeText={(receiverAddress) =>
                   this.setState({
-                    receiver: { ...this.state.receiver, receiverAddress },
+                    receiver: { ...this.state.receiver, receiverAddress }
                   })
                 }
                 value={this.state.receiver.receiverAddress}
@@ -254,9 +255,9 @@ class SendItemForms extends React.Component {
             <Label>Phone Number</Label>
             <Item rounded>
               <Input
-                onChangeText={receiverPhone =>
+                onChangeText={(receiverPhone) =>
                   this.setState({
-                    receiver: { ...this.state.receiver, receiverPhone },
+                    receiver: { ...this.state.receiver, receiverPhone }
                   })
                 }
                 value={this.state.receiver.receiverPhone}
@@ -274,9 +275,9 @@ class SendItemForms extends React.Component {
             <Label>What is inside?</Label>
             <Item rounded>
               <Input
-                onChangeText={itemName =>
+                onChangeText={(itemName) =>
                   this.setState({
-                    item: { ...this.state.item, itemName },
+                    item: { ...this.state.item, itemName }
                   })
                 }
                 value={this.state.item.itemName}
@@ -286,9 +287,9 @@ class SendItemForms extends React.Component {
             <Label>Luggage Space</Label>
             <Item rounded>
               <Input
-                onChangeText={itemWeight =>
+                onChangeText={(itemWeight) =>
                   this.setState({
-                    item: { ...this.state.item, itemWeight },
+                    item: { ...this.state.item, itemWeight }
                   })
                 }
                 value={this.state.item.itemWeight}
@@ -298,9 +299,9 @@ class SendItemForms extends React.Component {
             <Label>Value</Label>
             <Item rounded>
               <Input
-                onChangeText={itemValue =>
+                onChangeText={(itemValue) =>
                   this.setState({
-                    item: { ...this.state.item, itemValue },
+                    item: { ...this.state.item, itemValue }
                   })
                 }
                 value={this.state.item.itemValue}
@@ -318,9 +319,9 @@ class SendItemForms extends React.Component {
             <Label>Date & time of retrieval</Label>
             <Item rounded>
               <Input
-                onChangeText={deadline =>
+                onChangeText={(deadline) =>
                   this.setState({
-                    item: { ...this.state.item, deadline },
+                    item: { ...this.state.item, deadline }
                   })
                 }
                 value={this.state.item.deadline}
@@ -333,7 +334,7 @@ class SendItemForms extends React.Component {
               mode="dropdown"
               placeholder="Pick one"
               selectedValue={this.state.item.isCustomPickupAddress}
-              onValueChange={isCustomPickupAddress =>
+              onValueChange={(isCustomPickupAddress) =>
                 this.onChangeRetrievalMethod(isCustomPickupAddress)
               }
             >
@@ -367,15 +368,15 @@ class SendItemForms extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   msgReducer: state.msgReducer,
-  userReducer: state.userReducer,
+  userReducer: state.userReducer
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   sendPackageData: (requestBody) => {
     dispatch(sendPackageData(requestBody));
-  },
+  }
 });
 
 export default connectWithStore(store, SendItemForms, mapStateToProps, mapDispatchToProps);

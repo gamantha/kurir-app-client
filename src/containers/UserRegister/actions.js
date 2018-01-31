@@ -54,7 +54,7 @@ export function inputFieldValidations(field, value) {
       dispatch(setValidationValue(field, isValid));
     }
     if (field === 'isValidRepassword') {
-      const password = getState().getIn(['userRegister', 'inputFields', 'password']);
+      const password = getState().getIn([ 'userRegister', 'inputFields', 'password' ]);
       isValid = value.length > 4 && value !== '' && value === password;
       if (isValid) {
         dispatch(setValidationValue(field, isValid));

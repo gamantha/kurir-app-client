@@ -21,7 +21,9 @@ class UserLogin extends Component {
   };
 
   render() {
-    const { loginInputField, isLoading, loginData, errorMessage } = this.props || {};
+    const {
+      loginInputField, isLoading, loginData, errorMessage
+    } = this.props || {};
     const { username, password } = loginInputField;
     return (
       <Container>

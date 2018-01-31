@@ -5,29 +5,29 @@ const initialState = {
   forgotPassMsg: {
     isLoading: false,
     msg: null,
-    isSuccess: false,
+    isSuccess: false
   },
   checkVerifCodeMsg: {
     isLoading: false,
     msg: null,
-    isSuccess: false,
+    isSuccess: false
   },
   changePassMsg: {
     isLoading: false,
     msg: null,
-    isSuccess: false,
+    isSuccess: false
   },
   sendPackageMsg: {
     isLoading: false,
     msg: null,
-    isSuccess: false,
-  },
+    isSuccess: false
+  }
 };
 
 const msgFromLoginUser = (state, payload) => {
   const newState = {
     ...state,
-    loginMsg: payload,
+    loginMsg: payload
   };
   return newState;
 };
@@ -37,8 +37,8 @@ const showLoadingInSendVerifCodeForgotPass = (state) => {
     ...state,
     forgotPassMsg: {
       ...state.forgotPassMsg,
-      isLoading: true,
-    },
+      isLoading: true
+    }
   };
   return newState;
 };
@@ -50,8 +50,8 @@ const msgFromSendEmailForgotPassSuccess = (state, payload) => {
     forgotPassMsg: {
       isLoading: false,
       msg: payload,
-      isSuccess: true,
-    },
+      isSuccess: true
+    }
   };
   return newState;
 };
@@ -63,8 +63,8 @@ const msgFromSendEmailForgotPassErr = (state, payload) => {
     forgotPassMsg: {
       isLoading: false,
       msg: payload,
-      isSuccess: false,
-    },
+      isSuccess: false
+    }
   };
   return newState;
 };
@@ -74,8 +74,8 @@ const showLoadingInCheckVerifCodeForgotPass = (state) => {
     ...state,
     checkVerifCodeMsg: {
       ...state.checkVerifCodeMsg,
-      isLoading: true,
-    },
+      isLoading: true
+    }
   };
   return newState;
 };
@@ -86,8 +86,8 @@ const msgFromCheckVerifCodeForgotPassSuccess = (state, payload) => {
     checkVerifCodeMsg: {
       isLoading: false,
       msg: payload,
-      isSuccess: true,
-    },
+      isSuccess: true
+    }
   };
   return newState;
 };
@@ -98,8 +98,8 @@ const msgFromCheckVerifCodeForgotPassErr = (state, payload) => {
     checkVerifCodeMsg: {
       isLoading: false,
       msg: payload,
-      isSuccess: false,
-    },
+      isSuccess: false
+    }
   };
   return newState;
 };
@@ -109,8 +109,8 @@ const showLoadingInChangePasswordInput = (state) => {
     ...state,
     changePassMsg: {
       ...state.changePassMsg,
-      isLoading: true,
-    },
+      isLoading: true
+    }
   };
   return newState;
 };
@@ -121,8 +121,8 @@ const msgFromChangeUserPasswordSuccess = (state, payload) => {
     changePassMsg: {
       isLoading: false,
       msg: payload,
-      isSuccess: true,
-    },
+      isSuccess: true
+    }
   };
   return newState;
 };
@@ -133,8 +133,8 @@ const msgFromChangeUserPasswordErr = (state, payload) => {
     changePassMsg: {
       isLoading: false,
       msg: payload,
-      isSuccess: false,
-    },
+      isSuccess: false
+    }
   };
   return newState;
 };
@@ -144,8 +144,8 @@ const showLoadingInSendPackageForm = (state) => {
     ...state,
     sendPackageMsg: {
       ...state.sendPackageMsg,
-      isLoading: true,
-    },
+      isLoading: true
+    }
   };
   return newState;
 };
@@ -156,8 +156,8 @@ const msgFromSendPackageSuccess = (state, payload) => {
     sendPackageMsg: {
       isLoading: false,
       msg: payload,
-      isSuccess: true,
-    },
+      isSuccess: true
+    }
   };
   return newState;
 };
@@ -168,8 +168,8 @@ const msgFromSendPackageErr = (state, payload) => {
     sendPackageMsg: {
       isLoading: false,
       msg: payload,
-      isSuccess: false,
-    },
+      isSuccess: false
+    }
   };
   return newState;
 };

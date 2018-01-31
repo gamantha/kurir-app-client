@@ -44,9 +44,9 @@ function userRegistrationReducer(state = initialState, action) {
     case SET_ERROR_MESSAGE:
       return state.set('errorMessage', action.payload);
     case UPDATE_SINGLE_INPUT_FIELD:
-      return state.setIn(['inputFields', action.field], action.value);
+      return state.setIn([ 'inputFields', action.field ], action.value);
     case INPUT_FIELD_VALIDATION:
-      return state.setIn(['inputFieldValidations', action.field], action.value);
+      return state.setIn([ 'inputFieldValidations', action.field ], action.value);
     case USER_REGISTRATION_SUCCESS:
       return state.set('registeredUser', fromJS(action.payload));
     default:

@@ -51,7 +51,7 @@ const styles = {
     paddingLeft: 20
   }
 };
-
+/* eslint-disable */
 class OnboardingComponent extends React.Component {
   render() {
     return (

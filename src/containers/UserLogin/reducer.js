@@ -14,7 +14,7 @@ const initialState = fromJS({
 function userLoginReducer(state = initialState, action) {
   switch (action.type) {
     case UPDATE_LOGIN_INPUT_FIELD:
-      return state.setIn(['loginInputField', action.field], action.value);
+      return state.setIn([ 'loginInputField', action.field ], action.value);
     case IS_LOADING_USER_LOGIN:
       return state.set('isLoadingUserLogin', action.status);
     case LOGIN_IS_SUCCESS:
