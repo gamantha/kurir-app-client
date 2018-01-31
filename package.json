@@ -23,7 +23,7 @@
     "flow": "node_modules/.bin/flow",
     "flow-stop": "node_modules/.bin/flow stop",
     "test": "node node_modules/jest/bin/jest.js --watch",
-    "eslint": "eslint ."
+    "eslint": "eslint src"
   },
   "jest": {
     "preset": "jest-expo"
