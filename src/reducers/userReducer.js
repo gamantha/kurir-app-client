@@ -2,10 +2,10 @@ import * as actionType from '../actions/constants';
 
 const initialState = {
   userData: {
-    name: null,
+    name: null
   },
   userOnLoginPage: false,
-  isLoggedIn: false,
+  isLoggedIn: false
 };
 
 const userTryToRegister = (state, payload) => {
@@ -15,7 +15,7 @@ const userTryToRegister = (state, payload) => {
 const loginUser = (state) => {
   const newState = {
     ...state,
-    isLoggedIn: true,
+    isLoggedIn: true
   };
   return newState;
 };
@@ -23,7 +23,7 @@ const loginUser = (state) => {
 const userClickLoginLabel = (state) => {
   const newState = {
     ...state,
-    userOnLoginPage: true,
+    userOnLoginPage: true
   };
   return newState;
 };
@@ -31,7 +31,7 @@ const userClickLoginLabel = (state) => {
 const userClickLogoutLabel = (state) => {
   const newState = {
     ...state,
-    isLoggedIn: false,
+    isLoggedIn: false
   };
   return newState;
 };

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { Container, Header, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
 import DatePicker from 'react-native-datepicker';
@@ -11,8 +12,8 @@ class SenderFormPage extends React.Component {
         deadline: '',
         weight: 0,
         value: '',
-        note: '',
-      },
+        note: ''
+      }
     };
   }
 
@@ -22,9 +23,9 @@ class SenderFormPage extends React.Component {
         <Item floatingLabel>
           <Label>nama barang (misal: hadiah)</Label>
           <Input
-            onChangeText={name =>
+            onChangeText={(name) =>
               this.setState({
-                senderData: { ...this.state.senderData, name },
+                senderData: { ...this.state.senderData, name }
               })
             }
             value={this.state.senderData.name}
@@ -36,9 +37,9 @@ class SenderFormPage extends React.Component {
         <Item floatingLabel>
           <Label>berat barang (dalam kg)</Label>
           <Input
-            onChangeText={weight =>
+            onChangeText={(weight) =>
               this.setState({
-                senderData: { ...this.state.senderData, weight },
+                senderData: { ...this.state.senderData, weight }
               })
             }
             value={this.state.senderData.weight}
@@ -49,9 +50,9 @@ class SenderFormPage extends React.Component {
         <Item floatingLabel>
           <Label>perkiraan nilai barang (rupiah)</Label>
           <Input
-            onChangeText={value =>
+            onChangeText={(value) =>
               this.setState({
-                senderData: { ...this.state.senderData, value },
+                senderData: { ...this.state.senderData, value }
               })
             }
             value={this.state.senderData.value}

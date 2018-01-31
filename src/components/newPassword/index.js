@@ -10,7 +10,7 @@ import {
   Button,
   Text,
   Toast,
-  Root,
+  Root
 } from 'native-base';
 
 import store from '../../store';
@@ -22,7 +22,7 @@ class NewPasswordInput extends React.Component {
     super(props);
     this.state = {
       password: '',
-      retypePassword: '',
+      retypePassword: ''
     };
   }
 
@@ -40,7 +40,7 @@ class NewPasswordInput extends React.Component {
             <Label>Your new password</Label>
             <Item rounded>
               <Input
-                onChangeText={password => this.setState({ password })}
+                onChangeText={(password) => this.setState({ password })}
                 value={this.state.password}
                 autoCapitalize="none"
               />
@@ -48,7 +48,7 @@ class NewPasswordInput extends React.Component {
             <Label>Retype your new password</Label>
             <Item rounded>
               <Input
-                onChangeText={retypePassword => this.setState({ retypePassword })}
+                onChangeText={(retypePassword) => this.setState({ retypePassword })}
                 value={this.state.retypePassword}
                 autoCapitalize="none"
               />
@@ -75,15 +75,15 @@ class NewPasswordInput extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   msgReducer: state.msgReducer,
-  userReducer: state.userReducer,
+  userReducer: state.userReducer
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   changeUserPassword: (requestBody) => {
     dispatch(changeUserPassword(requestBody));
-  },
+  }
 });
 
 export default connectWithStore(store, NewPasswordInput, mapStateToProps, mapDispatchToProps);

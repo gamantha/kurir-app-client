@@ -1,110 +1,43 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Container, Label, Root } from 'native-base';
-import { Provider, connect } from 'react-redux';
-import {
-  StackRouter,
-  NavigationActions,
-  StackNavigator,
-  addNavigationHelpers,
-} from 'react-navigation';
-import Expo from 'expo';
+import React, { Component } from 'react';
+import { connect, Provider } from 'react-redux';
+import { Router, Scene, Actions } from 'react-native-router-flux';
 
 import store from './src/store';
 
-import Register from './src/components/userRegistration';
-import SendPackagePage from './src/components/sendPackagePage';
-import Login from './src/components/userLogin';
-import Onboarding from './src/components/onboarding';
-import ForgotPassword from './src/components/forgotPassword';
-import VerifCodeInput from './src/components/verifCode';
-// import AppWithNavigationState from './src/components/navigator';
+import UserRegister from './src/containers/UserRegister';
+// import SendPackagePage from './src/components/sendPackagePage';
+import UserLogin from './src/containers/UserLogin';
+import Onboarding from './src/components/Onboarding';
+import ForgotPassword from './src/containers/ForgotPassword';
+import Profile from './src/containers/Profile';
+// import VerifCodeInput from './src/components/verifCode';
+// import AppWithNavigationState from './src/navigators';
 
-// let token = null;
+const RouterWithRedux = connect()(Router);
 
-// export const AppNavigator = StackNavigator(
-//   {
-//     Onboarding: { screen: Onboarding },
-//     Register: { screen: Register },
-//   },
-//   { initialRouteName: 'Onboarding' },
-// );
+class App extends Component {
+  onBackPress = () => {
+    if (Actions.state.index === 0) {
+      return false;
+    }
+    Actions.pop();
+    return true;
+  };
+  render() {
+    return (
+      <Provider store={store}>
+        <RouterWithRedux backAndroidHandler={this.onBackPress}>
+          <Scene key="root" hideNavBar>
+            <Scene key="onboarding" component={Onboarding} title="onboarding" initial />
+            <Scene key="userRegister" component={UserRegister} title="register" type="reset" />
+            <Scene key="userLogin" component={UserLogin} title="userLogin" type="reset" />
+            <Scene key="forgotPassword" component={ForgotPassword} title="forgotPassword" />
+            <Scene key="profile" component={Profile} title="profile" />
+          </Scene>
+        </RouterWithRedux>
+      </Provider>
+    );
+  }
+}
 
-// const AppWithNavigationState = ({ dispatch, nav }) => (
-//   <Provider store={store}>
-//       <AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
-//   </Provider>
-// );
-
-// AppWithNavigationState.propTypes = {
-//   dispatch: PropTypes.func.isRequired,
-//   nav: PropTypes.object.isRequired,
-// };
-
-// const mapStateToProps = state => ({
-//   nav: state.nav,
-// });
-
-// export default connect(mapStateToProps)(AppWithNavigationState);
-
-// class App extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       isLoading: true,
-//     };
-//   }
-
-//   // componentDidMount() {
-//   //   const getToken = async () => {
-//   //     try {
-//   //       const result = Expo.SecureStore.getItemAsync('token');
-//   //       return result.data;
-//   //     } catch (err) {
-//   //       return err;
-//   //     }
-//   //   };
-//   //   token = getToken();
-//   // }
-
-//   render() {
-//     // if (!token) {
-//     //   return (
-//     //     <Provider store={store}>
-//     //       <Container>
-//     //         <Onboarding />
-//     //       </Container>
-//     //     </Provider>
-//     //   );
-//     // }
-//     return (
-//       <Provider store={store}>
-//         <Container>
-//           <Root>
-//             <AppNavigator navigation={this.props.navigation} />
-//             <Register navigation={this.props.navigation} />
-//           </Root>
-//         </Container>
-//       </Provider>
-//     );
-//     // return (
-//     //   <Provider store={store}>
-//     //     <Login />
-//     //   </Provider>
-//     // );
-//   }
-// }
-
-const AppNavigator = StackNavigator(
-  {
-    SendPackagePage: { screen: SendPackagePage },
-    Onboarding: { screen: Onboarding },
-    Register: { screen: Register },
-    Login: { screen: Login },
-    ForgotPassword: { screen: ForgotPassword },
-    VerifCodeInput: { screen: VerifCodeInput },
-  },
-  { initialRouteName: 'Onboarding', headerMode: 'none' },
-);
-
-export default AppNavigator;
+export default App;
