@@ -8,12 +8,12 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import * as actions from './actions';
 import * as selectors from './selectors';
-import { getErrorMessage } from '../UserRegister/selectors';
+// import { getErrorMessage } from '../UserRegister/selectors';
 
 class UserLogin extends Component {
   onClickLogin = () => {
     const { username, password } = this.props.loginInputField || {};
-    this.props.loginUser({ username, password }, () => Actions.profile());
+    this.props.loginFlow({ username, password }, () => Actions.profile());
   };
 
   setLoginInputField = (field, value) => {
@@ -84,7 +84,7 @@ const mapStateToProps = () =>
     loginInputField: selectors.getLoginInputField(),
     isLoading: selectors.getIsLoadingUser(),
     loginData: selectors.getLoginData(),
-    errorMessage: getErrorMessage()
+    errorMessage: selectors.getErrorMessage()
   });
 
 export default connect(mapStateToProps, actions)(UserLogin);

@@ -1,6 +1,11 @@
 import { fromJS } from 'immutable';
 
-import { UPDATE_LOGIN_INPUT_FIELD, IS_LOADING_USER_LOGIN, LOGIN_IS_SUCCESS } from './constants';
+import {
+  UPDATE_LOGIN_INPUT_FIELD,
+  IS_LOADING_USER_LOGIN,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR
+} from './constants';
 
 const initialState = fromJS({
   loginInputField: {
@@ -8,7 +13,8 @@ const initialState = fromJS({
     username: ''
   },
   isLoadingUserLogin: false,
-  loginData: {}
+  loginData: {},
+  errorMessage: ''
 });
 
 function userLoginReducer(state = initialState, action) {
@@ -17,8 +23,10 @@ function userLoginReducer(state = initialState, action) {
       return state.setIn([ 'loginInputField', action.field ], action.value);
     case IS_LOADING_USER_LOGIN:
       return state.set('isLoadingUserLogin', action.status);
-    case LOGIN_IS_SUCCESS:
+    case LOGIN_SUCCESS:
       return state.set('loginData', fromJS(action.payload));
+    case LOGIN_ERROR:
+      return state.set('errorMessage', action.payload);
     default:
       return state;
   }

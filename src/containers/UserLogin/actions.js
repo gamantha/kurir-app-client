@@ -1,20 +1,47 @@
-import { UPDATE_LOGIN_INPUT_FIELD, IS_LOADING_USER_LOGIN, LOGIN_IS_SUCCESS } from './constants';
-import { setErrorMessage } from '../UserRegister/actions';
+import { put, call, take } from 'redux-saga/effects';
+import {
+  UPDATE_LOGIN_INPUT_FIELD,
+  IS_LOADING_USER_LOGIN,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  LOGOUT
+} from './constants';
+// import { setErrorMessage } from '../UserRegister/actions';
 import Api from '../../services/userlogin';
 
-export function updateLoginInputField(field, value) {
-  return {
+export function* updateLoginInputField(field, value) {
+  yield put({
     type: UPDATE_LOGIN_INPUT_FIELD,
     field,
     value
-  };
+  });
 }
 
-export function setIsLogin(status) {
-  return {
+export function* setIsLogin(status) {
+  yield put({
     type: IS_LOADING_USER_LOGIN,
     status
-  };
+  });
+}
+
+export function* authorize(payload, callback) {
+  try {
+    yield put(setIsLogin(true));
+    const response = yield call(Api.post(payload));
+    const { meta, data } = response.data;
+    if (meta.success && data) {
+      yield put({ type: LOGIN_SUCCESS, payload: data });
+      callback();
+      yield put(setIsLogin(false));
+    }
+  } catch (error) {
+    yield put(setIsLogin(false));
+    const { response } = error;
+    const { data } = response;
+    if (data) {
+      yield put({ type: LOGIN_ERROR, payload: data.meta.message });
+    }
+  }
 }
 
 /**
@@ -24,25 +51,15 @@ export function setIsLogin(status) {
  * @param  {Function} callback - Actions to profile if login succesfully
  * @return {Object}
  */
-export function loginUser(payload, callback) {
-  return async (dispatch) => {
-    try {
-      dispatch(setIsLogin(true));
-      const response = await Api.post(payload);
-      if (response && response.data.meta.success && response.data.data) {
-        dispatch({
-          type: LOGIN_IS_SUCCESS,
-          payload: response.data.data
-        });
-        callback();
-        dispatch(setIsLogin(false));
-      }
-      dispatch(setIsLogin(false));
-    } catch (err) {
-      dispatch(setIsLogin(false));
-      if (err.response && err.response.data) {
-        dispatch(setErrorMessage(err.response.data.meta.message));
-      }
+export function* loginFlow(payload, callback) {
+  while (true) {
+    const data = yield call(authorize, payload, callback);
+    if (data) {
+      // store the token to async storage
+      // yield call();
+      yield take(LOGOUT);
+      // clear the token from asycn storage
+      // yield call();
     }
-  };
+  }
 }

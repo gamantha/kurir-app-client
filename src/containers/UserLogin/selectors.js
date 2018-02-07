@@ -28,3 +28,6 @@ export const getIsLoadingUser = () =>
  */
 export const getLoginData = () =>
   createSelector(selectUserLoginReducer(), (state) => state.get('loginData'));
+
+export const getErrorMessage = () =>
+  createSelector(selectUserLoginReducer(), (state) => state.get('errorMessage'));
