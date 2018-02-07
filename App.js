@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect, Provider } from 'react-redux';
 import { Router, Scene, Actions } from 'react-native-router-flux';
 
-import store from './src/store';
+import { store } from './src/store';
 
 import UserRegister from './src/containers/UserRegister';
 // import SendPackagePage from './src/components/sendPackagePage';

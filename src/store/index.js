@@ -1,14 +1,16 @@
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 
 import rootReducer from '../reducers';
 import rootSaga from '../sagas';
 
 const sagaMiddleWare = createSagaMiddleware();
-const storeWithMiddlewares = applyMiddleware(sagaMiddleWare, logger)(createStore);
+// const storeWithMiddlewares = compose(applyMiddleware(sagaMiddleWare, logger))(createStore);
 
-const store = storeWithMiddlewares(rootReducer);
+export const store = createStore(rootReducer, compose(applyMiddleware(logger, sagaMiddleWare)));
+
 sagaMiddleWare.run(rootSaga);
 
-export default store;
+// Later install persistStore on this
+export const persistStore = () => ({});
