@@ -45,6 +45,7 @@
     "redux": "^3.7.2",
     "redux-immutable": "^4.0.0",
     "redux-logger": "^3.0.6",
+    "redux-persist": "^5.6.12",
     "redux-persist-sensitive-storage": "^1.0.0",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
