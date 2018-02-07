@@ -5,14 +5,17 @@ import { ActivityIndicator } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
 
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import * as actions from './actions';
+import * as actions from './reducer';
 import * as selectors from './selectors';
+// import { sagas as loginFlow } from './sagas';
 // import { getErrorMessage } from '../UserRegister/selectors';
 
 class UserLogin extends Component {
   onClickLogin = () => {
     const { username, password } = this.props.loginInputField || {};
+    console.log('THIS PROPS', this.props);
     this.props.loginFlow({ username, password }, () => Actions.profile());
   };
 
@@ -79,6 +82,15 @@ class UserLogin extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      updateLoginInputField: actions.updateLoginInputField,
+      loginFlow: actions.loginFlow
+    },
+    dispatch
+  );
+
 const mapStateToProps = () =>
   createStructuredSelector({
     loginInputField: selectors.getLoginInputField(),
@@ -87,4 +99,4 @@ const mapStateToProps = () =>
     errorMessage: selectors.getErrorMessage()
   });
 
-export default connect(mapStateToProps, actions)(UserLogin);
+export default connect(mapStateToProps, mapDispatchToProps)(UserLogin);
