@@ -48,10 +48,9 @@ export function setIsLogin(status) {
   };
 }
 
-export function loginFlow(payload, callback) {
+export function loginFlow(payload) {
   return {
     type: LOGIN,
-    payload,
-    callback
+    payload
   };
 }

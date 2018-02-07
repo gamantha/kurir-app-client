@@ -30,18 +30,15 @@ function* authorize(payload, callback) {
  * @param  {Function} callback - Actions to profile if login succesfully
  * @return {Object}
  */
-function* watchLoginFlow(payload, callback) {
+function* watchLoginFlow(payload) {
   yield put(setIsLogin(true));
   try {
     const response = yield call(Api.post, payload);
-    console.log('data', response);
     const { meta, data } = response.data;
     if (meta.success && data) {
       yield put({ type: LOGIN_SUCCESS, payload: data });
-      callback();
     }
   } catch (error) {
-    yield put(setIsLogin(false));
     const { response } = error;
     const { data } = response;
     if (data) {
