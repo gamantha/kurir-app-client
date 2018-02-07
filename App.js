@@ -9,6 +9,7 @@ import UserRegister from './src/containers/UserRegister';
 // import SendPackagePage from './src/components/sendPackagePage';
 import UserLogin from './src/containers/UserLogin';
 import Onboarding from './src/components/Onboarding';
+import OnEnterOnboarding from './src/components/Onboarding/onEnter';
 import ForgotPassword from './src/containers/ForgotPassword';
 import Profile from './src/containers/Profile';
 // import VerifCodeInput from './src/components/verifCode';
@@ -29,7 +30,13 @@ class App extends Component {
       <Provider store={store}>
         <RouterWithRedux backAndroidHandler={this.onBackPress}>
           <Scene key="root" hideNavBar>
-            <Scene key="onboarding" component={Onboarding} title="onboarding" initial />
+            <Scene
+              key="onboarding"
+              component={Onboarding}
+              title="onboarding"
+              initial
+              onEnter={OnEnterOnboarding}
+            />
             <Scene key="userRegister" component={UserRegister} title="register" type="reset" />
             <Scene key="userLogin" component={UserLogin} title="userLogin" type="reset" />
             <Scene key="forgotPassword" component={ForgotPassword} title="forgotPassword" />
