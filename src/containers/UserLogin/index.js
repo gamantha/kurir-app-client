@@ -12,7 +12,7 @@ import * as selectors from './selectors';
 
 class UserLogin extends Component {
   componentWillReceiveProps(nextProps) {
-    if (nextProps.loginData.accessToken) {
+    if (nextProps.success) {
       Actions.profile();
     }
   }
@@ -97,7 +97,7 @@ const mapStateToProps = () =>
   createStructuredSelector({
     loginInputField: selectors.getLoginInputField(),
     isLoading: selectors.getIsLoadingUser(),
-    loginData: selectors.getLoginData(),
+    success: selectors.getLoginData(),
     errorMessage: selectors.getErrorMessage()
   });
 

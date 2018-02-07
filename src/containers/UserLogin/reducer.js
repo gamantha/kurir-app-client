@@ -4,6 +4,7 @@ import {
   UPDATE_LOGIN_INPUT_FIELD,
   IS_LOADING_USER_LOGIN,
   LOGIN_SUCCESS,
+  ACCESS_TOKEN,
   LOGIN_ERROR,
   LOGIN
 } from './constants';
@@ -14,7 +15,7 @@ const initialState = fromJS({
     username: ''
   },
   isLoadingUserLogin: false,
-  loginData: {},
+  success: null,
   errorMessage: ''
 });
 
@@ -25,7 +26,7 @@ export default function userLoginReducer(state = initialState, action) {
     case IS_LOADING_USER_LOGIN:
       return state.set('isLoadingUserLogin', action.status);
     case LOGIN_SUCCESS:
-      return state.set('loginData', fromJS(action.payload));
+      return state.set('success', action.payload);
     case LOGIN_ERROR:
       return state.set('errorMessage', action.payload);
     default:
