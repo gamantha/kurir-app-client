@@ -1,4 +1,4 @@
-package com.clientv1;
+package id.kurir;
 
 import android.app.Application;
 
