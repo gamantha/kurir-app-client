@@ -5,3 +5,5 @@ export const UPDATE_SINGLE_INPUT_FIELD =
   'src/containers/UserRegistration/UPDATE_SINGLE_INPUT_FIELD';
 export const INPUT_FIELD_VALIDATION = 'src/containers/UserRegistration/INPUT_FIELD_VALIDATION';
 export const SET_ERROR_MESSAGE = 'src/containers/UserRegistration/SET_ERROR_MESSAGE';
+export const REGISTER = 'src/containers/UserRegistration/REGISTER';
+export const INPUT_FIELD = 'src/containers/UserRegistration/INPUT_FIELD';

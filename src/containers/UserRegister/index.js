@@ -4,11 +4,12 @@ import { ActivityIndicator } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
 
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 // import inputStyles from '../../helpers/styles';
 
-import * as actions from './actions';
+import * as actions from './reducer';
 import * as selectors from './selectors';
 
 import styles from './styles';
@@ -17,10 +18,7 @@ import styles from './styles';
 class UserRegister extends React.Component {
   onClickRegister = () => {
     const {
-      username,
-      email,
-      password,
-      repassword
+      username, email, password, repassword
     } = this.props.inputFields;
 
     this.props.registerUser(
@@ -39,21 +37,15 @@ class UserRegister extends React.Component {
   };
 
   inputValidation = (field, value) => {
-    this.props.inputFieldValidations(field, value);
+    this.props.validateFields(field, value);
   };
 
   render() {
     const {
-      isLoading,
-      errorMessage,
-      inputFields,
-      inputFieldValidation
+      isLoading, errorMessage, inputFields, inputFieldValidation
     } = this.props || {};
     const {
-      username,
-      email,
-      password,
-      repassword
+      username, email, password, repassword
     } = inputFields;
 
     const { isValidName, isValidEmail, isValidRepassword } = inputFieldValidation;
@@ -152,6 +144,16 @@ class UserRegister extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      registerUser: actions.registerUser,
+      validateFields: actions.inputFieldValidations,
+      updateSingleInputField: actions.updateSingleInputField
+    },
+    dispatch
+  );
+
 const mapStateToProps = () =>
   createStructuredSelector({
     isLoading: selectors.getIsLoading(),
@@ -161,4 +163,4 @@ const mapStateToProps = () =>
     inputFieldValidation: selectors.getInputFieldValidation()
   });
 
-export default connect(mapStateToProps, actions)(UserRegister);
+export default connect(mapStateToProps, mapDispatchToProps)(UserRegister);

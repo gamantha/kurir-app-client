@@ -4,7 +4,9 @@ import {
   IS_LOADING,
   UPDATE_SINGLE_INPUT_FIELD,
   INPUT_FIELD_VALIDATION,
-  SET_ERROR_MESSAGE
+  SET_ERROR_MESSAGE,
+  REGISTER,
+  INPUT_FIELD
 } from './constants';
 
 /**
@@ -37,7 +39,7 @@ const initialState = fromJS({
  * @param  {Object}         action
  * @return {Immutable Maps}
  */
-function userRegistrationReducer(state = initialState, action) {
+export default function userRegistrationReducer(state = initialState, action) {
   switch (action.type) {
     case IS_LOADING:
       return state.set('isLoading', action.status);
@@ -54,4 +56,47 @@ function userRegistrationReducer(state = initialState, action) {
   }
 }
 
-export default userRegistrationReducer;
+export function setIsLoading(status) {
+  return {
+    type: IS_LOADING,
+    status
+  };
+}
+
+export function setErrorMessage(payload) {
+  return {
+    type: SET_ERROR_MESSAGE,
+    payload
+  };
+}
+
+export function updateSingleInputField(field, value) {
+  return {
+    type: UPDATE_SINGLE_INPUT_FIELD,
+    field,
+    value
+  };
+}
+
+export function setValidationValue(field, value) {
+  return {
+    type: INPUT_FIELD_VALIDATION,
+    field,
+    value
+  };
+}
+
+export function inputFieldValidations(field, value) {
+  return {
+    type: INPUT_FIELD,
+    field,
+    value
+  };
+}
+
+export function registerUser(payload) {
+  return {
+    type: REGISTER,
+    payload
+  };
+}
