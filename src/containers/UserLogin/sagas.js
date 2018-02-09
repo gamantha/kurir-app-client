@@ -33,4 +33,6 @@ function* watchLoginFlow(payload) {
   }
 }
 
-export const userLoginSagas = [ takeLatest(LOGIN, watchLoginFlow) ];
+const userLoginSagas = [ takeLatest(LOGIN, watchLoginFlow) ];
+
+export default userLoginSagas;
