@@ -9,27 +9,39 @@ import {
   Label,
   Button,
   Text,
-  Toast,
   Root
 } from 'native-base';
+import Toast from 'react-native-simple-toast';
+import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import * as actions from './actions';
+import * as actions from './reducer';
 import * as selectors from './selectors';
 import VerificationCodeInput from '../VerificationCode';
 
 class ForgotPasswordInput extends Component {
-  onPressSendEmail = (email) => {
-    this.props.forgotPassword({ email });
-  };
+  componentWillReceiveProps(nextProps) {
+    const { statusMessage } = nextProps;
+    const { status, message } = statusMessage;
+    if (message) {
+      Toast.show(message);
+    }
+  }
 
   setEmail = (email) => {
     this.props.setEmail(email);
   };
 
+  handlePress = (email) => {
+    this.props.forgotPassword({ email });
+  };
+
   render() {
-    if (this.props.status) {
-      return <VerificationCodeInput email={this.props.email} />;
+    const { statusMessage, email } = this.props;
+    const { status } = statusMessage;
+    if (status) {
+      return <VerificationCodeInput email={email} />;
     }
     return (
       <Container>
@@ -39,8 +51,8 @@ class ForgotPasswordInput extends Component {
             <Label>Enter your email</Label>
             <Item rounded>
               <Input
-                onChangeText={(email) => this.setEmail(email)}
-                value={this.props.email}
+                onChangeText={(value) => this.setEmail(value)}
+                value={email}
                 autoCapitalize="none"
               />
             </Item>
@@ -48,7 +60,7 @@ class ForgotPasswordInput extends Component {
               rounded
               primary
               onPress={() => {
-                this.onPressSendEmail(this.state.email);
+                this.handlePress(email);
               }}
             >
               <Text>SEND EMAIL</Text>
@@ -60,12 +72,20 @@ class ForgotPasswordInput extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      setEmail: actions.setEmail,
+      forgotPassword: actions.forgotPassword
+    },
+    dispatch
+  );
+
 const mapStateToProps = () =>
   createStructuredSelector({
     isShowLoading: selectors.getShowLoading(),
-    message: selectors.getMessage(),
-    email: selectors.getEmail(),
-    status: selectors.getStatus()
+    statusMessage: selectors.getMessage(),
+    email: selectors.getEmail()
   });
 
-export default connect(mapStateToProps, actions)(ForgotPasswordInput);
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordInput);
