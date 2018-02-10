@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Button, Image } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import Swiper from 'react-native-swiper';
 
 const styles = {
@@ -80,7 +79,9 @@ class OnboardingComponent extends React.Component {
                         <Text style={styles.nextText}> NEXT </Text>
                     </TouchableOpacity>
                     <Button
-                        onPress={() => Actions.userRegister()}
+                        onPress={() =>
+                            this.props.navigation.navigate('Register')
+                        }
                         color="#424242"
                         title="Skip"
                     />
@@ -104,7 +105,9 @@ class OnboardingComponent extends React.Component {
                         <Text style={styles.nextText}> NEXT </Text>
                     </TouchableOpacity>
                     <Button
-                        onPress={() => Actions.userRegister()}
+                        onPress={() =>
+                            this.props.navigation.navigate('Register')
+                        }
                         color="#424242"
                         title="Skip"
                     />
@@ -120,7 +123,9 @@ class OnboardingComponent extends React.Component {
                         Primum divisit ineleganter; Sed fortuna fortis.
                     </Text>
                     <TouchableOpacity
-                        onPress={() => Actions.userRegister()}
+                        onPress={() =>
+                            this.props.navigation.navigate('Register')
+                        }
                         style={styles.button}
                         title="Test"
                         color="#841584"
@@ -128,7 +133,7 @@ class OnboardingComponent extends React.Component {
                         <Text style={styles.nextText}>REGISTER</Text>
                     </TouchableOpacity>
                     <Button
-                        onPress={() => Actions.userLogin()}
+                        onPress={() => this.props.navigation.navigate('Login')}
                         color="#424242"
                         title="Or login"
                     />
