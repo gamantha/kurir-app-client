@@ -9,7 +9,6 @@ import UserRegister from './src/containers/UserRegister';
 // import SendPackagePage from './src/components/sendPackagePage';
 import UserLogin from './src/containers/UserLogin';
 import Onboarding from './src/components/Onboarding';
-import OnEnterOnboarding from './src/components/Onboarding/onEnter';
 import ForgotPassword from './src/containers/ForgotPassword';
 
 // import VerifCodeInput from './src/components/verifCode';
