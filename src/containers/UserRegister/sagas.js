@@ -21,11 +21,7 @@ function* watchRegisterUser(values) {
             yield put({ type: USER_REGISTRATION_SUCCESS, payload: data });
         }
     } catch (error) {
-        const { response } = error;
-        const { meta } = response.data;
-        if (meta) {
-            yield put(setErrorMessage(meta.message));
-        }
+        yield put(setErrorMessage(error.message));
     } finally {
         yield put(setIsLoading(false));
     }

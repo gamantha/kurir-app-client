@@ -2,11 +2,24 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        justifyContent: 'space-between',
+        backgroundColor: '#FFFFFF'
+    },
+    inputTextContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     inputText: {
-        marginBottom: 10,
-        borderColor: '#FFBBEE',
-        borderWidth: 1
+        flex: 1,
+        height: 50,
+        borderWidth: 1,
+        borderColor: '#BD303f',
+        borderRadius: 50,
+        marginRight: -30
+    },
+    icon: {
+        marginRight: 5
     }
 });
