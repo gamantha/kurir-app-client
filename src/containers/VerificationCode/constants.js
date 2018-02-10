@@ -1,4 +1,4 @@
-const IS_LOADING_VERIFICATION_CODE = 'src/containers/VerificationCode/IS_LOADING_VERIFICATION_CODE';
-const VERIFICATION_STATUS = 'src/containers/VerificationCode/VERIFICATION_STATUS';
-const VERIFICATION_MESSAGE = 'src/containers/VerificationCode/VERIFICATION_MESSAGE';
-const SET_VERIFICATION_CODE = 'src/containers/VerificationCode/SET_VERIFICATION_CODE';
+export const IS_LOADING = 'src/containers/VerificationCode/IS_LOADING';
+export const STATUS_MESSAGE = 'src/containers/VerificationCode/STATUS_MESSAGE';
+export const SET_CODE = 'src/containers/VerificationCode/SET_CODE';
+export const VERIFY = 'src/containers/VerificationCode/VERIFY';
