@@ -54,7 +54,7 @@ export const showLoading = status => ({
  * @param  Boolean status
  * @return Object
  */
-export const setEmail = email({
+export const setEmail = email => ({
     type: SET_EMAIL,
     payload: email
 });

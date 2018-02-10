@@ -12,7 +12,6 @@ import {
     Root
 } from 'native-base';
 import Toast from 'react-native-simple-toast';
-import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
