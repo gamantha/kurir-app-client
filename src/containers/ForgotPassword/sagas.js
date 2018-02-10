@@ -11,26 +11,29 @@ import Api from '../../services/forgotpassword';
  * @return Object
  */
 function* watchForgotPassword({ payload: { email } }) {
-  put(showLoading(true));
-  try {
-    const response = yield call(Api.post, email);
-    const { meta, data } = response.data;
-    let payload;
-    payload.message = data.msg;
-    if (meta.success && data) {
-      payload.status = true;
-      yield put({ type: STATUS_MESSAGE, payload });
-    } else {
-      payload.status = false;
-      yield put({ type: STATUS_MESSAGE, payload });
+    put(showLoading(true));
+    try {
+        const response = yield call(Api.post, email);
+        const { meta, data } = response.data;
+        let payload;
+        payload.message = data.msg;
+        if (meta.success && data) {
+            payload.status = true;
+            yield put({ type: STATUS_MESSAGE, payload });
+        } else {
+            payload.status = false;
+            yield put({ type: STATUS_MESSAGE, payload });
+        }
+    } catch (error) {
+        yield put({
+            type: STATUS_MESSAGE,
+            payload: { status: false, message: error.message }
+        });
+    } finally {
+        yield put(showLoading(false));
     }
-  } catch (error) {
-    yield put({ type: STATUS_MESSAGE, payload: { status: true, message: error.message } });
-  } finally {
-    yield put(showLoading(false));
-  }
 }
 
-const forgotPasswordSagas = [ takeLatest(FORGOT_PASSWORD, watchForgotPassword) ];
+const forgotPasswordSagas = [takeLatest(FORGOT_PASSWORD, watchForgotPassword)];
 
 export default forgotPasswordSagas;

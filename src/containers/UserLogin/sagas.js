@@ -12,27 +12,27 @@ import { saveTokenData } from '../../reducers/tokenReducer';
  * @return {Object}
  */
 function* watchLoginFlow(payload) {
-  yield put(setIsLogin(true));
-  try {
-    const response = yield call(Api.post, payload);
-    const { meta, data } = response.data;
-    if (meta.success && data) {
-      yield put({ type: LOGIN_SUCCESS, payload: meta.success });
-      const { accessToken, refreshToken } = data;
-      saveTokenData({ accessToken, refreshToken });
-      yield put(updateLoginInputField('password', ''));
+    yield put(setIsLogin(true));
+    try {
+        const response = yield call(Api.post, payload);
+        const { meta, data } = response.data;
+        if (meta.success && data) {
+            yield put({ type: LOGIN_SUCCESS, payload: meta.success });
+            const { accessToken, refreshToken } = data;
+            saveTokenData({ accessToken, refreshToken });
+            yield put(updateLoginInputField('password', ''));
+        }
+    } catch (error) {
+        const { response } = error;
+        const { data } = response;
+        if (data) {
+            yield put({ type: LOGIN_ERROR, payload: data.meta.message });
+        }
+    } finally {
+        yield put(setIsLogin(false));
     }
-  } catch (error) {
-    const { response } = error;
-    const { data } = response;
-    if (data) {
-      yield put({ type: LOGIN_ERROR, payload: data.meta.message });
-    }
-  } finally {
-    yield put(setIsLogin(false));
-  }
 }
 
-const userLoginSagas = [ takeLatest(LOGIN, watchLoginFlow) ];
+const userLoginSagas = [takeLatest(LOGIN, watchLoginFlow)];
 
 export default userLoginSagas;
