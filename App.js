@@ -11,11 +11,8 @@ import UserLogin from './src/containers/UserLogin';
 import Onboarding from './src/components/Onboarding';
 import ForgotPassword from './src/containers/ForgotPassword';
 
-// import VerifCodeInput from './src/components/verifCode';
-// import AppWithNavigationState from './src/navigators';
 import { Kurir } from './src/routes';
-// const RouterWithRedux = connect()(Router);
-import SplashScreen from './src/components/SplashScreen';
+
 class App extends Component {
     render() {
         return (

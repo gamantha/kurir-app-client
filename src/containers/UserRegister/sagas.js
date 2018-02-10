@@ -35,14 +35,11 @@ function* watchInputFields(payload) {
         yield put(setValidationValue(field, isValid));
     }
 
-    if (field === 'isValidName') {
-        isValid = yield validateName(value);
-        yield put(setValidationValue(field, isValid));
-    }
     if (field === 'isValidPassword') {
-        isValid = value.length < 4 && value !== '';
+        isValid = value.length > 4 && value !== '';
         yield put(setValidationValue(field, isValid));
     }
+
     if (field === 'isValidRepassword') {
         const store = yield select();
         const password = store.getIn([
@@ -50,11 +47,8 @@ function* watchInputFields(payload) {
             'inputFields',
             'password'
         ]);
-
-        isValid = value.length > 4 && value !== '' && value === password;
-        if (isValid) {
-            yield put(setValidationValue(field, isValid));
-        }
+        isValid = value === password;
+        yield put(setValidationValue(field, isValid));
     }
 }
 

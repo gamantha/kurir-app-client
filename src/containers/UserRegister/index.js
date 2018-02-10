@@ -38,13 +38,9 @@ class UserRegister extends React.Component {
     }
 
     onClickRegister = () => {
-        const {
-            username,
-            email,
-            password,
-            repassword
-        } = this.props.inputFields;
-
+        const { email, password, repassword } = this.props.inputFields;
+        const username = email.split('@')[0];
+        console.log('CLICK Register', username, this.props);
         this.props.registerUser({
             username,
             email,
@@ -65,16 +61,18 @@ class UserRegister extends React.Component {
     render() {
         const { isLoading, errorMessage, inputFields, inputFieldValidation } =
             this.props || {};
-        const { username, email, password, repassword } = inputFields;
+        const { email, password, repassword } = inputFields;
 
         const {
-            isValidName,
             isValidEmail,
-            isValidRepassword
+            isValidRepassword,
+            isValidPassword
         } = inputFieldValidation;
-        const signUpButtonStatus =
-            isValidName && isValidEmail && isValidRepassword;
-
+        const signUpButtonStatus = isValidEmail && isValidRepassword;
+        console.log('button status', signUpButtonStatus);
+        console.log('isValidEmail', isValidEmail);
+        console.log('isValidRepassword', isValidRepassword);
+        console.log('isValidPassword', isValidPassword);
         return (
             <View style={styles.container}>
                 <View
@@ -85,7 +83,7 @@ class UserRegister extends React.Component {
                 >
                     <View
                         style={{
-                            flex: 0.7,
+                            flex: 0.5,
                             flexDirection: 'row',
                             justifyContent: 'center',
                             alignItems: 'center'
@@ -110,47 +108,103 @@ class UserRegister extends React.Component {
                                 onChangeText={text =>
                                     this.setInputFields('email', text)
                                 }
-                                value={username}
+                                onBlur={() =>
+                                    this.inputValidation('isValidEmail', email)
+                                }
+                                value={email}
+                                autoCapitalize="none"
+                                autoCorrect={false}
                             />
-                            <Icon
-                                name="check"
-                                size={20}
-                                color="#9DD340"
-                                style={styles.icon}
-                            />
+                            {isValidEmail === null ? (
+                                <Icon
+                                    name="clear"
+                                    size={20}
+                                    color="#FFFFFF"
+                                    style={styles.icon}
+                                />
+                            ) : (
+                                <Icon
+                                    name={isValidEmail ? 'check' : 'clear'}
+                                    size={20}
+                                    color={isValidEmail ? '#9DD340' : '#BD303f'}
+                                    style={styles.icon}
+                                />
+                            )}
                         </View>
                         <Text>Type your password</Text>
                         <View style={styles.inputTextContainer}>
                             <TextInput
                                 style={styles.inputText}
-                                onChangeText={text =>
-                                    this.setInputFields('password', text)
+                                onBlur={() =>
+                                    this.inputValidation(
+                                        'isValidPassword',
+                                        password
+                                    )
                                 }
-                                value={username}
+                                onChangeText={value =>
+                                    this.setInputFields('password', value)
+                                }
+                                value={password}
+                                secureTextEntry
+                                autoCapitalize="none"
+                                autoCorrect={false}
                             />
-                            <Icon
-                                name="check"
-                                size={20}
-                                color="#9DD340"
-                                style={styles.icon}
-                            />
+                            {isValidPassword === null ? (
+                                <Icon
+                                    name={'clear'}
+                                    size={20}
+                                    color={'#FFFFFF'}
+                                    style={styles.icon}
+                                />
+                            ) : (
+                                <Icon
+                                    name={isValidPassword ? 'check' : 'clear'}
+                                    size={20}
+                                    color={
+                                        isValidPassword ? '#9DD340' : '#BD303f'
+                                    }
+                                    style={styles.icon}
+                                />
+                            )}
                         </View>
 
                         <Text>Retype your password</Text>
                         <View style={styles.inputTextContainer}>
                             <TextInput
                                 style={styles.inputText}
-                                onChangeText={text =>
-                                    this.setInputFields('repassword', text)
+                                onBlur={() =>
+                                    this.inputValidation(
+                                        'isValidRepassword',
+                                        repassword
+                                    )
                                 }
-                                value={username}
+                                onChangeText={retype =>
+                                    this.setInputFields('repassword', retype)
+                                }
+                                value={repassword}
+                                secureTextEntry
+                                autoCapitalize="none"
+                                autoCorrect={false}
                             />
-                            <Icon
-                                name="check"
-                                size={20}
-                                color="#9DD340"
-                                style={styles.icon}
-                            />
+                            {isValidRepassword === null ? (
+                                <Icon
+                                    name="clear"
+                                    size={20}
+                                    color="#FFFFFF"
+                                    style={styles.icon}
+                                />
+                            ) : (
+                                <Icon
+                                    name={isValidRepassword ? 'check' : 'clear'}
+                                    size={20}
+                                    color={
+                                        isValidRepassword
+                                            ? '#9DD340'
+                                            : '#BD303f'
+                                    }
+                                    style={styles.icon}
+                                />
+                            )}
                         </View>
                     </View>
                     <View
@@ -177,25 +231,34 @@ class UserRegister extends React.Component {
                                 style={{ width: 50, height: 50 }}
                             />
                         </View>
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: '#BD303f',
-                                borderWidth: 1,
-                                borderRadius: 50,
-                                borderColor: '#BC2938',
-                                height: 50,
-                                justifyContent: 'center',
-                                marginLeft: 20,
-                                marginRight: 20
-                            }}
-                        >
-                            <Button
-                                style={{}}
-                                color="#FFFFFF"
-                                title="SIGNUP"
-                                onPress={() => {}}
-                            />
-                        </TouchableOpacity>
+
+                        {isLoading ? (
+                            <ActivityIndicator size="large" color="#00ff00" />
+                        ) : (
+                            <TouchableOpacity
+                                style={{
+                                    backgroundColor: '#BD303f',
+                                    borderWidth: 1,
+                                    borderRadius: 50,
+                                    borderColor: '#BC2938',
+                                    height: 50,
+                                    justifyContent: 'center',
+                                    marginLeft: 20,
+                                    marginRight: 20
+                                }}
+                                disabled={!signUpButtonStatus}
+                                onPress={() => this.onClickRegister()}
+                            >
+                                <Button
+                                    style={{}}
+                                    color="#FFFFFF"
+                                    title="SIGNUP"
+                                    onPress={() => {}}
+                                    disabled
+                                />
+                            </TouchableOpacity>
+                        )}
+
                         <View
                             style={{
                                 flexDirection: 'row',
@@ -205,7 +268,11 @@ class UserRegister extends React.Component {
                             <Text style={{ textAlign: 'center' }}>
                                 Forgot Password ?
                             </Text>
-                            <TouchableOpacity onPress={() => {}}>
+                            <TouchableOpacity
+                                onPress={() =>
+                                    this.props.navigation.navigate('Password')
+                                }
+                            >
                                 <Text
                                     style={{
                                         textAlign: 'center',

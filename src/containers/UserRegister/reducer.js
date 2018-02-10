@@ -18,16 +18,14 @@ const initialState = fromJS({
     isLoading: false,
     errorMessage: '',
     inputFields: {
-        username: '',
         email: '',
         password: '',
         repassword: ''
     },
     inputFieldValidations: {
-        isValidName: false,
-        isValidEmail: false,
-        isValidPassword: false,
-        isValidRepassword: false
+        isValidEmail: null,
+        isValidPassword: null,
+        isValidRepassword: null
     },
     registeredUser: {}
 });
@@ -48,6 +46,7 @@ export default function userRegistrationReducer(state = initialState, action) {
         case UPDATE_SINGLE_INPUT_FIELD:
             return state.setIn(['inputFields', action.field], action.value);
         case INPUT_FIELD_VALIDATION:
+            console.log('REDUCER', action);
             return state.setIn(
                 ['inputFieldValidations', action.field],
                 action.value
