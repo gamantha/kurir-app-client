@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Toast from 'react-native-simple-toast';
-import { Actions } from 'react-native-router-flux';
 import { ActivityIndicator } from 'react-native';
 import {
     Container,
@@ -22,10 +21,15 @@ import * as selectors from './selectors';
 
 class UserLogin extends Component {
     componentWillReceiveProps(nextProps) {
-        if (nextProps.success) {
-            Actions.profile();
+        const { errorMessage, success } = nextProps;
+        if (errorMessage) {
+            Toast.show(errorMessage, Toast.LONG);
+        }
+        if (success) {
+            this.props.navigation.navigate('Profile');
         }
     }
+
     onClickLogin = () => {
         const { username, password } = this.props.loginInputField || {};
         this.props.loginFlow({ username, password });
@@ -65,16 +69,6 @@ class UserLogin extends Component {
                                 secureTextEntry
                             />
                         </Item>
-                        {errorMessage !== '' ? (
-                            <Text
-                                style={{
-                                    paddingLeft: 20,
-                                    color: '#F44336'
-                                }}
-                            >
-                                {errorMessage}
-                            </Text>
-                        ) : null}
                         {isLoading ? (
                             <ActivityIndicator size="large" color="#00ff00" />
                         ) : (
@@ -88,7 +82,11 @@ class UserLogin extends Component {
                                 <Text>Submit</Text>
                             </Button>
                         )}
-                        <Label onPress={() => Actions.forgotPassword()}>
+                        <Label
+                            onPress={() =>
+                                this.props.navigation.navigate('ForgotPassword')
+                            }
+                        >
                             Forgot password
                         </Label>
                     </Form>

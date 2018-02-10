@@ -8,7 +8,6 @@ import { saveTokenData } from '../../reducers/tokenReducer';
  * Send the payload to API
  *
  * @param  {Object} payload - email/username and password
- * @param  {Function} callback - Actions to profile if login succesfully
  * @return {Object}
  */
 function* watchLoginFlow(payload) {
@@ -23,11 +22,7 @@ function* watchLoginFlow(payload) {
             yield put(updateLoginInputField('password', ''));
         }
     } catch (error) {
-        const { response } = error;
-        const { data } = response;
-        if (data) {
-            yield put({ type: LOGIN_ERROR, payload: data.meta.message });
-        }
+        yield put({ type: LOGIN_ERROR, payload: error.message });
     } finally {
         yield put(setIsLogin(false));
     }
