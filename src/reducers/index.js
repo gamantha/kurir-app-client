@@ -12,18 +12,18 @@ import verificationCodeReducer from '../containers/VerificationCode/reducer';
 
 // Use this for encrypt token later
 const sensitiveStorage = createSensitiveStorage({
-  keychainService: 'myKeychain',
-  sharedPreferencesName: 'mySharedPrefs'
+    keychainService: 'myKeychain',
+    sharedPreferencesName: 'mySharedPrefs'
 });
 
 const mainPersistConfig = {
-  key: 'main',
-  storage: AsyncStorage
+    key: 'main',
+    storage: AsyncStorage
 };
 
 const tokenPersistConfig = {
-  key: 'token',
-  storage: sensitiveStorage
+    key: 'token',
+    storage: sensitiveStorage
 };
 
 /**
@@ -32,10 +32,10 @@ const tokenPersistConfig = {
  * @type {Maps}
  */
 const rootReducer = combineReducers({
-  userRegister: userRegisterReducer,
-  userLogin: userLoginReducer,
-  forgotPassword: forgotPasswordReducer,
-  verificationCode: verificationCodeReducer
+    userRegister: userRegisterReducer,
+    userLogin: userLoginReducer,
+    forgotPassword: forgotPasswordReducer,
+    verificationCode: verificationCodeReducer
 });
 
 export default rootReducer;
