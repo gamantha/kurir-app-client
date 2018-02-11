@@ -19,9 +19,9 @@ import { images } from '../../assets';
 import * as actions from './reducer';
 import * as selectors from './selectors';
 
+import globalStyles from '../../helpers/styles';
 import styles from './styles';
 
-// @flow
 class UserRegister extends React.Component {
     componentWillReceiveProps(nextProps) {
         const { errorMessage, registerData } = nextProps;
@@ -236,16 +236,7 @@ class UserRegister extends React.Component {
                             <ActivityIndicator size="large" color="#00ff00" />
                         ) : (
                             <TouchableOpacity
-                                style={{
-                                    backgroundColor: '#BD303f',
-                                    borderWidth: 1,
-                                    borderRadius: 50,
-                                    borderColor: '#BC2938',
-                                    height: 50,
-                                    justifyContent: 'center',
-                                    marginLeft: 20,
-                                    marginRight: 20
-                                }}
+                                style={styles.touchAbleButton}
                                 disabled={!signUpButtonStatus}
                                 onPress={() =>
                                     this.props.navigation.navigate('Register')

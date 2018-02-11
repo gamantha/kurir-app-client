@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import {
-    Container,
-    Header,
-    Content,
-    Form,
-    Item,
-    Input,
-    Label,
-    Button,
+    View,
+    TouchableOpacity,
     Text,
-    Root
-} from 'native-base';
+    ImageBackground,
+    Image,
+    TextInput,
+    Button
+} from 'react-native';
 import Toast from 'react-native-simple-toast';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
+
 import * as actions from './reducer';
 import * as selectors from './selectors';
 import VerificationCodeInput from '../VerificationCode';
+import styles from '../../helpers/styles';
+import { images } from '../../assets';
 
 class ForgotPasswordInput extends Component {
     componentWillReceiveProps(nextProps) {
@@ -43,30 +43,113 @@ class ForgotPasswordInput extends Component {
             return <VerificationCodeInput email={email} />;
         }
         return (
-            <Container>
-                <Header />
-                <Content>
-                    <Form>
-                        <Label>Enter your email</Label>
-                        <Item rounded>
-                            <Input
-                                onChangeText={value => this.setEmail(value)}
-                                value={email}
-                                autoCapitalize="none"
-                            />
-                        </Item>
-                        <Button
-                            rounded
-                            primary
-                            onPress={() => {
-                                this.handlePress(email);
+            <View style={styles.container}>
+                <View
+                    style={{
+                        flex: 1.5,
+                        justifyContent: 'space-between'
+                    }}
+                >
+                    <View
+                        style={[
+                            styles.container,
+                            { marginLeft: 25, marginRight: 25 }
+                        ]}
+                    >
+                        <View
+                            style={{
+                                flex: 0.3,
+                                justifyContent: 'flex-end'
                             }}
                         >
-                            <Text>SEND EMAIL</Text>
-                        </Button>
-                    </Form>
-                </Content>
-            </Container>
+                            <Text
+                                style={{
+                                    fontSize: 16,
+                                    fontWeight: 'bold'
+                                }}
+                            >
+                                Forgot Password
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                flex: 0.6,
+                                flexDirection: 'row'
+                            }}
+                        >
+                            <View
+                                style={{
+                                    flex: 0.8,
+                                    justifyContent: 'flex-start',
+                                    alignItems: 'flex-start'
+                                }}
+                            >
+                                <Text style={{ fontSize: 16 }}>
+                                    Enter Your email address and we will send a
+                                    verification number through your email
+                                </Text>
+                            </View>
+
+                            <View
+                                style={{
+                                    flex: 0.2
+                                }}
+                            />
+                        </View>
+                    </View>
+                </View>
+                <View
+                    style={{
+                        flex: 1.5
+                    }}
+                >
+                    <View
+                        style={[
+                            styles.container,
+                            {
+                                marginLeft: 25,
+                                marginRight: 25,
+                                justifyContent: 'space-around'
+                            }
+                        ]}
+                    >
+                        <View
+                            style={{
+                                flex: 0.2,
+                                flexDirection: 'row',
+                                alignItems: 'flex-end'
+                            }}
+                        >
+                            <Text style={{ fontSize: 16 }}>Email:</Text>
+                        </View>
+                        <View
+                            style={{
+                                flex: 0.5,
+                                justifyContent: 'space-around'
+                            }}
+                        >
+                            <TextInput
+                                style={[styles.inputText, { flex: 0.7 }]}
+                            />
+                        </View>
+                        <View style={{ flex: 0.3 }}>
+                            <TouchableOpacity style={styles.touchAbleButton}>
+                                <Button
+                                    color="#FFFFFF"
+                                    onPress={() => {}}
+                                    title="SEND EMAIL"
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+                <View style={{ flex: 3 }}>
+                    <ImageBackground
+                        source={images.baseline}
+                        style={styles.imageBackground}
+                    />
+                </View>
+            </View>
         );
     }
 }

@@ -57,6 +57,7 @@ class UserLogin extends Component {
         } =
             this.props || {};
         const { username, password } = loginInputField;
+        const disableButton = username !== '' && password !== '';
         return (
             <View style={styles.container}>
                 <View
@@ -94,6 +95,12 @@ class UserLogin extends Component {
                                 ]}
                                 onFocus={() => this.textInputFocus('username')}
                                 onBlur={() => this.textInputBlur('username')}
+                                onChangeText={value =>
+                                    this.setLoginInputField('username', value)
+                                }
+                                value={username}
+                                autoCapitalize="none"
+                                autoCorrect={false}
                             />
                         </View>
                         <Text>Type your password</Text>
@@ -105,6 +112,13 @@ class UserLogin extends Component {
                                 ]}
                                 onFocus={() => this.textInputFocus('password')}
                                 onBlur={() => this.textInputBlur('password')}
+                                onChangeText={value =>
+                                    this.setLoginInputField('password', value)
+                                }
+                                value={password}
+                                secureTextEntry
+                                autoCapitalize="none"
+                                autoCorrect={false}
                             />
                         </View>
                     </View>
@@ -121,12 +135,7 @@ class UserLogin extends Component {
                 >
                     <ImageBackground
                         source={images.baseline}
-                        style={{
-                            flex: 8,
-                            justifyContent: 'space-around',
-                            width: '100%',
-                            height: '100%'
-                        }}
+                        style={styles.imageBackground}
                     >
                         <View
                             style={[
@@ -155,25 +164,28 @@ class UserLogin extends Component {
                                     style={{ width: 50, height: 50 }}
                                 />
                             </View>
-                            <TouchableOpacity
-                                style={{
-                                    backgroundColor: '#BD303f',
-                                    borderWidth: 1,
-                                    borderRadius: 50,
-                                    borderColor: '#BC2938',
-                                    height: 50,
-                                    justifyContent: 'center',
-                                    marginLeft: 20,
-                                    marginRight: 20
-                                }}
-                            >
-                                <Button
-                                    title="LOGIN"
-                                    disabled
-                                    color="#FFFFFF"
-                                    onPress={() => {}}
+                            {isLoading ? (
+                                <ActivityIndicator
+                                    size="large"
+                                    color="#00ff00"
                                 />
-                            </TouchableOpacity>
+                            ) : (
+                                <TouchableOpacity
+                                    style={styles.touchAbleButton}
+                                    onPress={() => {
+                                        this.onClickLogin();
+                                    }}
+                                    disabled={!disableButton}
+                                >
+                                    <Button
+                                        title="LOGIN"
+                                        disabled
+                                        color="#FFFFFF"
+                                        onPress={() => {}}
+                                    />
+                                </TouchableOpacity>
+                            )}
+
                             <View
                                 style={{
                                     flex: 0.4,
