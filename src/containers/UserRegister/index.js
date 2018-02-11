@@ -224,7 +224,7 @@ class UserRegister extends React.Component {
                         >
                             <Image
                                 source={images.facebook}
-                                style={{ width: 60, height: 60 }}
+                                style={{ width: 50, height: 50 }}
                             />
                             <Image
                                 source={images.google}
@@ -247,7 +247,9 @@ class UserRegister extends React.Component {
                                     marginRight: 20
                                 }}
                                 disabled={!signUpButtonStatus}
-                                onPress={() => this.onClickRegister()}
+                                onPress={() =>
+                                    this.props.navigation.navigate('Register')
+                                }
                             >
                                 <Button
                                     style={{}}
