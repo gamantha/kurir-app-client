@@ -177,12 +177,7 @@ class UserLogin extends Component {
                                     }}
                                     disabled={!disableButton}
                                 >
-                                    <Button
-                                        title="LOGIN"
-                                        disabled
-                                        color="#FFFFFF"
-                                        onPress={() => {}}
-                                    />
+                                    <Text style={styles.textButton}>LOGIN</Text>
                                 </TouchableOpacity>
                             )}
 

@@ -130,15 +130,22 @@ class ForgotPasswordInput extends Component {
                         >
                             <TextInput
                                 style={[styles.inputText, { flex: 0.7 }]}
+                                onChangeText={value => this.setEmail(value)}
+                                value={email}
+                                autoCapitalize="none"
                             />
                         </View>
                         <View style={{ flex: 0.3 }}>
-                            <TouchableOpacity style={styles.touchAbleButton}>
-                                <Button
-                                    color="#FFFFFF"
-                                    onPress={() => {}}
-                                    title="SEND EMAIL"
-                                />
+                            <TouchableOpacity
+                                style={styles.touchAbleButton}
+                                onPress={() => {
+                                    this.handlePress(email);
+                                }}
+                                disabled={!(email.length > 0)}
+                            >
+                                <Text style={styles.textButton}>
+                                    SEND EMAIL
+                                </Text>
                             </TouchableOpacity>
                         </View>
                     </View>

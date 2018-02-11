@@ -236,19 +236,15 @@ class UserRegister extends React.Component {
                             <ActivityIndicator size="large" color="#00ff00" />
                         ) : (
                             <TouchableOpacity
-                                style={styles.touchAbleButton}
+                                style={globalStyles.touchAbleButton}
                                 disabled={!signUpButtonStatus}
                                 onPress={() =>
                                     this.props.navigation.navigate('Register')
                                 }
                             >
-                                <Button
-                                    style={{}}
-                                    color="#FFFFFF"
-                                    title="SIGNUP"
-                                    onPress={() => {}}
-                                    disabled
-                                />
+                                <Text style={globalStyles.textButton}>
+                                    SIGNUP
+                                </Text>
                             </TouchableOpacity>
                         )}
 
