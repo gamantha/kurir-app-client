@@ -20,5 +20,20 @@ export default StyleSheet.create({
     },
     icon: {
         marginRight: 5
+    },
+    touchAbleButton: {
+        backgroundColor: '#BD303f',
+        borderWidth: 1,
+        borderRadius: 50,
+        borderColor: '#BC2938',
+        height: 50,
+        justifyContent: 'center',
+        marginLeft: 20,
+        marginRight: 20
+    },
+    imageBackground: {
+        justifyContent: 'space-around',
+        width: '100%',
+        height: '100%'
     }
 });
