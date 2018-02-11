@@ -3,6 +3,7 @@ import { fromJS } from 'immutable';
 import {
     UPDATE_LOGIN_INPUT_FIELD,
     IS_LOADING_USER_LOGIN,
+    TEXT_INPUT_FOCUS,
     LOGIN_SUCCESS,
     ACCESS_TOKEN,
     LOGIN_ERROR,
@@ -16,7 +17,11 @@ const initialState = fromJS({
     },
     isLoadingUserLogin: false,
     success: null,
-    errorMessage: ''
+    errorMessage: '',
+    inputTextFocus: {
+        username: '#FFFFFF',
+        password: '#FFFFFF'
+    }
 });
 
 export default function userLoginReducer(state = initialState, action) {
@@ -29,6 +34,8 @@ export default function userLoginReducer(state = initialState, action) {
             return state.set('success', action.payload);
         case LOGIN_ERROR:
             return state.set('errorMessage', action.payload);
+        case TEXT_INPUT_FOCUS:
+            return state.setIn(['inputTextFocus', action.field], action.style);
         default:
             return state;
     }
@@ -48,4 +55,10 @@ export const setIsLogin = status => ({
 export const loginFlow = payload => ({
     type: LOGIN,
     payload
+});
+
+export const textInputFocus = (field, style) => ({
+    type: TEXT_INPUT_FOCUS,
+    field,
+    style
 });

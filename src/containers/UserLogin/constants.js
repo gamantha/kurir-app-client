@@ -6,3 +6,4 @@ export const LOGIN_ERROR = 'src/containers/UserLogin/LOGIN_ERROR';
 export const UPDATE_LOGIN_INPUT_FIELD =
     'src/containers/UserLogin/UPDATE_LOGIN_INPUT_FIELD';
 export const LOGOUT = 'src/containers/UserLogin/LOGOUT';
+export const TEXT_INPUT_FOCUS = 'src/containers/UserLogin/TEXT_INPUT_FOCUS';

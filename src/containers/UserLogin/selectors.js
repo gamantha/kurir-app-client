@@ -33,6 +33,11 @@ export const getIsLoadingUser = () =>
 export const getLoginData = () =>
     createSelector(selectUserLoginReducer(), state => state.get('success'));
 
+export const getTextInputFocus = () =>
+    createSelector(selectUserLoginReducer(), state =>
+        state.get('inputTextFocus').toJS()
+    );
+
 export const getErrorMessage = () =>
     createSelector(selectUserLoginReducer(), state =>
         state.get('errorMessage')
