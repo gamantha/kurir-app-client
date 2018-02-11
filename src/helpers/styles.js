@@ -35,5 +35,11 @@ export default StyleSheet.create({
         justifyContent: 'space-around',
         width: '100%',
         height: '100%'
+    },
+    textButton: {
+        color: '#FFFFFF',
+        textAlign: 'center',
+        fontSize: 16,
+        fontWeight: 'bold'
     }
 });
