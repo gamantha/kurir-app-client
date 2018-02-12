@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Button, Image } from 'react-native';
 import Swiper from 'react-native-swiper';
 
+import { images } from '../../assets';
+
 const styles = {
     wrapper: {},
     slide1: {
@@ -50,7 +52,7 @@ const styles = {
         paddingLeft: 20
     }
 };
-/* eslint-disable */
+
 class OnboardingComponent extends React.Component {
     render() {
         return (
@@ -63,12 +65,13 @@ class OnboardingComponent extends React.Component {
                 <View style={styles.slide1}>
                     <Image
                         style={styles.imageMargin}
-                        source={require('../../assets/images/splash-1.png')}
+                        source={images.traveler}
                     />
                     <Text style={styles.headline}>Find a Traveler</Text>
                     <Text style={styles.body}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Primum divisit ineleganter; Sed fortuna fortis.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
                     </Text>
                     <TouchableOpacity
                         onPress={() => this.refs.swiper.scrollBy(1)}
@@ -79,22 +82,18 @@ class OnboardingComponent extends React.Component {
                         <Text style={styles.nextText}> NEXT </Text>
                     </TouchableOpacity>
                     <Button
-                        onPress={() =>
-                            this.props.navigation.navigate('Register')
-                        }
+                        onPress={() => this.props.navigation.navigate('Login')}
                         color="#424242"
                         title="Skip"
                     />
                 </View>
                 <View style={styles.slide2}>
-                    <Image
-                        style={styles.imageMargin}
-                        source={require('../../assets/images/splash-2.png')}
-                    />
+                    <Image style={styles.imageMargin} source={images.handoff} />
                     <Text style={styles.headline}>Hand off the Item</Text>
                     <Text style={styles.body}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Primum divisit ineleganter; Sed fortuna fortis.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
                     </Text>
                     <TouchableOpacity
                         onPress={() => this.refs.swiper.scrollBy(1)}
@@ -105,9 +104,7 @@ class OnboardingComponent extends React.Component {
                         <Text style={styles.nextText}> NEXT </Text>
                     </TouchableOpacity>
                     <Button
-                        onPress={() =>
-                            this.props.navigation.navigate('Register')
-                        }
+                        onPress={() => this.props.navigation.navigate('Login')}
                         color="#424242"
                         title="Skip"
                     />
@@ -115,27 +112,26 @@ class OnboardingComponent extends React.Component {
                 <View style={styles.slide3}>
                     <Image
                         style={styles.imageMargin}
-                        source={require('../../assets/images/splash-3.png')}
+                        source={images.trackPackage}
                     />
                     <Text style={styles.headline}>Track the Package</Text>
                     <Text style={styles.body}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Primum divisit ineleganter; Sed fortuna fortis.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
                     </Text>
                     <TouchableOpacity
-                        onPress={() =>
-                            this.props.navigation.navigate('Register')
-                        }
+                        onPress={() => this.props.navigation.navigate('Login')}
                         style={styles.button}
                         title="Test"
                         color="#841584"
                     >
-                        <Text style={styles.nextText}>REGISTER</Text>
+                        <Text style={styles.nextText}>NEXT</Text>
                     </TouchableOpacity>
                     <Button
                         onPress={() => this.props.navigation.navigate('Login')}
                         color="#424242"
-                        title="Or login"
+                        title="Skip"
                     />
                 </View>
             </Swiper>

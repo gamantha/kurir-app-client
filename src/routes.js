@@ -1,12 +1,16 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
+// Main components
 import SplashScreen from './components/SplashScreen';
 import Onboarding from './components/Onboarding';
 import UserRegister from './containers/UserRegister';
 import UserLogin from './containers/UserLogin';
-import UserProfile from './containers/UserProfile';
+import UserDashboard from './containers/Dashboard';
 import ForgotPassword from './containers/ForgotPassword';
+
+// Navigation components
+import DashboardNavbar from './navigations/DashboardNavbar';
 
 export const Kurir = StackNavigator(
     {
@@ -40,15 +44,18 @@ export const Kurir = StackNavigator(
                 header: null
             }
         },
-        Profile: {
-            screen: UserProfile,
+        Dashboard: {
+            screen: UserDashboard,
             navigationOptions: {
-                header: null
+                headerTitle: <DashboardNavbar />,
+                headerStyle: {
+                    backgroundColor: '#FFFFFF'
+                }
             }
         }
     },
     //config
     {
-        initialRouteName: 'Login'
+        initialRouteName: 'Dashboard'
     }
 );
