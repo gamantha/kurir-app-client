@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Button, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { images } from '../../assets';
 import styles from '../../helpers/styles';
 
-class Dashboard extends React.Component {
+class Dashboard extends Component {
     render() {
         return (
             <View style={styles.container}>
@@ -16,14 +16,14 @@ class Dashboard extends React.Component {
                     {/* This will be a swiper */}
                     <Text>Competitive Rate</Text>
                 </View>
-
+                {/* Start of Send Package! */}
                 <View
                     style={{
                         flex: 1.2,
                         backgroundColor: 'rgba(222, 30, 67, 1)'
                     }}
                 >
-                    <View
+                    <TouchableOpacity
                         style={[
                             styles.container,
                             {
@@ -59,7 +59,7 @@ class Dashboard extends React.Component {
                         <Text style={{ fontSize: 16, color: '#FFFFFF' }}>
                             Secure now
                         </Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <View
                     style={{
@@ -69,7 +69,7 @@ class Dashboard extends React.Component {
                         alignItems: 'flex-start'
                     }}
                 >
-                    <View
+                    <TouchableOpacity
                         style={[
                             styles.container,
                             {
@@ -110,7 +110,7 @@ class Dashboard extends React.Component {
                             </Text>
                         </View>
                         <View style={{ flex: 1 }} />
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
