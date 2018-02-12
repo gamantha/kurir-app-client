@@ -133,6 +133,7 @@ class ForgotPasswordInput extends Component {
                                 onChangeText={value => this.setEmail(value)}
                                 value={email}
                                 autoCapitalize="none"
+                                underlineColorAndroid="transparent"
                             />
                         </View>
                         <View style={{ flex: 0.3 }}>

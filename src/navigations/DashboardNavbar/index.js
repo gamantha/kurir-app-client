@@ -14,7 +14,8 @@ const DashboardNavbar = () => (
         <View
             style={{
                 flex: 0.2,
-                alignItems: 'center'
+                alignItems: 'center',
+                justifyContent: 'center'
             }}
         >
             <Icon name="menu" size={40} />
@@ -28,7 +29,7 @@ const DashboardNavbar = () => (
         >
             <Image
                 source={images.kurirheader}
-                style={{ height: '90%', width: '50%' }}
+                style={{ height: '90%', width: '55%' }}
             />
         </View>
         <View style={{ flex: 0.2 }} />

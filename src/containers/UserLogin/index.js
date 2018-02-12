@@ -101,6 +101,7 @@ class UserLogin extends Component {
                                 value={username}
                                 autoCapitalize="none"
                                 autoCorrect={false}
+                                underlineColorAndroid="transparent"
                             />
                         </View>
                         <Text>Type your password</Text>
@@ -119,6 +120,7 @@ class UserLogin extends Component {
                                 secureTextEntry
                                 autoCapitalize="none"
                                 autoCorrect={false}
+                                underlineColorAndroid="transparent"
                             />
                         </View>
                     </View>

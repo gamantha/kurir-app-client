@@ -114,6 +114,7 @@ class UserRegister extends React.Component {
                                 value={email}
                                 autoCapitalize="none"
                                 autoCorrect={false}
+                                underlineColorAndroid="transparent"
                             />
                             {isValidEmail === null ? (
                                 <Icon
@@ -148,6 +149,7 @@ class UserRegister extends React.Component {
                                 secureTextEntry
                                 autoCapitalize="none"
                                 autoCorrect={false}
+                                underlineColorAndroid="transparent"
                             />
                             {isValidPassword === null ? (
                                 <Icon
@@ -185,6 +187,7 @@ class UserRegister extends React.Component {
                                 secureTextEntry
                                 autoCapitalize="none"
                                 autoCorrect={false}
+                                underlineColorAndroid="transparent"
                             />
                             {isValidRepassword === null ? (
                                 <Icon

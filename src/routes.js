@@ -56,6 +56,6 @@ export const Kurir = StackNavigator(
     },
     //config
     {
-        initialRouteName: 'Dashboard'
+        initialRouteName: 'Splash'
     }
 );
