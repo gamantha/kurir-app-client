@@ -26,7 +26,7 @@ class UserLogin extends Component {
             Toast.show(errorMessage, Toast.LONG);
         }
         if (success) {
-            this.props.navigation.navigate('Profile');
+            this.props.navigation.navigate('Dashboard');
         }
     }
 
