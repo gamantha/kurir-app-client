@@ -2,18 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import {
-    Container,
-    Header,
-    Content,
-    Form,
-    Item,
-    Input,
-    Label,
-    Button,
-    Text
-} from 'native-base';
-
+import { View } from 'react-native';
 import { ActivityIndicator } from 'react-native';
 import * as actions from './reducer';
 import * as selectors from './selectors';
@@ -44,37 +33,35 @@ class VerificationCode extends Component {
         // if (verificationSuccess) {
         //   return <NewPasswordInput email={this.props.email} />;
         // }
-        return (
-            <Container>
-                <Header />
-                <Content>
-                    <Form>
-                        <Label>Enter your verification code:</Label>
-                        <Item rounded>
-                            <Input
-                                onChangeText={value =>
-                                    this.handleSetCode(value)
-                                }
-                                value={verificationCode}
-                                autoCapitalize="none"
-                            />
-                        </Item>
-                        <Button
-                            rounded
-                            primary
-                            onPress={() => {
-                                this.handleVerify(verificationCode, email);
-                            }}
-                        >
-                            <Text>NEXT</Text>
-                        </Button>
-                    </Form>
-                </Content>
-            </Container>
-        );
+        return <View />;
     }
 }
-
+// <Container>
+//     <Header />
+//     <Content>
+//         <Form>
+//             <Label>Enter your verification code:</Label>
+//             <Item rounded>
+//                 <Input
+//                     onChangeText={value =>
+//                         this.handleSetCode(value)
+//                     }
+//                     value={verificationCode}
+//                     autoCapitalize="none"
+//                 />
+//             </Item>
+//             <Button
+//                 rounded
+//                 primary
+//                 onPress={() => {
+//                     this.handleVerify(verificationCode, email);
+//                 }}
+//             >
+//                 <Text>NEXT</Text>
+//             </Button>
+//         </Form>
+//     </Content>
+// </Container>
 const mapDispatchToProps = dispatch =>
     bindActionCreators(
         {
