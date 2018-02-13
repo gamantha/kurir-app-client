@@ -47,7 +47,7 @@ function* watchInputFields(payload) {
             'inputFields',
             'password'
         ]);
-        isValid = value === password;
+        isValid = value === password && value !== '';
         yield put(setValidationValue(field, isValid));
     }
 }

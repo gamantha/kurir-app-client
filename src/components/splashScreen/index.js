@@ -46,7 +46,7 @@ class SplashScreen extends Component {
                     navigate('Dashboard');
                 }
             }
-            navigate('Onboard');
+            navigate('Login');
         }
     }
 

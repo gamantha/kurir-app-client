@@ -16,7 +16,8 @@ export default StyleSheet.create({
         height: 50,
         borderWidth: 1,
         borderColor: '#BD303f',
-        borderRadius: 50
+        borderRadius: 50,
+        paddingLeft: 20
     },
     icon: {
         marginRight: 5
