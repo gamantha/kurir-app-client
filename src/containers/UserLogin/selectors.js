@@ -6,25 +6,39 @@ import { createSelector } from 'reselect';
  * see './src/reducers/index.js'
  * @return Object
  */
-export const selectUserLoginReducer = () => (state) => state.get('userLogin');
+export const selectUserLoginReducer = () => state => state.get('userLogin');
 
 /**
  * Getter for password object state in reducer
  * @return {object}
  */
 export const getLoginInputField = () =>
-  createSelector(selectUserLoginReducer(), (state) => state.get('loginInputField').toJS());
+    createSelector(selectUserLoginReducer(), state =>
+        state.get('loginInputField').toJS()
+    );
 
 /**
  * Getter for isLoadingUserLogin object state in reducer
  * @return {object}
  */
 export const getIsLoadingUser = () =>
-  createSelector(selectUserLoginReducer(), (state) => state.get('isLoadingUserLogin'));
+    createSelector(selectUserLoginReducer(), state =>
+        state.get('isLoadingUserLogin')
+    );
 
 /**
  * Getter for loginData object state in reducer
  * @return {object}
  */
 export const getLoginData = () =>
-  createSelector(selectUserLoginReducer(), (state) => state.get('loginData'));
+    createSelector(selectUserLoginReducer(), state => state.get('success'));
+
+export const getTextInputFocus = () =>
+    createSelector(selectUserLoginReducer(), state =>
+        state.get('inputTextFocus').toJS()
+    );
+
+export const getErrorMessage = () =>
+    createSelector(selectUserLoginReducer(), state =>
+        state.get('errorMessage')
+    );

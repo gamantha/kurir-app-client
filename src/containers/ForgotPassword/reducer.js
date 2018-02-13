@@ -1,11 +1,19 @@
 import { fromJS } from 'immutable';
-import { SHOW_LOADING, VERIFICATION_SUCCESS, VERIFICATION_ERROR, SET_EMAIL } from './constants';
+import {
+    SHOW_LOADING,
+    STATUS_MESSAGE,
+    SET_EMAIL,
+    FORGOT_PASSWORD
+} from './constants';
 
 const initialState = fromJS({
-  email: '',
-  showLoading: false,
-  status: false,
-  message: ''
+    email: '',
+    showLoading: false,
+    statusMessage: {
+        status: false,
+        message: ''
+    },
+    testing: ''
 });
 
 /**
@@ -16,19 +24,42 @@ const initialState = fromJS({
  * @param  Object action - { type, payload } from action creator
  * @return Object
  */
-function forgotPasswordReducer(state = initialState, action) {
-  switch (action.type) {
-    case SHOW_LOADING:
-      return state.set('showLoading', action.status);
-    case SET_EMAIL:
-      return state.set('email', action.payload);
-    case VERIFICATION_SUCCESS:
-      return state.set('status', action.status);
-    case VERIFICATION_ERROR:
-      return state.set('message', action.payload);
-    default:
-      return state;
-  }
+export default function forgotPasswordReducer(state = initialState, action) {
+    switch (action.type) {
+        case SHOW_LOADING:
+            return state.set('showLoading', action.status);
+        case SET_EMAIL:
+            return state.set('email', action.payload);
+        case STATUS_MESSAGE:
+            return state.set('statusMessage', fromJS(action.payload));
+        default:
+            return state;
+    }
 }
 
-export default forgotPasswordReducer;
+/**
+ * Toggle loading status
+ *
+ * @param  Boolean status
+ * @return Object
+ */
+export const showLoading = status => ({
+    type: SHOW_LOADING,
+    status
+});
+
+/**
+ * Set email value on reducer object
+ *
+ * @param  Boolean status
+ * @return Object
+ */
+export const setEmail = email => ({
+    type: SET_EMAIL,
+    payload: email
+});
+
+export const forgotPassword = email => ({
+    type: FORGOT_PASSWORD,
+    payload: email
+});

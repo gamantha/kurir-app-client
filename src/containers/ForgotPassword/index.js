@@ -1,71 +1,183 @@
 import React, { Component } from 'react';
 import {
-  Container,
-  Header,
-  Content,
-  Form,
-  Item,
-  Input,
-  Label,
-  Button,
-  Text,
-  Toast,
-  Root
-} from 'native-base';
+    View,
+    TouchableOpacity,
+    Text,
+    ImageBackground,
+    Image,
+    TextInput,
+    Button
+} from 'react-native';
+import Toast from 'react-native-simple-toast';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import * as actions from './actions';
+
+import * as actions from './reducer';
 import * as selectors from './selectors';
 import VerificationCodeInput from '../VerificationCode';
+import styles from '../../helpers/styles';
+import { images } from '../../assets';
 
 class ForgotPasswordInput extends Component {
-  onPressSendEmail = (email) => {
-    this.props.forgotPassword({ email });
-  };
-
-  setEmail = (email) => {
-    this.props.setEmail(email);
-  };
-
-  render() {
-    if (this.props.status) {
-      return <VerificationCodeInput email={this.props.email} />;
+    componentWillReceiveProps(nextProps) {
+        const { statusMessage } = nextProps;
+        const { status, message } = statusMessage;
+        if (message) {
+            Toast.show(message);
+        }
     }
-    return (
-      <Container>
-        <Header />
-        <Content>
-          <Form>
-            <Label>Enter your email</Label>
-            <Item rounded>
-              <Input
-                onChangeText={(email) => this.setEmail(email)}
-                value={this.props.email}
-                autoCapitalize="none"
-              />
-            </Item>
-            <Button
-              rounded
-              primary
-              onPress={() => {
-                this.onPressSendEmail(this.state.email);
-              }}
-            >
-              <Text>SEND EMAIL</Text>
-            </Button>
-          </Form>
-        </Content>
-      </Container>
-    );
-  }
+
+    setEmail = email => {
+        this.props.setEmail(email);
+    };
+
+    handlePress = email => {
+        this.props.forgotPassword({ email });
+    };
+
+    render() {
+        const { statusMessage, email } = this.props;
+        const { status } = statusMessage;
+        if (status) {
+            return <VerificationCodeInput email={email} />;
+        }
+        return (
+            <View style={styles.container}>
+                <View
+                    style={{
+                        flex: 1.5,
+                        justifyContent: 'space-between'
+                    }}
+                >
+                    <View
+                        style={[
+                            styles.container,
+                            { marginLeft: 25, marginRight: 25 }
+                        ]}
+                    >
+                        <View
+                            style={{
+                                flex: 0.3,
+                                justifyContent: 'flex-end'
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    fontSize: 16,
+                                    fontWeight: 'bold'
+                                }}
+                            >
+                                Forgot Password
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                flex: 0.6,
+                                flexDirection: 'row'
+                            }}
+                        >
+                            <View
+                                style={{
+                                    flex: 0.8,
+                                    justifyContent: 'flex-start',
+                                    alignItems: 'flex-start'
+                                }}
+                            >
+                                <Text style={{ fontSize: 16 }}>
+                                    Enter Your email address and we will send a
+                                    verification number through your email
+                                </Text>
+                            </View>
+
+                            <View
+                                style={{
+                                    flex: 0.2
+                                }}
+                            />
+                        </View>
+                    </View>
+                </View>
+                <View
+                    style={{
+                        flex: 1.5
+                    }}
+                >
+                    <View
+                        style={[
+                            styles.container,
+                            {
+                                marginLeft: 25,
+                                marginRight: 25,
+                                justifyContent: 'space-around'
+                            }
+                        ]}
+                    >
+                        <View
+                            style={{
+                                flex: 0.2,
+                                flexDirection: 'row',
+                                alignItems: 'flex-end'
+                            }}
+                        >
+                            <Text style={{ fontSize: 16 }}>Email:</Text>
+                        </View>
+                        <View
+                            style={{
+                                flex: 0.5,
+                                justifyContent: 'space-around'
+                            }}
+                        >
+                            <TextInput
+                                style={[styles.inputText, { flex: 0.7 }]}
+                                onChangeText={value => this.setEmail(value)}
+                                value={email}
+                                autoCapitalize="none"
+                                underlineColorAndroid="transparent"
+                            />
+                        </View>
+                        <View style={{ flex: 0.3 }}>
+                            <TouchableOpacity
+                                style={styles.touchAbleButton}
+                                onPress={() => {
+                                    this.handlePress(email);
+                                }}
+                                disabled={!(email.length > 0)}
+                            >
+                                <Text style={styles.textButton}>
+                                    SEND EMAIL
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+                <View style={{ flex: 3 }}>
+                    <ImageBackground
+                        source={images.baseline}
+                        style={styles.imageBackground}
+                    />
+                </View>
+            </View>
+        );
+    }
 }
 
-const mapStateToProps = () =>
-  createStructuredSelector({
-    isShowLoading: selectors.getShowLoading(),
-    message: selectors.getMessage(),
-    email: selectors.getEmail(),
-    status: selectors.getStatus()
-  });
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(
+        {
+            setEmail: actions.setEmail,
+            forgotPassword: actions.forgotPassword
+        },
+        dispatch
+    );
 
-export default connect(mapStateToProps, actions)(ForgotPasswordInput);
+const mapStateToProps = () =>
+    createStructuredSelector({
+        isShowLoading: selectors.getShowLoading(),
+        statusMessage: selectors.getMessage(),
+        email: selectors.getEmail()
+    });
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+    ForgotPasswordInput
+);

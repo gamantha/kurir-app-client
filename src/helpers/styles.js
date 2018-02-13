@@ -1,9 +1,46 @@
-export const inputStyles = {
-  focus: {
-    backgroundColor: '#fee8ea'
-  }
-};
+import { StyleSheet } from 'react-native';
 
-export const test = {
-  backgroundColor: '#fee8ea'
-};
+export default StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'space-between',
+        backgroundColor: '#FFFFFF'
+    },
+    inputTextContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    inputText: {
+        flex: 1,
+        height: 50,
+        borderWidth: 1,
+        borderColor: '#BD303f',
+        borderRadius: 50,
+        paddingLeft: 20
+    },
+    icon: {
+        marginRight: 5
+    },
+    touchAbleButton: {
+        backgroundColor: '#BD303f',
+        borderWidth: 1,
+        borderRadius: 50,
+        borderColor: '#BC2938',
+        height: 50,
+        justifyContent: 'center',
+        marginLeft: 20,
+        marginRight: 20
+    },
+    imageBackground: {
+        justifyContent: 'space-around',
+        width: '100%',
+        height: '100%'
+    },
+    textButton: {
+        color: '#FFFFFF',
+        textAlign: 'center',
+        fontSize: 16,
+        fontWeight: 'bold'
+    }
+});

@@ -1,20 +1,17 @@
 import { fromJS } from 'immutable';
-import {
-  IS_LOADING_VERIFICATION_CODE,
-  VERIFICATION_STATUS,
-  VERIFICATION_MESSAGE,
-  SET_VERIFICATION_CODE
-} from './constants';
+import { IS_LOADING, STATUS_MESSAGE, SET_CODE, VERIFY } from './constants';
 
 /**
  * Initial state for application
  * @type {Map}
  */
 const initialState = fromJS({
-  code: '',
-  isLoading: false,
-  verificationStatus: '',
-  verificationMessage: ''
+    isLoading: false,
+    code: '',
+    statusMessage: {
+        status: '',
+        message: ''
+    }
 });
 
 /**
@@ -26,19 +23,27 @@ const initialState = fromJS({
  * @param  {Object} action
  * @return {Mixed}
  */
-function verificationCodeReducer(state = initialState, action) {
-  switch (action.type) {
-    case SET_VERIFICATION_CODE:
-      return state.set('code', action.payload);
-    case IS_LOADING_VERIFICATION_CODE:
-      return state.set('isLoading', action.status);
-    case VERIFICATION_STATUS:
-      return state.set('verificationStatus', action.payload);
-    case VERIFICATION_MESSAGE:
-      return state.set('verificationMessage', action.payload);
-    default:
-      return state;
-  }
+export default function verificationCodeReducer(state = initialState, action) {
+    switch (action.type) {
+        case SET_CODE:
+            return state.set('code', action.payload);
+        case IS_LOADING:
+            return state.set('isLoading', action.status);
+        case STATUS_MESSAGE:
+            return state.set('statusMessage', fromJS(action.payload));
+        default:
+            return state;
+    }
 }
 
-export default verificationCodeReducer;
+export const isLoading = status => ({
+    type: IS_LOADING,
+    status
+});
+
+export const setCode = code => ({ type: SET_CODE, payload: code });
+
+export const verify = code => ({
+    type: VERIFY,
+    payload: code
+});

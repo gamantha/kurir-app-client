@@ -1,80 +1,81 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import {
-  Container,
-  Header,
-  Content,
-  Form,
-  Item,
-  Input,
-  Label,
-  Button,
-  Text,
-  Toast,
-  Root
-} from 'native-base';
-
-import * as actions from './actions';
+import { View } from 'react-native';
+import { ActivityIndicator } from 'react-native';
+import * as actions from './reducer';
 import * as selectors from './selectors';
 // import NewPasswordInput from '../newPassword';
 
 class VerificationCode extends Component {
-  onPressSendVeriCode = (verificationCode, email) => {
-    const verificationCodePayload = { verificationCode, email };
-    this.props.checkCodeVerification(verificationCodePayload);
-  };
+    handleVerify = (code, email) => {
+        const payload = { code, email };
+        this.props.verify(payload);
+    };
 
-  setVerificationCode = (verificationCode) => {
-    this.props.setVerificationCode(verificationCode);
-  };
+    handleSetCode = code => {
+        this.props.setCode(code);
+    };
 
-  render() {
-    const { verificationStatus } = this.props;
-    // if (verificationSuccess) {
-    //   return <NewPasswordInput email={this.props.email} />;
-    // }
-    return (
-      <Container>
-        <Header />
-        <Content>
-          <Form>
-            <Label>Enter your verification code:</Label>
-            <Item rounded>
-              <Input
-                onChangeText={(verificationCode) => this.setVerificationCode(verificationCode)}
-                value={this.props.verificationCode}
-                autoCapitalize="none"
-              />
-            </Item>
-            <Button
-              rounded
-              primary
-              onPress={() => {
-                this.onPressSendVeriCode(this.props.verificationCode, this.props.email);
-              }}
-            >
-              <Text>NEXT</Text>
-            </Button>
-            <Text>
-              {this.props.msgReducer.checkVerifCodeMsg.isLoading ? 'loading' : 'tidak loading'}
-            </Text>
-            <Text>
-              {this.props.msgReducer.checkVerifCodeMsg.isSuccess ? 'sukses' : 'tidak sukses'}
-            </Text>
-          </Form>
-        </Content>
-      </Container>
-    );
-  }
+    render() {
+        // email property is from ForgotPassword containers
+        const {
+            statusMessage,
+            isLoading,
+            email,
+            verificationCode
+        } = this.props;
+        const { status } = statusMessage;
+        if (isLoading) {
+            return <ActivityIndicator size="large" color="#00ff00" />;
+        }
+        // if (verificationSuccess) {
+        //   return <NewPasswordInput email={this.props.email} />;
+        // }
+        return <View />;
+    }
 }
+// <Container>
+//     <Header />
+//     <Content>
+//         <Form>
+//             <Label>Enter your verification code:</Label>
+//             <Item rounded>
+//                 <Input
+//                     onChangeText={value =>
+//                         this.handleSetCode(value)
+//                     }
+//                     value={verificationCode}
+//                     autoCapitalize="none"
+//                 />
+//             </Item>
+//             <Button
+//                 rounded
+//                 primary
+//                 onPress={() => {
+//                     this.handleVerify(verificationCode, email);
+//                 }}
+//             >
+//                 <Text>NEXT</Text>
+//             </Button>
+//         </Form>
+//     </Content>
+// </Container>
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(
+        {
+            setCode: actions.setCode,
+            verify: actions.verify
+        },
+        dispatch
+    );
 
 const mapStateToProps = () =>
-  createStructuredSelector({
-    verificationCode: selectors.getVerificationCode(),
-    isLoading: selectors.getIsLoading(),
-    verificationStatus: selectors.getVerificationStatus(),
-    verificationMessage: selectors.getVerificationMessage()
-  });
+    createStructuredSelector({
+        verificationCode: selectors.getCode(),
+        isLoading: selectors.getIsLoading(),
+        statusMessage: selectors.getMessage()
+    });
 
-export default connect(mapStateToProps, actions)(VerificationCode);
+export default connect(mapStateToProps, mapDispatchToProps)(VerificationCode);
