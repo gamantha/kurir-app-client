@@ -25,10 +25,10 @@ target 'kurir-tvOS' do
 
   # Pods for kurir-tvOS
 
-  target 'kurir-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+  # target 'kurir-tvOSTests' do
+  #   inherit! :search_paths
+  #   # Pods for testing
+  # end
 
 end
 

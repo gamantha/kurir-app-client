@@ -50,7 +50,8 @@ export const Kurir = StackNavigator(
                 headerTitle: <DashboardNavbar />,
                 headerStyle: {
                     backgroundColor: '#FFFFFF'
-                }
+                },
+                headerLeft: null
             }
         }
     },

@@ -4,6 +4,7 @@ import {
     UPDATE_LOGIN_INPUT_FIELD,
     IS_LOADING_USER_LOGIN,
     TEXT_INPUT_FOCUS,
+    REFRESH_TOKEN,
     LOGIN_SUCCESS,
     ACCESS_TOKEN,
     LOGIN_ERROR,
@@ -61,4 +62,9 @@ export const textInputFocus = (field, style) => ({
     type: TEXT_INPUT_FOCUS,
     field,
     style
+});
+
+export const reqRefreshToken = refreshToken => ({
+    type: REFRESH_TOKEN,
+    payload: refreshToken
 });

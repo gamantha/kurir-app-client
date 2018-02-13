@@ -1,8 +1,12 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import { Animated, Image, ActivityIndicator, Easing } from 'react-native';
+import SInfo from 'react-native-sensitive-info';
+import jwtDecode from 'jwt-decode';
 
 import { images } from '../../assets';
+import Api from '../../services/api';
+import { reqRefreshToken } from '../../containers/UserRegister/reducer';
 
 class SplashScreen extends Component {
     constructor() {
@@ -13,8 +17,37 @@ class SplashScreen extends Component {
         this.divideScale = new Animated.Value(0);
     }
 
-    componentDidMount() {
-        setTimeout(() => this.props.navigation.navigate('Onboard'), 3000);
+    async componentWillMount() {
+        const { navigate } = this.props.navigation;
+        try {
+            const accessToken = await SInfo.getItem('accessToken', {});
+            const refreshToken = await SInfo.getItem('refreshToken', {});
+            if (accessToken) {
+                const { exp } = jwtDecode(accessToken);
+                console.log('JWT', exp);
+                if (exp < Date.now() / 1000) {
+                    const newToken = await reqRefreshToken(refreshToken);
+                    if (newToken) {
+                        Api.setAuthorizationToken(accessToken);
+                    }
+                    navigate('Dashboard');
+                }
+                navigate('Dashboard');
+            }
+        } catch (error) {
+            if (
+                err.message === 'invalid_token' ||
+                err.message === 'invalid token'
+            ) {
+                const refreshToken = await SInfo.getItem('refreshToken', {});
+                const newToken = await reqRefreshToken(refreshToken);
+                if (newToken) {
+                    Api.setAuthorizationToken(accessToken);
+                    navigate('Dashboard');
+                }
+            }
+            navigate('Onboard');
+        }
     }
 
     moveit = () => {

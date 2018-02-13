@@ -1,7 +1,13 @@
-import { put, call, take, takeLatest } from 'redux-saga/effects';
+import { put, call, takeEvery, takeLatest } from 'redux-saga/effects';
 import Api from '../../services/userlogin';
-import { LOGIN_SUCCESS, LOGIN_ERROR, LOGIN, LOGOUT } from './constants';
-import { setIsLogin, updateLoginInputField } from './reducer';
+import {
+    LOGIN_SUCCESS,
+    LOGIN_ERROR,
+    LOGIN,
+    LOGOUT,
+    REFRESH_TOKEN
+} from './constants';
+import { setIsLogin, updateLoginInputField, reqRefreshToken } from './reducer';
 import { saveTokenData } from '../../reducers/tokenReducer';
 
 /**
@@ -28,6 +34,25 @@ function* watchLoginFlow(payload) {
     }
 }
 
-const userLoginSagas = [takeLatest(LOGIN, watchLoginFlow)];
+// send the payload to backend then
+function* watchRefreshToken({ payload: { refreshToken } }) {
+    try {
+        const response = yield call(Api.post, refreshToken);
+        const { meta, data } = response.data;
+        if (meta.success && data) {
+            const { accessToken, refreshToken } = data;
+            saveTokenData({ accessToken, refreshToken });
+        }
+    } catch (error) {
+        yield put({ type: LOGIN_ERROR, payload: error.message });
+    } finally {
+        // do something here later
+    }
+}
+
+const userLoginSagas = [
+    takeLatest(LOGIN, watchLoginFlow),
+    takeEvery(REFRESH_TOKEN, reqRefreshToken)
+];
 
 export default userLoginSagas;
