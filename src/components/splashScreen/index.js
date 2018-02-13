@@ -30,11 +30,14 @@ class SplashScreen extends Component {
                     if (newToken) {
                         Api.setAuthorizationToken(accessToken);
                     }
-                    navigate('Dashboard');
+                    // navigate('Dashboard');
                 }
                 navigate('Dashboard');
+            } else {
+                navigate('Login');
             }
         } catch (error) {
+            console.log('ERROr');
             if (
                 err.message === 'invalid_token' ||
                 err.message === 'invalid token'
