@@ -18,7 +18,8 @@
         "react-test-renderer": "16.2.0"
     },
     "scripts": {
-        "postinstall": "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json",
+        "fix-icons":
+            "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json",
         "start": "react-native start",
         "android": "react-native run-android",
         "ios": "react-native run-ios",
