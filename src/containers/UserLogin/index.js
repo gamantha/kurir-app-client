@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Toast from 'react-native-simple-toast';
 import {
+    Animated,
     ActivityIndicator,
     View,
     Text,
@@ -8,7 +9,10 @@ import {
     Image,
     TouchableOpacity,
     Button,
-    ImageBackground
+    ImageBackground,
+    Keyboard,
+    KeyboardAvoidingView,
+    ScrollView
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -17,9 +21,25 @@ import { createStructuredSelector } from 'reselect';
 import * as actions from './reducer';
 import * as selectors from './selectors';
 import { images } from '../../assets';
-import styles from '../../helpers/styles';
+import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL } from '../../helpers/styles';
 
 class UserLogin extends Component {
+    constructor(props) {
+        super(props);
+        this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
+    }
+
+    componentWillMount() {
+        this.keyboardWillShowSub = Keyboard.addListener(
+            'keyboardWillShow',
+            this.keyboardWillShow
+        );
+        this.keyboardWillHideSub = Keyboard.addListener(
+            'keyboardWillHide',
+            this.keyboardWillHide
+        );
+    }
+
     componentWillReceiveProps(nextProps) {
         const { errorMessage, success } = nextProps;
         if (errorMessage) {
@@ -28,6 +48,11 @@ class UserLogin extends Component {
         if (success) {
             this.props.navigation.navigate('Dashboard');
         }
+    }
+
+    componentWillUnmount() {
+        this.keyboardWillShowSub.remove();
+        this.keyboardWillHideSub.remove();
     }
 
     onClickLogin = () => {
@@ -47,6 +72,20 @@ class UserLogin extends Component {
         this.props.textInputFocus(field, '#FFFFFF');
     };
 
+    keyboardWillShow = event => {
+        Animated.timing(this.imageHeight, {
+            duration: event.duration,
+            toValue: IMAGE_HEIGHT_SMALL
+        }).start();
+    };
+
+    keyboardWillHide = event => {
+        Animated.timing(this.imageHeight, {
+            duration: event.duration,
+            toValue: IMAGE_HEIGHT
+        }).start();
+    };
+
     render() {
         const {
             loginInputField,
@@ -59,150 +98,185 @@ class UserLogin extends Component {
         const { username, password } = loginInputField;
         const disableButton = username !== '' && password !== '';
         return (
-            <View style={styles.container}>
-                <View
-                    style={{
-                        flex: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}
-                >
-                    <Image
-                        source={images.logo}
-                        style={{ width: 120, height: 120 }}
-                    />
-                </View>
-                <View
-                    style={{
-                        flex: 1,
-                        flexDirection: 'column',
-                        justifyContent: 'space-around'
-                    }}
-                >
+            <KeyboardAvoidingView style={styles.container} behaviour="padding">
+                <View style={styles.container}>
                     <View
-                        style={[
-                            styles.container,
-                            { marginLeft: 20, marginRight: 20 }
-                        ]}
+                        style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
                     >
-                        <Text>User Name</Text>
-                        <View style={styles.inputTextContainer}>
-                            <TextInput
-                                style={[
-                                    styles.inputText,
-                                    { backgroundColor: inputFocus.username }
-                                ]}
-                                onFocus={() => this.textInputFocus('username')}
-                                onBlur={() => this.textInputBlur('username')}
-                                onChangeText={value =>
-                                    this.setLoginInputField('username', value)
-                                }
-                                value={username}
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                underlineColorAndroid="transparent"
-                            />
-                        </View>
-                        <Text>Type your password</Text>
-                        <View style={styles.inputTextContainer}>
-                            <TextInput
-                                style={[
-                                    styles.inputText,
-                                    { backgroundColor: inputFocus.password }
-                                ]}
-                                onFocus={() => this.textInputFocus('password')}
-                                onBlur={() => this.textInputBlur('password')}
-                                onChangeText={value =>
-                                    this.setLoginInputField('password', value)
-                                }
-                                value={password}
-                                secureTextEntry
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                underlineColorAndroid="transparent"
-                            />
-                        </View>
+                        <Image
+                            source={images.logo}
+                            style={{ width: 120, height: 120 }}
+                        />
                     </View>
-                </View>
-                <View style={{ flex: 0.4, justifyContent: 'flex-end' }}>
-                    <Text style={{ textAlign: 'center' }}>
-                        You can also login with ...
-                    </Text>
-                </View>
-                <View
-                    style={{
-                        flex: 2
-                    }}
-                >
-                    <ImageBackground
-                        source={images.baseline}
-                        style={styles.imageBackground}
+                    <View
+                        style={{
+                            flex: 1,
+                            flexDirection: 'column',
+                            justifyContent: 'space-around'
+                        }}
                     >
                         <View
                             style={[
                                 styles.container,
-                                {
-                                    flex: 0.8,
-                                    marginLeft: 30,
-                                    marginRight: 30,
-                                    backgroundColor: 'rgba(52, 52, 52, 0)'
-                                }
+                                { marginLeft: 20, marginRight: 20 }
                             ]}
                         >
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-around',
-                                    alignItems: 'center'
-                                }}
-                            >
-                                <Image
-                                    source={images.facebook}
-                                    style={{ width: 50, height: 50 }}
-                                />
-                                <Image
-                                    source={images.google}
-                                    style={{ width: 50, height: 50 }}
+                            <Text>User Name</Text>
+                            <View style={styles.inputTextContainer}>
+                                <TextInput
+                                    style={[
+                                        styles.inputText,
+                                        { backgroundColor: inputFocus.username }
+                                    ]}
+                                    onFocus={() =>
+                                        this.textInputFocus('username')
+                                    }
+                                    onBlur={() =>
+                                        this.textInputBlur('username')
+                                    }
+                                    onChangeText={value =>
+                                        this.setLoginInputField(
+                                            'username',
+                                            value
+                                        )
+                                    }
+                                    value={username}
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    underlineColorAndroid="transparent"
                                 />
                             </View>
-                            {isLoading ? (
-                                <ActivityIndicator
-                                    size="large"
-                                    color="#00ff00"
+                            <Text>Type your password</Text>
+                            <View style={styles.inputTextContainer}>
+                                <TextInput
+                                    style={[
+                                        styles.inputText,
+                                        { backgroundColor: inputFocus.password }
+                                    ]}
+                                    onFocus={() =>
+                                        this.textInputFocus('password')
+                                    }
+                                    onBlur={() =>
+                                        this.textInputBlur('password')
+                                    }
+                                    onChangeText={value =>
+                                        this.setLoginInputField(
+                                            'password',
+                                            value
+                                        )
+                                    }
+                                    value={password}
+                                    secureTextEntry
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    underlineColorAndroid="transparent"
                                 />
-                            ) : (
-                                <TouchableOpacity
-                                    style={styles.touchAbleButton}
-                                    onPress={() => {
-                                        this.onClickLogin();
-                                    }}
-                                    disabled={!disableButton}
-                                >
-                                    <Text style={styles.textButton}>LOGIN</Text>
-                                </TouchableOpacity>
-                            )}
-
+                            </View>
+                        </View>
+                    </View>
+                    <View style={{ flex: 0.4, justifyContent: 'flex-end' }}>
+                        <Text style={{ textAlign: 'center' }}>
+                            You can also login with ...
+                        </Text>
+                    </View>
+                    <View
+                        style={{
+                            flex: 2
+                        }}
+                    >
+                        <ImageBackground
+                            source={images.baseline}
+                            style={styles.imageBackground}
+                        >
                             <View
-                                style={{
-                                    flex: 0.4,
-                                    flexDirection: 'column',
-                                    justifyContent: 'space-between'
-                                }}
+                                style={[
+                                    styles.container,
+                                    {
+                                        flex: 0.8,
+                                        marginLeft: 30,
+                                        marginRight: 30,
+                                        backgroundColor: 'rgba(52, 52, 52, 0)'
+                                    }
+                                ]}
                             >
                                 <View
                                     style={{
                                         flexDirection: 'row',
-                                        justifyContent: 'center'
+                                        justifyContent: 'space-around',
+                                        alignItems: 'center'
                                     }}
                                 >
-                                    <Text style={{ textAlign: 'center' }}>
-                                        Not registered yet ?
-                                    </Text>
+                                    <Image
+                                        source={images.facebook}
+                                        style={{ width: 50, height: 50 }}
+                                    />
+                                    <Image
+                                        source={images.google}
+                                        style={{ width: 50, height: 50 }}
+                                    />
+                                </View>
+                                {isLoading ? (
+                                    <ActivityIndicator
+                                        size="large"
+                                        color="#00ff00"
+                                    />
+                                ) : (
+                                    <TouchableOpacity
+                                        style={styles.touchAbleButton}
+                                        onPress={() => {
+                                            this.onClickLogin();
+                                        }}
+                                        disabled={!disableButton}
+                                    >
+                                        <Text style={styles.textButton}>
+                                            LOGIN
+                                        </Text>
+                                    </TouchableOpacity>
+                                )}
+
+                                <View
+                                    style={{
+                                        flex: 0.4,
+                                        flexDirection: 'column',
+                                        justifyContent: 'space-between'
+                                    }}
+                                >
+                                    <View
+                                        style={{
+                                            flexDirection: 'row',
+                                            justifyContent: 'center'
+                                        }}
+                                    >
+                                        <Text style={{ textAlign: 'center' }}>
+                                            Not registered yet ?
+                                        </Text>
+                                        <TouchableOpacity
+                                            onPress={() =>
+                                                this.props.navigation.navigate(
+                                                    'Register'
+                                                )
+                                            }
+                                        >
+                                            <Text
+                                                style={{
+                                                    textAlign: 'center',
+                                                    color: '#2C36FB'
+                                                }}
+                                            >
+                                                {' '}
+                                                Sign up!
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
                                     <TouchableOpacity
                                         onPress={() =>
                                             this.props.navigation.navigate(
-                                                'Register'
+                                                'Password'
                                             )
                                         }
                                     >
@@ -213,32 +287,15 @@ class UserLogin extends Component {
                                             }}
                                         >
                                             {' '}
-                                            Sign up!
+                                            Forgot Password ?
                                         </Text>
                                     </TouchableOpacity>
                                 </View>
-                                <TouchableOpacity
-                                    onPress={() =>
-                                        this.props.navigation.navigate(
-                                            'Password'
-                                        )
-                                    }
-                                >
-                                    <Text
-                                        style={{
-                                            textAlign: 'center',
-                                            color: '#2C36FB'
-                                        }}
-                                    >
-                                        {' '}
-                                        Forgot Password ?
-                                    </Text>
-                                </TouchableOpacity>
                             </View>
-                        </View>
-                    </ImageBackground>
+                        </ImageBackground>
+                    </View>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }

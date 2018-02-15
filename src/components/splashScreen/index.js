@@ -24,7 +24,7 @@ class SplashScreen extends Component {
             const refreshToken = await SInfo.getItem('refreshToken', {});
             if (accessToken) {
                 const { exp } = jwtDecode(accessToken);
-                console.log('JWT', exp);
+
                 if (exp < Date.now() / 1000) {
                     const newToken = await reqRefreshToken(refreshToken);
                     if (newToken) {
@@ -37,10 +37,10 @@ class SplashScreen extends Component {
                 navigate('Login');
             }
         } catch (error) {
-            console.log('ERROr');
+            console.log('ERROr', error.message);
             if (
-                err.message === 'invalid_token' ||
-                err.message === 'invalid token'
+                error.message === 'invalid_token' ||
+                error.message === 'invalid token'
             ) {
                 const refreshToken = await SInfo.getItem('refreshToken', {});
                 const newToken = await reqRefreshToken(refreshToken);
