@@ -21,11 +21,17 @@ function* watchLoginFlow(payload) {
     try {
         const response = yield call(Api.post, payload);
         const { meta, data } = response.data;
-        if (meta.success && data) {
+        if (meta.success && data && data.User.isEmailValidated) {
             yield put({ type: LOGIN_SUCCESS, payload: meta.success });
             const { accessToken, refreshToken } = data;
-            saveTokenData({ accessToken, refreshToken });
+            saveTokenData({ accessToken, refreshToken, User });
             yield put(updateLoginInputField('password', ''));
+        }
+        if (data.User.isEmailValidated === false) {
+            yield put({
+                type: LOGIN_ERROR,
+                payload: 'Verify your email first!'
+            });
         }
     } catch (error) {
         yield put({ type: LOGIN_ERROR, payload: error.message });
