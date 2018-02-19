@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Button, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import SInfo from 'react-native-sensitive-info';
 import { images } from '../../assets';
 import styles from '../../helpers/styles';
 
 class Dashboard extends Component {
+    // Move this to action later
+    handleLogout = async () => {
+        try {
+            await SInfo.deleteItem('accessToken', {});
+            await SInfo.deleteItem('refreshToken', {});
+            await SInfo.deleteItem('User', {});
+            this.props.navigation.navigate('Login');
+        } catch (error) {
+            console.log('errror', error.message);
+        }
+    };
     render() {
         return (
             <View style={styles.container}>
@@ -14,7 +26,9 @@ class Dashboard extends Component {
                     }}
                 >
                     {/* This will be a swiper */}
-                    <Text>Competitive Rate</Text>
+                    <TouchableOpacity onPress={() => this.handleLogout()}>
+                        <Text>Temporary Log out here!</Text>
+                    </TouchableOpacity>
                 </View>
                 {/* Start of Send Package! */}
                 <View
