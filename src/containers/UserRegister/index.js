@@ -31,17 +31,20 @@ import styles from './styles';
 class UserRegister extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            inputHeight: 50
+        };
         this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
     }
 
     componentWillMount() {
-        this.keyboardWillShowSub = Keyboard.addListener(
-            'keyboardWillShow',
-            this.keyboardWillShow
+        this.keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            this._keyboardDidShow
         );
-        this.keyboardWillHideSub = Keyboard.addListener(
-            'keyboardWillHide',
-            this.keyboardWillHide
+        this.keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            this._keyboardDidHide
         );
     }
 
@@ -60,8 +63,8 @@ class UserRegister extends React.Component {
     }
 
     componentWillUnmount() {
-        this.keyboardWillShowSub.remove();
-        this.keyboardWillHideSub.remove();
+        this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener.remove();
     }
 
     onClickRegister = () => {
@@ -71,7 +74,6 @@ class UserRegister extends React.Component {
             username,
             email,
             password,
-            repassword,
             role: 'sender'
         });
     };
@@ -84,22 +86,32 @@ class UserRegister extends React.Component {
         this.props.validateFields(field, value);
     };
 
-    keyboardWillShow = event => {
+    _keyboardDidShow = event => {
+        if (
+            event.endCoordinates &&
+            Math.floor(event.endCoordinates.height) < 300
+        ) {
+            this.setState({
+                inputHeight: 40
+            });
+        }
         Animated.timing(this.imageHeight, {
-            duration: event.duration,
+            duration: 100,
             toValue: IMAGE_HEIGHT_SMALL
         }).start();
     };
 
-    keyboardWillHide = event => {
+    _keyboardDidHide = event => {
+        this.setState({
+            inputHeight: 50
+        });
         Animated.timing(this.imageHeight, {
-            duration: event.duration,
+            duration: 100,
             toValue: IMAGE_HEIGHT
         }).start();
     };
 
     render() {
-        console.log('HEIGHT', this.imageHeight);
         const { isLoading, errorMessage, inputFields, inputFieldValidation } =
             this.props || {};
         const { email, password, repassword } = inputFields;
@@ -110,9 +122,9 @@ class UserRegister extends React.Component {
             isValidPassword
         } = inputFieldValidation;
         const signUpButtonStatus = isValidEmail && isValidRepassword;
-
+        console.log('HEIGHT', this.state.inputHeight);
         return (
-            <KeyboardAvoidingView style={styles.container} behaviour="position">
+            <KeyboardAvoidingView style={styles.container} behaviour="padding">
                 <View style={styles.container}>
                     <View
                         style={[
@@ -122,17 +134,16 @@ class UserRegister extends React.Component {
                     >
                         <View
                             style={{
-                                flex: 0.5,
                                 flexDirection: 'row',
                                 justifyContent: 'center',
                                 alignItems: 'center'
                             }}
                         >
-                            <Image
+                            <Animated.Image
                                 source={images.logo}
                                 style={{
-                                    width: 100,
-                                    height: 100
+                                    width: this.imageHeight,
+                                    height: this.imageHeight
                                 }}
                             />
                         </View>
@@ -140,22 +151,27 @@ class UserRegister extends React.Component {
                             style={{
                                 flex: 1,
                                 flexDirection: 'column',
-                                justifyContent: 'space-between'
+                                justifyContent: 'space-around'
                             }}
                         >
                             <Text>Enter your email ID</Text>
                             <View style={styles.inputTextContainer}>
                                 <TextInput
-                                    style={styles.inputText}
+                                    style={[
+                                        styles.inputText,
+                                        {
+                                            height: this.state.inputHeight
+                                        }
+                                    ]}
                                     onChangeText={text =>
                                         this.setInputFields('email', text)
                                     }
-                                    onBlur={() =>
+                                    onBlur={() => {
                                         this.inputValidation(
                                             'isValidEmail',
                                             email
-                                        )
-                                    }
+                                        );
+                                    }}
                                     value={email}
                                     autoCapitalize="none"
                                     autoCorrect={false}
@@ -182,13 +198,18 @@ class UserRegister extends React.Component {
                             <Text>Type your password</Text>
                             <View style={styles.inputTextContainer}>
                                 <TextInput
-                                    style={styles.inputText}
-                                    onBlur={() =>
+                                    style={[
+                                        styles.inputText,
+                                        {
+                                            height: this.state.inputHeight
+                                        }
+                                    ]}
+                                    onBlur={() => {
                                         this.inputValidation(
                                             'isValidPassword',
                                             password
-                                        )
-                                    }
+                                        );
+                                    }}
                                     onChangeText={value =>
                                         this.setInputFields('password', value)
                                     }
@@ -224,13 +245,18 @@ class UserRegister extends React.Component {
                             <Text>Retype your password</Text>
                             <View style={styles.inputTextContainer}>
                                 <TextInput
-                                    style={styles.inputText}
-                                    onBlur={() =>
+                                    style={[
+                                        styles.inputText,
+                                        {
+                                            height: this.state.inputHeight
+                                        }
+                                    ]}
+                                    onBlur={() => {
                                         this.inputValidation(
                                             'isValidRepassword',
                                             repassword
-                                        )
-                                    }
+                                        );
+                                    }}
                                     onChangeText={retype =>
                                         this.setInputFields(
                                             'repassword',
@@ -302,11 +328,7 @@ class UserRegister extends React.Component {
                                 <TouchableOpacity
                                     style={globalStyles.touchAbleButton}
                                     disabled={!signUpButtonStatus}
-                                    onPress={() =>
-                                        this.props.navigation.navigate(
-                                            'Register'
-                                        )
-                                    }
+                                    onPress={this.onClickRegister}
                                 >
                                     <Text style={globalStyles.textButton}>
                                         SIGNUP
