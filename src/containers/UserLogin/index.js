@@ -26,17 +26,21 @@ import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL } from '../../helpers/styles';
 class UserLogin extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            flexImage: 2,
+            flexText: 0.4
+        };
         this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
     }
 
     componentWillMount() {
-        this.keyboardWillShowSub = Keyboard.addListener(
-            'keyboardWillShow',
-            this.keyboardWillShow
+        this.keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            this._keyboarDidShow
         );
-        this.keyboardWillHideSub = Keyboard.addListener(
-            'keyboardWillHide',
-            this.keyboardWillHide
+        this.keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            this._keyboardDidHide
         );
     }
 
@@ -51,8 +55,8 @@ class UserLogin extends Component {
     }
 
     componentWillUnmount() {
-        this.keyboardWillShowSub.remove();
-        this.keyboardWillHideSub.remove();
+        this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener.remove();
     }
 
     onClickLogin = () => {
@@ -72,16 +76,29 @@ class UserLogin extends Component {
         this.props.textInputFocus(field, '#FFFFFF');
     };
 
-    keyboardWillShow = event => {
+    _keyboarDidShow = event => {
+        if (
+            event.endCoordinates &&
+            Math.floor(event.endCoordinates.height) < 300
+        ) {
+            this.setState({
+                flexImage: 1,
+                flexText: 0
+            });
+        }
         Animated.timing(this.imageHeight, {
-            duration: event.duration,
+            duration: 100,
             toValue: IMAGE_HEIGHT_SMALL
         }).start();
     };
 
-    keyboardWillHide = event => {
+    _keyboardDidHide = event => {
+        this.setState({
+            flexImage: 2,
+            flexText: 0.4
+        });
         Animated.timing(this.imageHeight, {
-            duration: event.duration,
+            duration: 100,
             toValue: IMAGE_HEIGHT
         }).start();
     };
@@ -102,15 +119,17 @@ class UserLogin extends Component {
                 <View style={styles.container}>
                     <View
                         style={{
-                            flex: 1,
                             flexDirection: 'row',
                             justifyContent: 'center',
                             alignItems: 'center'
                         }}
                     >
-                        <Image
+                        <Animated.Image
                             source={images.logo}
-                            style={{ width: 120, height: 120 }}
+                            style={{
+                                width: this.imageHeight,
+                                height: this.imageHeight
+                            }}
                         />
                     </View>
                     <View
@@ -179,14 +198,19 @@ class UserLogin extends Component {
                             </View>
                         </View>
                     </View>
-                    <View style={{ flex: 0.4, justifyContent: 'flex-end' }}>
+                    <View
+                        style={{
+                            flex: this.state.flexText,
+                            justifyContent: 'flex-end'
+                        }}
+                    >
                         <Text style={{ textAlign: 'center' }}>
                             You can also login with ...
                         </Text>
                     </View>
                     <View
                         style={{
-                            flex: 2
+                            flex: this.state.flexImage
                         }}
                     >
                         <ImageBackground

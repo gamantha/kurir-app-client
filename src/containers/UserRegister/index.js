@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-// import inputStyles from '../../helpers/styles';
+
 import { images } from '../../assets';
 
 import * as actions from './reducer';
@@ -122,7 +122,7 @@ class UserRegister extends React.Component {
             isValidPassword
         } = inputFieldValidation;
         const signUpButtonStatus = isValidEmail && isValidRepassword;
-        console.log('HEIGHT', this.state.inputHeight);
+
         return (
             <KeyboardAvoidingView style={styles.container} behaviour="padding">
                 <View style={styles.container}>
