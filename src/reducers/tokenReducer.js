@@ -10,9 +10,10 @@ export const ACCESS_TOKEN = 'src/reducers/tokenReducer/ACCESS_TOKEN';
 /**
  * TODO Change this to redux-persist reducer later
  */
-export function saveTokenData({ accessToken, refreshToken }) {
+export function saveTokenData({ accessToken, refreshToken, User }) {
     SInfo.setItem('accessToken', accessToken, {});
     SInfo.setItem('refreshToken', refreshToken, {});
+    SInfo.setItem('User', User, {});
 }
 
 const initialState = fromJS({
