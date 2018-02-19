@@ -16,11 +16,13 @@ function* watchRegisterUser(values) {
     yield put(setIsLoading(true));
     try {
         const response = yield call(Api.post, payload);
+        console.log('RESPONSE', response);
         const { meta, data } = response.data;
         if (meta.success && data) {
             yield put({ type: USER_REGISTRATION_SUCCESS, payload: data });
         }
     } catch (error) {
+        console.log('ERR', error.message);
         yield put(setErrorMessage(error.message));
     } finally {
         yield put(setIsLoading(false));
