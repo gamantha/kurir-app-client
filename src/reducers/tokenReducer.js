@@ -3,9 +3,6 @@
  */
 import SInfo from 'react-native-sensitive-info';
 import { fromJS } from 'immutable';
-// import { createSelector } from 'reselect';
-
-export const ACCESS_TOKEN = 'src/reducers/tokenReducer/ACCESS_TOKEN';
 
 /**
  * TODO Change this to redux-persist reducer later
@@ -13,23 +10,11 @@ export const ACCESS_TOKEN = 'src/reducers/tokenReducer/ACCESS_TOKEN';
 export function saveTokenData({ accessToken, refreshToken, User }) {
     SInfo.setItem('accessToken', accessToken, {});
     SInfo.setItem('refreshToken', refreshToken, {});
-    SInfo.setItem('User', User, {});
+    SInfo.setItem('User', JSON.stringify(User), {});
 }
 
-const initialState = fromJS({
-    tokenData: {}
-});
-
-export default function tokenReducer(state = initialState, action) {
-    switch (action.type) {
-        case ACCESS_TOKEN:
-            return state.set('tokenData', action.payload);
-        default:
-            return state;
-    }
+export function clearTokenData() {
+    SInfo.deleteItem('accessToken', {});
+    SInfo.deleteItem('refreshToken', {});
+    SInfo.deleteItem('User', {});
 }
-
-// const selectTokenReducer = () => (state) => state.get('token');
-//
-// export const getTokenData = () =>
-//   createSelector(selectTokenReducer(), (state) => state.get('tokenData').toJS());
