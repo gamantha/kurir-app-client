@@ -36,29 +36,24 @@ function* watchRegisterUser(values) {
 }
 
 function* watchInputFields(payload) {
-    const { field, value } = payload;
+    const { field } = payload;
     let isValid;
+    const store = yield select();
+    const inputFields = store.getIn(['userRegister', 'inputFields']).toJS();
+    const { email, password, repassword } = inputFields;
     if (field === 'email') {
         yield delay(50);
-        isValid = yield validateEmail(value);
+        isValid = yield validateEmail(email);
         yield put(setValidationValue(field, isValid));
     }
 
     if (field === 'password') {
-        isValid = value.length > 4 && value !== '';
+        isValid = password.length > 4 && password !== '';
         yield put(setValidationValue(field, isValid));
     }
 
     if (field === 'repassword') {
-        const store = yield select();
-        const password = store.getIn([
-            'userRegister',
-            'inputFields',
-            'password'
-        ]);
-        console.log('VALE', value);
-        isValid = value === password && value !== '';
-        console.log('ISvalid', isValid);
+        isValid = repassword !== '' && repassword === password;
         yield put(setValidationValue(field, isValid));
     }
 }

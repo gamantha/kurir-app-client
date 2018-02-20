@@ -81,18 +81,14 @@ class UserRegister extends React.Component {
     setInputFields = (field, value) => {
         this.props.updateSingleInputField(field, value);
         if (field === 'email') {
-            this.props.validateFields(field, this.props.inputFields.email);
+            this.props.validateFields(field);
         }
         if (field === 'password') {
-            this.props.validateFields(field, this.props.inputFields.password);
+            this.props.validateFields(field);
         }
         if (field === 'repassword') {
-            this.props.validateFields(field, this.props.inputFields.repassword);
+            this.props.validateFields(field);
         }
-    };
-
-    inputValidation = (field, value) => {
-        this.props.validateFields(field, value);
     };
 
     _keyboardDidShow = event => {
@@ -130,7 +126,6 @@ class UserRegister extends React.Component {
             password: isValidPassword,
             repassword: isValidRepassword
         } = inputFieldValidation;
-        console.log('isValidEmail', inputFieldValidation);
         const signUpButtonStatus = isValidEmail && isValidRepassword;
 
         return (
