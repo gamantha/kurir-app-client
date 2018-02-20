@@ -1,5 +1,12 @@
 import { delay } from 'redux-saga';
-import { select, put, call, takeLatest, takeEvery } from 'redux-saga/effects';
+import {
+    select,
+    put,
+    call,
+    takeLatest,
+    takeEvery,
+    take
+} from 'redux-saga/effects';
 import Api from '../../services/userregister';
 import { setIsLoading, setErrorMessage, setValidationValue } from './reducer';
 import { validateEmail, validateName } from '../../helpers/utils';
@@ -31,24 +38,27 @@ function* watchRegisterUser(values) {
 function* watchInputFields(payload) {
     const { field, value } = payload;
     let isValid;
-    if (field === 'isValidEmail') {
+    if (field === 'email') {
+        yield delay(50);
         isValid = yield validateEmail(value);
         yield put(setValidationValue(field, isValid));
     }
 
-    if (field === 'isValidPassword') {
+    if (field === 'password') {
         isValid = value.length > 4 && value !== '';
         yield put(setValidationValue(field, isValid));
     }
 
-    if (field === 'isValidRepassword') {
+    if (field === 'repassword') {
         const store = yield select();
         const password = store.getIn([
             'userRegister',
             'inputFields',
             'password'
         ]);
+        console.log('VALE', value);
         isValid = value === password && value !== '';
+        console.log('ISvalid', isValid);
         yield put(setValidationValue(field, isValid));
     }
 }

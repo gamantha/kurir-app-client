@@ -80,6 +80,15 @@ class UserRegister extends React.Component {
 
     setInputFields = (field, value) => {
         this.props.updateSingleInputField(field, value);
+        if (field === 'email') {
+            this.props.validateFields(field, this.props.inputFields.email);
+        }
+        if (field === 'password') {
+            this.props.validateFields(field, this.props.inputFields.password);
+        }
+        if (field === 'repassword') {
+            this.props.validateFields(field, this.props.inputFields.repassword);
+        }
     };
 
     inputValidation = (field, value) => {
@@ -117,10 +126,11 @@ class UserRegister extends React.Component {
         const { email, password, repassword } = inputFields;
 
         const {
-            isValidEmail,
-            isValidRepassword,
-            isValidPassword
+            email: isValidEmail,
+            password: isValidPassword,
+            repassword: isValidRepassword
         } = inputFieldValidation;
+        console.log('isValidEmail', inputFieldValidation);
         const signUpButtonStatus = isValidEmail && isValidRepassword;
 
         return (
@@ -166,12 +176,6 @@ class UserRegister extends React.Component {
                                     onChangeText={text =>
                                         this.setInputFields('email', text)
                                     }
-                                    onBlur={() => {
-                                        this.inputValidation(
-                                            'isValidEmail',
-                                            email
-                                        );
-                                    }}
                                     value={email}
                                     autoCapitalize="none"
                                     autoCorrect={false}
@@ -204,12 +208,6 @@ class UserRegister extends React.Component {
                                             height: this.state.inputHeight
                                         }
                                     ]}
-                                    onBlur={() => {
-                                        this.inputValidation(
-                                            'isValidPassword',
-                                            password
-                                        );
-                                    }}
                                     onChangeText={value =>
                                         this.setInputFields('password', value)
                                     }
@@ -251,12 +249,6 @@ class UserRegister extends React.Component {
                                             height: this.state.inputHeight
                                         }
                                     ]}
-                                    onBlur={() => {
-                                        this.inputValidation(
-                                            'isValidRepassword',
-                                            repassword
-                                        );
-                                    }}
                                     onChangeText={retype =>
                                         this.setInputFields(
                                             'repassword',
