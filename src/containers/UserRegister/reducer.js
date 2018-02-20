@@ -23,9 +23,9 @@ const initialState = fromJS({
         repassword: ''
     },
     inputFieldValidations: {
-        isValidEmail: null,
-        isValidPassword: null,
-        isValidRepassword: null
+        email: null,
+        password: null,
+        repassword: null
     },
     registeredUser: {}
 });

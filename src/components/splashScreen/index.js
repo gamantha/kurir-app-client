@@ -37,7 +37,6 @@ class SplashScreen extends Component {
                 navigate('Login');
             }
         } catch (error) {
-            console.log('ERROr', error.message);
             if (
                 error.message === 'invalid_token' ||
                 error.message === 'invalid token'

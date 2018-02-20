@@ -1,5 +1,12 @@
 import { delay } from 'redux-saga';
-import { select, put, call, takeLatest, takeEvery } from 'redux-saga/effects';
+import {
+    select,
+    put,
+    call,
+    takeLatest,
+    takeEvery,
+    take
+} from 'redux-saga/effects';
 import Api from '../../services/userregister';
 import { setIsLoading, setErrorMessage, setValidationValue } from './reducer';
 import { validateEmail, validateName } from '../../helpers/utils';
@@ -29,26 +36,24 @@ function* watchRegisterUser(values) {
 }
 
 function* watchInputFields(payload) {
-    const { field, value } = payload;
+    const { field } = payload;
     let isValid;
-    if (field === 'isValidEmail') {
-        isValid = yield validateEmail(value);
+    const store = yield select();
+    const inputFields = store.getIn(['userRegister', 'inputFields']).toJS();
+    const { email, password, repassword } = inputFields;
+    if (field === 'email') {
+        yield delay(50);
+        isValid = yield validateEmail(email);
         yield put(setValidationValue(field, isValid));
     }
 
-    if (field === 'isValidPassword') {
-        isValid = value.length > 4 && value !== '';
+    if (field === 'password') {
+        isValid = password.length > 4 && password !== '';
         yield put(setValidationValue(field, isValid));
     }
 
-    if (field === 'isValidRepassword') {
-        const store = yield select();
-        const password = store.getIn([
-            'userRegister',
-            'inputFields',
-            'password'
-        ]);
-        isValid = value === password && value !== '';
+    if (field === 'repassword') {
+        isValid = repassword !== '' && repassword === password;
         yield put(setValidationValue(field, isValid));
     }
 }
