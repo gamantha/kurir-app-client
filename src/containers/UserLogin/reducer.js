@@ -8,7 +8,8 @@ import {
     LOGIN_SUCCESS,
     ACCESS_TOKEN,
     LOGIN_ERROR,
-    LOGIN
+    LOGIN,
+    LOGOUT
 } from './constants';
 
 const initialState = fromJS({
@@ -37,6 +38,8 @@ export default function userLoginReducer(state = initialState, action) {
             return state.set('errorMessage', action.payload);
         case TEXT_INPUT_FOCUS:
             return state.setIn(['inputTextFocus', action.field], action.style);
+        case LOGOUT:
+            return state;
         default:
             return state;
     }
@@ -67,4 +70,8 @@ export const textInputFocus = (field, style) => ({
 export const reqRefreshToken = refreshToken => ({
     type: REFRESH_TOKEN,
     payload: refreshToken
+});
+
+export const logoutFlow = () => ({
+    type: LOGOUT
 });

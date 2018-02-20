@@ -2,7 +2,7 @@ import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
 // Main components
-import SplashScreen from './components/SplashScreen';
+import SplashScreen from './containers/SplashScreen';
 import Onboarding from './components/Onboarding';
 import UserRegister from './containers/UserRegister';
 import UserLogin from './containers/UserLogin';

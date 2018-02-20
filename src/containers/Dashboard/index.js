@@ -2,21 +2,25 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Button, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SInfo from 'react-native-sensitive-info';
+import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { images } from '../../assets';
 import styles from '../../helpers/styles';
+import { logoutFlow } from '../UserLogin/reducer';
+import { clearTokenData } from '../../reducers/tokenReducer';
 
 class Dashboard extends Component {
-    // Move this to action later
-    handleLogout = async () => {
-        try {
-            await SInfo.deleteItem('accessToken', {});
-            await SInfo.deleteItem('refreshToken', {});
-            await SInfo.deleteItem('User', {});
-            this.props.navigation.navigate('Login');
-        } catch (error) {
-            console.log('errror', error.message);
-        }
+    handleLogout = () => {
+        clearTokenData();
+        this.props.logout();
+        const resetAction = NavigationActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: 'Login' })]
+        });
+        this.props.navigation.dispatch(resetAction);
     };
+
     render() {
         return (
             <View style={styles.container}>
@@ -131,4 +135,12 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard;
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(
+        {
+            logout: logoutFlow
+        },
+        dispatch
+    );
+
+export default connect(null, mapDispatchToProps)(Dashboard);

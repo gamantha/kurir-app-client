@@ -25,7 +25,7 @@
         "ios": "react-native run-ios",
         "flow": "node_modules/.bin/flow",
         "flow-stop": "node_modules/.bin/flow stop",
-        "test": "node node_modules/jest/bin/jest.js --watch",
+        "test": "node node_modules/jest/bin/jest.js",
         "eslint": "eslint src"
     },
     "jest": {
