@@ -50,15 +50,15 @@ class UserRegister extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const { errorMessage, registerData } = nextProps;
-        if (errorMessage) {
-            Toast.show(errorMessage, Toast.LONG);
+        if (errorMessage && this.props.errorMessage !== errorMessage) {
+            Toast.show(errorMessage);
         }
-        if (registerData.createdAt) {
+        if (
+            registerData.createdAt &&
+            this.props.registerData.createdAt !== registerData.createdAt
+        ) {
             this.props.navigation.navigate('Login');
-            Toast.show(
-                'Please confirm your first before using Kurir',
-                Toast.LONG
-            );
+            Toast.show('Please confirm your first before using Kurir');
         }
     }
 
@@ -92,14 +92,6 @@ class UserRegister extends React.Component {
     };
 
     _keyboardDidShow = event => {
-        if (
-            event.endCoordinates &&
-            Math.floor(event.endCoordinates.height) < 300
-        ) {
-            this.setState({
-                inputHeight: 40
-            });
-        }
         Animated.timing(this.imageHeight, {
             duration: 100,
             toValue: IMAGE_HEIGHT_SMALL
@@ -107,9 +99,6 @@ class UserRegister extends React.Component {
     };
 
     _keyboardDidHide = event => {
-        this.setState({
-            inputHeight: 50
-        });
         Animated.timing(this.imageHeight, {
             duration: 100,
             toValue: IMAGE_HEIGHT
