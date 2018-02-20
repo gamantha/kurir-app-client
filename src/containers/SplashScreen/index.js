@@ -6,7 +6,7 @@ import jwtDecode from 'jwt-decode';
 
 import { images } from '../../assets';
 import Api from '../../services/api';
-import { reqRefreshToken } from '../../containers/UserRegister/reducer';
+import { reqRefreshToken } from '../../containers/UserLogin/reducer';
 
 class SplashScreen extends Component {
     constructor() {
@@ -22,15 +22,17 @@ class SplashScreen extends Component {
         try {
             const accessToken = await SInfo.getItem('accessToken', {});
             const refreshToken = await SInfo.getItem('refreshToken', {});
-            if (accessToken) {
+            if (accessToken && accessToken.length > 1) {
                 const { exp } = jwtDecode(accessToken);
 
                 if (exp < Date.now() / 1000) {
-                    const newToken = await reqRefreshToken(refreshToken);
-                    if (newToken) {
+                    try {
+                        const newToken = await reqRefreshToken(refreshToken);
+
                         Api.setAuthorizationToken(accessToken);
+                    } catch (error) {
+                        console.log('Splash Error', error.message);
                     }
-                    // navigate('Dashboard');
                 }
                 navigate('Dashboard');
             } else {
