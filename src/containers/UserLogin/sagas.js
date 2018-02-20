@@ -1,4 +1,5 @@
-import { put, call, takeEvery, takeLatest } from 'redux-saga/effects';
+import { put, call, takeEvery, takeLatest, take } from 'redux-saga/effects';
+import { NavigationActions } from 'react-navigation';
 import Api from '../../services/userlogin';
 import {
     LOGIN_SUCCESS,
@@ -7,8 +8,13 @@ import {
     LOGOUT,
     REFRESH_TOKEN
 } from './constants';
-import { setIsLogin, updateLoginInputField, reqRefreshToken } from './reducer';
-import { saveTokenData } from '../../reducers/tokenReducer';
+import {
+    setIsLogin,
+    updateLoginInputField,
+    reqRefreshToken,
+    logoutFlow
+} from './reducer';
+import { saveTokenData, clearTokenData } from '../../reducers/tokenReducer';
 
 /**
  * Send the payload to API
@@ -23,7 +29,7 @@ function* watchLoginFlow(payload) {
         const { meta, data } = response.data;
         if (meta.success && data && data.User.isEmailValidated) {
             yield put({ type: LOGIN_SUCCESS, payload: meta.success });
-            const { accessToken, refreshToken } = data;
+            const { accessToken, refreshToken, User } = data;
             saveTokenData({ accessToken, refreshToken, User });
             yield put(updateLoginInputField('password', ''));
         }
@@ -37,6 +43,14 @@ function* watchLoginFlow(payload) {
         yield put({ type: LOGIN_ERROR, payload: error.message });
     } finally {
         yield put(setIsLogin(false));
+    }
+}
+
+function* watchLogoutFlow() {
+    try {
+        yield put(logoutFlow());
+    } catch (error) {
+        yield put({ type: LOGIN_ERROR, payload: error.message });
     }
 }
 
@@ -58,7 +72,8 @@ function* watchRefreshToken({ payload: { refreshToken } }) {
 
 const userLoginSagas = [
     takeLatest(LOGIN, watchLoginFlow),
-    takeEvery(REFRESH_TOKEN, reqRefreshToken)
+    takeLatest(REFRESH_TOKEN, watchRefreshToken),
+    take(LOGOUT, watchLogoutFlow)
 ];
 
 export default userLoginSagas;

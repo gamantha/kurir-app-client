@@ -12,9 +12,10 @@ import {
     ImageBackground,
     Keyboard,
     KeyboardAvoidingView,
-    ScrollView
+    ScrollView,
+    Easing
 } from 'react-native';
-
+import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -26,31 +27,33 @@ import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL } from '../../helpers/styles';
 class UserLogin extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            flexImage: 2,
-            flexText: 0.4
-        };
         this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
     }
 
     componentWillMount() {
         this.keyboardDidShowListener = Keyboard.addListener(
-            'keyboardDidShow',
+            'keyboardWillShow',
             this._keyboarDidShow
         );
         this.keyboardDidHideListener = Keyboard.addListener(
-            'keyboardDidHide',
+            'keyboardWillHide',
             this._keyboardDidHide
         );
     }
 
     componentWillReceiveProps(nextProps) {
         const { errorMessage, success } = nextProps;
-        if (errorMessage) {
+        if (errorMessage && this.props.errorMessage !== errorMessage) {
             Toast.show(errorMessage, Toast.LONG);
         }
-        if (success) {
-            this.props.navigation.navigate('Dashboard');
+        if (success && this.props.success !== success) {
+            const navigateAction = NavigationActions.reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({ routeName: 'Dashboard' })
+                ]
+            });
+            this.props.navigation.dispatch(navigateAction);
         }
     }
 
@@ -77,29 +80,18 @@ class UserLogin extends Component {
     };
 
     _keyboarDidShow = event => {
-        if (
-            event.endCoordinates &&
-            Math.floor(event.endCoordinates.height) < 300
-        ) {
-            this.setState({
-                flexImage: 1,
-                flexText: 0
-            });
-        }
         Animated.timing(this.imageHeight, {
-            duration: 100,
-            toValue: IMAGE_HEIGHT_SMALL
+            duration: event.duration,
+            toValue: IMAGE_HEIGHT_SMALL,
+            easing: Easing.ease
         }).start();
     };
 
     _keyboardDidHide = event => {
-        this.setState({
-            flexImage: 2,
-            flexText: 0.4
-        });
         Animated.timing(this.imageHeight, {
-            duration: 100,
-            toValue: IMAGE_HEIGHT
+            duration: event.duration,
+            toValue: IMAGE_HEIGHT,
+            easing: Easing.ease
         }).start();
     };
 
@@ -134,12 +126,12 @@ class UserLogin extends Component {
                     </View>
                     <View
                         style={{
-                            flex: 1,
+                            flex: 1.2,
                             flexDirection: 'column',
                             justifyContent: 'space-around'
                         }}
                     >
-                        <View
+                        <Animated.View
                             style={[
                                 styles.container,
                                 { marginLeft: 20, marginRight: 20 }
@@ -196,11 +188,11 @@ class UserLogin extends Component {
                                     underlineColorAndroid="transparent"
                                 />
                             </View>
-                        </View>
+                        </Animated.View>
                     </View>
                     <View
                         style={{
-                            flex: this.state.flexText,
+                            flex: 0.2,
                             justifyContent: 'flex-end'
                         }}
                     >
@@ -210,7 +202,7 @@ class UserLogin extends Component {
                     </View>
                     <View
                         style={{
-                            flex: this.state.flexImage
+                            flex: 2
                         }}
                     >
                         <ImageBackground
