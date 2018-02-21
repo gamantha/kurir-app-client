@@ -3,11 +3,12 @@ import { StackNavigator } from 'react-navigation';
 
 // Main components
 import SplashScreen from './containers/SplashScreen';
-import Onboarding from './components/Onboarding';
+import Onboarding from './components/onboarding';
 import UserRegister from './containers/UserRegister';
 import UserLogin from './containers/UserLogin';
 import UserDashboard from './containers/Dashboard';
 import ForgotPassword from './containers/ForgotPassword';
+import ChangePassword from './components/changePassword';
 
 // Navigation components
 import DashboardNavbar from './navigations/DashboardNavbar';
@@ -52,6 +53,12 @@ export const Kurir = StackNavigator(
                     backgroundColor: '#FFFFFF'
                 },
                 headerLeft: null
+            }
+        },
+        ChangePassword: {
+            screen: ChangePassword,
+            navigationOptions: {
+                header:null
             }
         }
     },

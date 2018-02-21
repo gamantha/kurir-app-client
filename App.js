@@ -8,8 +8,9 @@ import { store, persistor } from './src/store';
 import UserRegister from './src/containers/UserRegister';
 // import SendPackagePage from './src/components/sendPackagePage';
 import UserLogin from './src/containers/UserLogin';
-import Onboarding from './src/components/Onboarding';
+import Onboarding from './src/components/onboarding';
 import ForgotPassword from './src/containers/ForgotPassword';
+import ChangePassword from './src/components/changePassword';
 
 import { Kurir } from './src/routes';
 
