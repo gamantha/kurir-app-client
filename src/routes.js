@@ -9,6 +9,7 @@ import UserLogin from './containers/UserLogin';
 import UserDashboard from './containers/Dashboard';
 import ForgotPassword from './containers/ForgotPassword';
 import ChangePassword from './components/changePassword';
+import EditProfile from './components/editProfile';
 
 // Navigation components
 import DashboardNavbar from './navigations/DashboardNavbar';
@@ -59,6 +60,12 @@ export const Kurir = StackNavigator(
             screen: ChangePassword,
             navigationOptions: {
                 header:null
+            }
+        },
+        EditProfile: {
+            screen: EditProfile,
+            navigationOptions: {
+                header: null
             }
         }
     },

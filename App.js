@@ -11,6 +11,7 @@ import UserLogin from './src/containers/UserLogin';
 import Onboarding from './src/components/onboarding';
 import ForgotPassword from './src/containers/ForgotPassword';
 import ChangePassword from './src/components/changePassword';
+import EditProfile from './src/components/editProfile';
 
 import { Kurir } from './src/routes';
 
