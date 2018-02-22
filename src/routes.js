@@ -9,7 +9,7 @@ import UserLogin from './containers/UserLogin';
 import UserDashboard from './containers/Dashboard';
 import ForgotPassword from './containers/ForgotPassword';
 import ChangePassword from './components/changePassword';
-import EditProfile from './components/editProfile';
+import EditProfile from './components/EditProfile';
 
 // Navigation components
 import DashboardNavbar from './navigations/DashboardNavbar';
