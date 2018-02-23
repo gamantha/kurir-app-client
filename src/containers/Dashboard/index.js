@@ -38,17 +38,17 @@ class Dashboard extends Component {
                         activeDot={<View style={{backgroundColor: '#db4b35', width: 11, height: 11, borderRadius: 5, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
                         paginationStyle={{ right: null, left:40}} loop>
                         <View style={style1.slide1}>
-                            <Image resizeMode='stretch' style={styles.image} source={require('../../assets/images/kurir-1.jpg')} />
+                            <Image resizeMode='stretch' style={styles.image} source={images.slider1} />
                             <Text style={style1.text}>Compettitive Rates</Text>
                             <Text style={style1.subtext}>World class services</Text>
                         </View>
                         <View style={style1.slide1}>
-                            <Image resizeMode='stretch' style={styles.image} source={require('../../assets/images/kurir-2.jpg')} />
+                            <Image resizeMode='stretch' style={styles.image} source={images.slider2} />
                             <Text style={style1.text}>Compettitive Rates 2</Text>
                             <Text style={style1.subtext}>World class services 2</Text>
                         </View>
                         <View style={style1.slide1}>
-                            <Image resizeMode='stretch' style={styles.image} source={require('../../assets/images/kurir-3.jpg')} />
+                            <Image resizeMode='stretch' style={styles.image} source={images.slider3} />
                             <Text style={style1.text}>Compettitive Rates 3</Text>
                             <Text style={style1.subtext}>World class services 3</Text>
                         </View>
