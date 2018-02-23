@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Button, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Button, Image, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SInfo from 'react-native-sensitive-info';
 import { NavigationActions } from 'react-navigation';
@@ -9,7 +9,9 @@ import { images } from '../../assets';
 import styles from '../../helpers/styles';
 import { logoutFlow } from '../UserLogin/reducer';
 import { clearTokenData } from '../../reducers/tokenReducer';
+import Swiper from 'react-native-swiper';
 
+const { width, height } = Dimensions.get('window')
 class Dashboard extends Component {
     handleLogout = () => {
         clearTokenData();
@@ -30,9 +32,27 @@ class Dashboard extends Component {
                     }}
                 >
                     {/* This will be a swiper */}
-                    <TouchableOpacity onPress={() => this.handleLogout()}>
-                        <Text>Temporary Log out here!</Text>
-                    </TouchableOpacity>
+                    
+                    <Swiper style={style1.wrapper}
+                        dot={<View style={{backgroundColor: '#d4d2cf', width: 11, height: 11, borderRadius: 5, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
+                        activeDot={<View style={{backgroundColor: '#db4b35', width: 11, height: 11, borderRadius: 5, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
+                        paginationStyle={{ right: null, left:40}} loop>
+                        <View style={style1.slide1}>
+                            <Image resizeMode='stretch' style={styles.image} source={require('../../assets/images/kurir-1.jpg')} />
+                            <Text style={style1.text}>Compettitive Rates</Text>
+                            <Text style={style1.subtext}>World class services</Text>
+                        </View>
+                        <View style={style1.slide1}>
+                            <Image resizeMode='stretch' style={styles.image} source={require('../../assets/images/kurir-2.jpg')} />
+                            <Text style={style1.text}>Compettitive Rates 2</Text>
+                            <Text style={style1.subtext}>World class services 2</Text>
+                        </View>
+                        <View style={style1.slide1}>
+                            <Image resizeMode='stretch' style={styles.image} source={require('../../assets/images/kurir-3.jpg')} />
+                            <Text style={style1.text}>Compettitive Rates 3</Text>
+                            <Text style={style1.subtext}>World class services 3</Text>
+                        </View>
+                    </Swiper>
                 </View>
                 {/* Start of Send Package! */}
                 <View
@@ -142,5 +162,43 @@ const mapDispatchToProps = dispatch =>
         },
         dispatch
     );
+
+var style1 = {
+    wrapper: {
+    },
+    slide1: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        backgroundColor: '#9DD6EB'
+    },
+    text: {
+        color: '#fff',
+        fontSize: 24,
+        fontWeight: '600',
+        marginLeft:40,
+        textShadowOffset:{ width:1, height:2},
+        textShadowColor: 'rgba(51,51,51,0.5)',
+        position: 'absolute',
+        left: (Dimensions.get('window').width / 0) - 25,
+        top: height*0.1
+    },
+    subtext: {
+        color: '#fff',
+        fontSize: 14,
+        fontWeight: '600',
+        marginLeft:40,
+        textShadowOffset:{ width:1, height:2},
+        textShadowColor: 'rgba(51,51,51,0.5)',
+        position: 'absolute',
+        left: (Dimensions.get('window').width / 0) - 25,
+        top: height*0.15
+    },
+
+    image: {
+        width,
+        flex: 1
+      }
+}
 
 export default connect(null, mapDispatchToProps)(Dashboard);
