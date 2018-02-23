@@ -29,7 +29,6 @@ function* watchForgotPassword({ payload: { email } }) {
             message: '',
             status: null
         };
-        console.log('status', error.response.data.meta.status);
         if (error.response && error.response.data) {
             yield put({
                 type: STATUS_MESSAGE,
