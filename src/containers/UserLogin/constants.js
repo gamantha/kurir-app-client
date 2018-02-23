@@ -8,3 +8,5 @@ export const UPDATE_LOGIN_INPUT_FIELD =
 export const LOGOUT = 'src/containers/UserLogin/LOGOUT';
 export const REFRESH_TOKEN = 'src/containers/UserLogin/REFRESH_TOKEN';
 export const TEXT_INPUT_FOCUS = 'src/containers/UserLogin/TEXT_INPUT_FOCUS';
+export const CLEAR_ERROR_MESSAGE =
+    'src/containers/UserLogin/CLEAR_ERROR_MESSAGE';
