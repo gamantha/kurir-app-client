@@ -9,7 +9,8 @@ import {
     Button,
     Image,
     Keyboard,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    BackHandler
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import { connect } from 'react-redux';
@@ -48,17 +49,24 @@ class UserRegister extends React.Component {
         );
     }
 
+    componentDidMount() {
+        BackHandler.addEventListener('addEventListener', () =>
+            BackHandler.exitApp()
+        );
+    }
+
     componentWillReceiveProps(nextProps) {
-        const { errorMessage, registerData } = nextProps;
-        if (errorMessage && this.props.errorMessage !== errorMessage) {
+        const { registerData, errorMessage } = nextProps;
+        if (errorMessage !== '' && errorMessage !== this.props.errorMessage) {
             Toast.show(errorMessage);
+            this.props.clearErrorMessage();
         }
         if (
             registerData.createdAt &&
             this.props.registerData.createdAt !== registerData.createdAt
         ) {
             this.props.navigation.navigate('Login');
-            Toast.show('Please confirm your first before using Kurir');
+            Toast.show('Please confirm your email first!');
         }
     }
 
@@ -352,7 +360,8 @@ const mapDispatchToProps = dispatch =>
         {
             registerUser: actions.registerUser,
             validateFields: actions.inputFieldValidations,
-            updateSingleInputField: actions.updateSingleInputField
+            updateSingleInputField: actions.updateSingleInputField,
+            clearErrorMessage: actions.clearErrorMessage
         },
         dispatch
     );

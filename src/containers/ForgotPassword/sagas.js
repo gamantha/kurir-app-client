@@ -25,10 +25,18 @@ function* watchForgotPassword({ payload: { email } }) {
             yield put({ type: STATUS_MESSAGE, payload });
         }
     } catch (error) {
-        yield put({
-            type: STATUS_MESSAGE,
-            payload: { status: false, message: error.message }
-        });
+        let payload = {
+            message: '',
+            status: null
+        };
+        if (error.response && error.response.data) {
+            yield put({
+                type: STATUS_MESSAGE,
+                payload: error.response.data.meta
+            });
+        } else {
+            yield put({ type: STATUS_MESSAGE, payload: error.message });
+        }
     } finally {
         yield put(showLoading(false));
     }

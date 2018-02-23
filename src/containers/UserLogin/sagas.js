@@ -40,7 +40,14 @@ function* watchLoginFlow(payload) {
             });
         }
     } catch (error) {
-        yield put({ type: LOGIN_ERROR, payload: error.message });
+        if (error.response && error.response.data) {
+            yield put({
+                type: LOGIN_ERROR,
+                payload: error.response.data.meta.message
+            });
+        } else {
+            yield put({ type: LOGIN_ERROR, payload: error.message });
+        }
     } finally {
         yield put(setIsLogin(false));
     }
@@ -64,7 +71,14 @@ function* watchRefreshToken({ payload: { refreshToken } }) {
             saveTokenData({ accessToken, refreshToken });
         }
     } catch (error) {
-        yield put({ type: LOGIN_ERROR, payload: error.message });
+        if (error.response && error.response.data) {
+            yield put({
+                type: LOGIN_ERROR,
+                payload: error.response.data.meta.message
+            });
+        } else {
+            yield put({ type: LOGIN_ERROR, payload: error.message });
+        }
     } finally {
         // do something here later
     }
