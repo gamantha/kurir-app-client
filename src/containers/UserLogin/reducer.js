@@ -9,7 +9,8 @@ import {
     ACCESS_TOKEN,
     LOGIN_ERROR,
     LOGIN,
-    LOGOUT
+    LOGOUT,
+    CLEAR_ERROR_MESSAGE
 } from './constants';
 
 const initialState = fromJS({
@@ -38,6 +39,8 @@ export default function userLoginReducer(state = initialState, action) {
             return state.set('errorMessage', action.payload);
         case TEXT_INPUT_FOCUS:
             return state.setIn(['inputTextFocus', action.field], action.style);
+        case CLEAR_ERROR_MESSAGE:
+            return state.set('errorMessage', '');
         case LOGOUT:
             return state;
         default:
@@ -74,4 +77,8 @@ export const reqRefreshToken = refreshToken => ({
 
 export const logoutFlow = () => ({
     type: LOGOUT
+});
+
+export const clearErrorMessage = () => ({
+    type: CLEAR_ERROR_MESSAGE
 });

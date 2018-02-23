@@ -22,12 +22,11 @@ import { images } from '../../assets';
 class ForgotPasswordInput extends Component {
     componentWillReceiveProps(nextProps) {
         const { statusMessage } = nextProps;
-        const { status, message } = statusMessage;
-        if (message) {
+        const { message } = statusMessage;
+        if (message !== '' && message !== this.props.message) {
             Toast.show(message);
         }
     }
-
     setEmail = email => {
         this.props.setEmail(email);
     };
@@ -39,6 +38,7 @@ class ForgotPasswordInput extends Component {
     render() {
         const { statusMessage, email } = this.props;
         const { status } = statusMessage;
+
         if (status) {
             return <VerificationCodeInput email={email} />;
         }

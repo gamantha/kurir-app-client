@@ -12,8 +12,7 @@ const initialState = fromJS({
     statusMessage: {
         status: false,
         message: ''
-    },
-    testing: ''
+    }
 });
 
 /**
