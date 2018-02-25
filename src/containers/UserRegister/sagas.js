@@ -29,7 +29,11 @@ function* watchRegisterUser(values) {
             yield put({ type: USER_REGISTRATION_SUCCESS, payload: data });
         }
     } catch (error) {
-        yield put(setErrorMessage(error.message));
+        if (error.response && error.response.data) {
+            yield put(setErrorMessage(error.response.data.meta.message));
+        } else {
+            yield put(setErrorMessage(error.message));
+        }
     } finally {
         yield put(setIsLoading(false));
     }

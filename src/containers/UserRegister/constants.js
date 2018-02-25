@@ -9,3 +9,5 @@ export const SET_ERROR_MESSAGE =
     'src/containers/UserRegistration/SET_ERROR_MESSAGE';
 export const REGISTER = 'src/containers/UserRegistration/REGISTER';
 export const INPUT_FIELD = 'src/containers/UserRegistration/INPUT_FIELD';
+export const CLEAR_ERROR_MESSAGE =
+    'src/containers/UserRegistration/CLEAR_ERROR_MESSAGE';

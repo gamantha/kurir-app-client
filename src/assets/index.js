@@ -9,5 +9,8 @@ export const images = {
     trackPackage: require('./images/splash-3.png'),
     kurirheader: require('./images/kurirheader.png'),
     box: require('./images/box.png'),
-    rocket: require('./images/rocket.png')
+    rocket: require('./images/rocket.png'),
+    slider1:require('./images/kurir-1.jpg'),
+    slider2:require('./images/kurir-2.jpg'),
+    slider3:require('./images/kurir-3.jpg'),
 };

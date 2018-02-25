@@ -6,7 +6,8 @@ import {
     INPUT_FIELD_VALIDATION,
     SET_ERROR_MESSAGE,
     REGISTER,
-    INPUT_FIELD
+    INPUT_FIELD,
+    CLEAR_ERROR_MESSAGE
 } from './constants';
 
 /**
@@ -50,8 +51,25 @@ export default function userRegistrationReducer(state = initialState, action) {
                 ['inputFieldValidations', action.field],
                 action.value
             );
+        case CLEAR_ERROR_MESSAGE:
+            console.log('HERE');
+            return state.set('errorMessage', '');
         case USER_REGISTRATION_SUCCESS:
-            return state.set('registeredUser', fromJS(action.payload));
+            return state.set('registeredUser', fromJS(action.payload)).set(
+                'inputFields',
+                fromJS({
+                    email: '',
+                    password: '',
+                    repassword: ''
+                }).set(
+                    'inputFieldValidations',
+                    fromJS({
+                        email: null,
+                        password: null,
+                        repassword: null
+                    })
+                )
+            );
         default:
             return state;
     }
@@ -88,4 +106,8 @@ export const inputFieldValidations = (field, value) => ({
 export const registerUser = payload => ({
     type: REGISTER,
     payload
+});
+
+export const clearErrorMessage = () => ({
+    type: CLEAR_ERROR_MESSAGE
 });

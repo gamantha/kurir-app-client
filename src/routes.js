@@ -8,6 +8,8 @@ import UserRegister from './containers/UserRegister';
 import UserLogin from './containers/UserLogin';
 import UserDashboard from './containers/Dashboard';
 import ForgotPassword from './containers/ForgotPassword';
+import ChangePassword from './components/changePassword';
+import EditProfile from './components/EditProfile';
 
 // Navigation components
 import DashboardNavbar from './navigations/DashboardNavbar';
@@ -52,6 +54,18 @@ export const Kurir = StackNavigator(
                     backgroundColor: '#FFFFFF'
                 },
                 headerLeft: null
+            }
+        },
+        ChangePassword: {
+            screen: ChangePassword,
+            navigationOptions: {
+                header: null
+            }
+        },
+        EditProfile: {
+            screen: EditProfile,
+            navigationOptions: {
+                header: null
             }
         }
     },

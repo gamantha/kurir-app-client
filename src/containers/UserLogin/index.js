@@ -13,7 +13,8 @@ import {
     Keyboard,
     KeyboardAvoidingView,
     ScrollView,
-    Easing
+    Easing,
+    BackHandler
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -41,10 +42,17 @@ class UserLogin extends Component {
         );
     }
 
+    componentDidMount() {
+        BackHandler.addEventListener('addEventListener', () =>
+            BackHandler.exitApp()
+        );
+    }
+
     componentWillReceiveProps(nextProps) {
-        const { errorMessage, success } = nextProps;
-        if (errorMessage && this.props.errorMessage !== errorMessage) {
+        const { success, errorMessage } = nextProps;
+        if (errorMessage !== '' && errorMessage !== this.props.errorMessage) {
             Toast.show(errorMessage);
+            this.props.clearErrorMessage();
         }
         if (success && this.props.success !== success) {
             const navigateAction = NavigationActions.reset({
@@ -60,6 +68,9 @@ class UserLogin extends Component {
     componentWillUnmount() {
         this.keyboardDidShowListener.remove();
         this.keyboardDidHideListener.remove();
+        BackHandler.addEventListener('addEventListener', () =>
+            BackHandler.exitApp()
+        );
     }
 
     onClickLogin = () => {
@@ -106,6 +117,7 @@ class UserLogin extends Component {
             this.props || {};
         const { username, password } = loginInputField;
         const disableButton = username !== '' && password !== '';
+
         return (
             <KeyboardAvoidingView style={styles.container} behaviour="padding">
                 <View style={styles.container}>
@@ -321,7 +333,8 @@ const mapDispatchToProps = dispatch =>
         {
             updateLoginInputField: actions.updateLoginInputField,
             loginFlow: actions.loginFlow,
-            textInputFocus: actions.textInputFocus
+            textInputFocus: actions.textInputFocus,
+            clearErrorMessage: actions.clearErrorMessage
         },
         dispatch
     );
