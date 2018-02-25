@@ -3,7 +3,7 @@ import { StackNavigator } from 'react-navigation';
 
 // Main components
 import SplashScreen from './containers/SplashScreen';
-import Onboarding from './components/onboarding';
+import Onboarding from './components/Onboarding';
 import UserRegister from './containers/UserRegister';
 import UserLogin from './containers/UserLogin';
 import UserDashboard from './containers/Dashboard';
@@ -59,7 +59,7 @@ export const Kurir = StackNavigator(
         ChangePassword: {
             screen: ChangePassword,
             navigationOptions: {
-                header:null
+                header: null
             }
         },
         EditProfile: {
