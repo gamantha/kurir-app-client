@@ -147,6 +147,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-google-signin')
     compile(project(':react-native-fbsdk')){
       exclude(group: 'com.facebook.android', module: 'facebook-android-sdk')
     }
