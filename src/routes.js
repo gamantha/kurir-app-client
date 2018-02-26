@@ -71,6 +71,6 @@ export const Kurir = StackNavigator(
     },
     //config
     {
-        initialRouteName: 'Register'
+        initialRouteName: 'Splash'
     }
 );
