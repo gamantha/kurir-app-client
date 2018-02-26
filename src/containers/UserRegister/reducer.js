@@ -8,7 +8,7 @@ import {
     REGISTER,
     INPUT_FIELD,
     CLEAR_ERROR_MESSAGE,
-    FACEBOOK_OAUTH
+    SOCIAL_OAUTH
 } from './constants';
 
 /**
@@ -112,10 +112,11 @@ export const registerUser = payload => ({
     payload
 });
 
-export const facebookOauth = (tokenId, action) => ({
-    type: FACEBOOK_OAUTH,
+export const socialOauth = (tokenId, action, socialType) => ({
+    type: SOCIAL_OAUTH,
     tokenId,
-    action
+    action,
+    socialType
 });
 
 export const clearErrorMessage = () => ({

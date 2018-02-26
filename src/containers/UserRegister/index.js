@@ -19,6 +19,7 @@ import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Facebook from '../../components/facebook';
+import Google from '../../components/google';
 
 import { images } from '../../assets';
 
@@ -357,15 +358,16 @@ class UserRegister extends React.Component {
                             >
                                 <Facebook
                                     navigation={this.props.navigation}
-                                    authenticate={this.props.facebookReg}
+                                    authenticate={this.props.socialOauth}
                                     action="register"
+                                    socialType="facebook"
                                 />
-                                <TouchableOpacity>
-                                    <Image
-                                        source={images.google}
-                                        style={{ width: 50, height: 50 }}
-                                    />
-                                </TouchableOpacity>
+                                <Google
+                                    navigation={this.props.navigation}
+                                    authenticate={this.props.socialOauth}
+                                    action="register"
+                                    socialType="google"
+                                />
                             </View>
 
                             {isLoading ? (
@@ -384,6 +386,22 @@ class UserRegister extends React.Component {
                                     </Text>
                                 </TouchableOpacity>
                             )}
+
+                            <TouchableOpacity
+                                onPress={() =>
+                                    this.props.navigation.navigate('Login')
+                                }
+                            >
+                                <Text
+                                    style={{
+                                        paddingTop: 24,
+                                        textAlign: 'center',
+                                        color: '#2C36FB'
+                                    }}
+                                >
+                                    Login
+                                </Text>
+                            </TouchableOpacity>
 
                             <View
                                 style={{
@@ -429,7 +447,7 @@ const mapDispatchToProps = dispatch =>
             validateFields: actions.inputFieldValidations,
             updateSingleInputField: actions.updateSingleInputField,
             clearErrorMessage: actions.clearErrorMessage,
-            facebookReg: actions.facebookOauth
+            socialOauth: actions.socialOauth
         },
         dispatch
     );

@@ -21,7 +21,7 @@ import {
     USER_REGISTRATION_SUCCESS,
     REGISTER,
     INPUT_FIELD,
-    FACEBOOK_OAUTH
+    SOCIAL_OAUTH
 } from './constants';
 
 /**
@@ -51,8 +51,17 @@ function* watchRegisterUser(values) {
     }
 }
 
-function* watchFacebook({ tokenId, action }) {
-    const url = action === 'register' ? Api.fbRegister : userlogin.fbLogin;
+function* watchSocialOauth({ tokenId, action, socialType }) {
+    let url;
+    if (socialType === 'facebook') {
+        url = action === 'register' ? Api.fbRegister : userlogin.fbLogin;
+    }
+
+    if (socialType === 'google') {
+        url =
+            action === 'register' ? Api.googleRegister : userlogin.googleLogin;
+    }
+
     try {
         const response = yield call(url, { tokenId });
         const { meta, data } = response.data;
@@ -64,6 +73,7 @@ function* watchFacebook({ tokenId, action }) {
                 yield put(setEmailLogin('username', data.email));
             }
         }
+        yield put(setErrorMessage(response.data.meta.message));
     } catch (error) {
         if (error.response && error.response.data) {
             yield put(setErrorMessage(error.response.data.meta.message));
@@ -108,7 +118,7 @@ function* watchInputFields(payload) {
 const registerUserSagas = [
     takeLatest(REGISTER, watchRegisterUser),
     takeEvery(INPUT_FIELD, watchInputFields),
-    takeLatest(FACEBOOK_OAUTH, watchFacebook)
+    takeLatest(SOCIAL_OAUTH, watchSocialOauth)
 ];
 
 export default registerUserSagas;

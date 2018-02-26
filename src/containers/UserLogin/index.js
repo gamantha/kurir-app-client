@@ -21,10 +21,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import Facebook from '../../components/facebook';
+import Google from '../../components/google';
 
 import * as actions from './reducer';
 import * as selectors from './selectors';
-import { facebookOauth } from '../UserRegister/reducer';
+import { socialOauth } from '../UserRegister/reducer';
 import { images } from '../../assets';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL } from '../../helpers/styles';
 
@@ -32,17 +33,6 @@ class UserLogin extends Component {
     constructor(props) {
         super(props);
         this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
-    }
-
-    componentWillMount() {
-        this.keyboardDidShowListener = Keyboard.addListener(
-            'keyboardWillShow',
-            this._keyboarDidShow
-        );
-        this.keyboardDidHideListener = Keyboard.addListener(
-            'keyboardWillHide',
-            this._keyboardDidHide
-        );
     }
 
     componentDidMount() {
@@ -69,8 +59,6 @@ class UserLogin extends Component {
     }
 
     componentWillUnmount() {
-        this.keyboardDidShowListener.remove();
-        this.keyboardDidHideListener.remove();
         BackHandler.addEventListener('addEventListener', () =>
             BackHandler.exitApp()
         );
@@ -91,22 +79,6 @@ class UserLogin extends Component {
 
     textInputBlur = field => {
         this.props.textInputFocus(field, '#FFFFFF');
-    };
-
-    _keyboarDidShow = event => {
-        Animated.timing(this.imageHeight, {
-            duration: event.duration,
-            toValue: IMAGE_HEIGHT_SMALL,
-            easing: Easing.ease
-        }).start();
-    };
-
-    _keyboardDidHide = event => {
-        Animated.timing(this.imageHeight, {
-            duration: event.duration,
-            toValue: IMAGE_HEIGHT,
-            easing: Easing.ease
-        }).start();
     };
 
     render() {
@@ -244,12 +216,15 @@ class UserLogin extends Component {
                                 >
                                     <Facebook
                                         navigation={this.props.navigation}
-                                        authenticate={this.props.facebookLogin}
+                                        authenticate={this.props.socialOauth}
                                         action="login"
+                                        socialType="facebook"
                                     />
-                                    <Image
-                                        source={images.google}
-                                        style={{ width: 50, height: 50 }}
+                                    <Google
+                                        navigation={this.props.navigation}
+                                        authenticate={this.props.socialOauth}
+                                        action="login"
+                                        socialType="google"
                                     />
                                 </View>
                                 {isLoading ? (
@@ -339,7 +314,7 @@ const mapDispatchToProps = dispatch =>
             loginFlow: actions.loginFlow,
             textInputFocus: actions.textInputFocus,
             clearErrorMessage: actions.clearErrorMessage,
-            facebookLogin: facebookOauth
+            socialOauth: socialOauth
         },
         dispatch
     );
