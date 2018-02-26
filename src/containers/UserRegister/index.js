@@ -134,7 +134,7 @@ class UserRegister extends React.Component {
             password: isValidPassword,
             repassword: isValidRepassword
         } = inputFieldValidation;
-        console.log('username', username, isValidUsername);
+
         const signUpButtonStatus = isValidEmail && isValidRepassword;
 
         return (

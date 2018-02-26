@@ -23,6 +23,7 @@ import {
     INPUT_FIELD,
     SOCIAL_OAUTH
 } from './constants';
+import { LOGIN_SUCCESS } from '../UserLogin/constants';
 
 /**
  * Get the user data and send to API
@@ -52,7 +53,7 @@ function* watchRegisterUser(values) {
 }
 
 function* watchSocialOauth({ tokenId, action, socialType }) {
-    let url;
+    let url = '';
     if (socialType === 'facebook') {
         url = action === 'register' ? Api.fbRegister : userlogin.fbLogin;
     }
@@ -66,6 +67,9 @@ function* watchSocialOauth({ tokenId, action, socialType }) {
         const response = yield call(url, { tokenId });
         const { meta, data } = response.data;
         if (meta.success && data) {
+            if (data.User && data.User.isEmailValidated) {
+                yield put({ type: LOGIN_SUCCESS, payload: meta.success });
+            }
             if (action === 'register') {
                 yield put(updateSingleInputField('email', data.email));
             }
