@@ -7,7 +7,8 @@ import {
     SET_ERROR_MESSAGE,
     REGISTER,
     INPUT_FIELD,
-    CLEAR_ERROR_MESSAGE
+    CLEAR_ERROR_MESSAGE,
+    FACEBOOK_OAUTH
 } from './constants';
 
 /**
@@ -52,7 +53,6 @@ export default function userRegistrationReducer(state = initialState, action) {
                 action.value
             );
         case CLEAR_ERROR_MESSAGE:
-            console.log('HERE');
             return state.set('errorMessage', '');
         case USER_REGISTRATION_SUCCESS:
             return state.set('registeredUser', fromJS(action.payload)).set(
@@ -106,6 +106,12 @@ export const inputFieldValidations = (field, value) => ({
 export const registerUser = payload => ({
     type: REGISTER,
     payload
+});
+
+export const facebookOauth = (tokenId, action) => ({
+    type: FACEBOOK_OAUTH,
+    tokenId,
+    action
 });
 
 export const clearErrorMessage = () => ({

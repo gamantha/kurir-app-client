@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Facebook from '../../components/facebook';
 
 import { images } from '../../assets';
 
@@ -77,7 +78,7 @@ class UserRegister extends React.Component {
 
     onClickRegister = () => {
         const { email, password, repassword } = this.props.inputFields;
-        const username = email.split('@')[0];
+        const username = email.split('@')[0].replace(/[^\w\s]/gi, '');
         this.props.registerUser({
             username,
             email,
@@ -293,14 +294,17 @@ class UserRegister extends React.Component {
                                     justifyContent: 'space-around'
                                 }}
                             >
-                                <Image
-                                    source={images.facebook}
-                                    style={{ width: 50, height: 50 }}
+                                <Facebook
+                                    navigation={this.props.navigation}
+                                    authenticate={this.props.facebookReg}
+                                    action="register"
                                 />
-                                <Image
-                                    source={images.google}
-                                    style={{ width: 50, height: 50 }}
-                                />
+                                <TouchableOpacity>
+                                    <Image
+                                        source={images.google}
+                                        style={{ width: 50, height: 50 }}
+                                    />
+                                </TouchableOpacity>
                             </View>
 
                             {isLoading ? (
@@ -361,7 +365,8 @@ const mapDispatchToProps = dispatch =>
             registerUser: actions.registerUser,
             validateFields: actions.inputFieldValidations,
             updateSingleInputField: actions.updateSingleInputField,
-            clearErrorMessage: actions.clearErrorMessage
+            clearErrorMessage: actions.clearErrorMessage,
+            facebookReg: actions.facebookOauth
         },
         dispatch
     );

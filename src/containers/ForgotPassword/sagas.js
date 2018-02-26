@@ -13,7 +13,7 @@ import Api from '../../services/forgotpassword';
 function* watchForgotPassword({ payload: { email } }) {
     put(showLoading(true));
     try {
-        const response = yield call(Api.post, email);
+        const response = yield call(Api.post, { email });
         const { meta, data } = response.data;
         let payload;
         payload.message = data.msg;

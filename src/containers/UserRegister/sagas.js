@@ -8,9 +8,15 @@ import {
     take
 } from 'redux-saga/effects';
 import Api from '../../services/userregister';
+import userlogin from '../../services/userlogin';
 import { setIsLoading, setErrorMessage, setValidationValue } from './reducer';
 import { validateEmail, validateName } from '../../helpers/utils';
-import { USER_REGISTRATION_SUCCESS, REGISTER, INPUT_FIELD } from './constants';
+import {
+    USER_REGISTRATION_SUCCESS,
+    REGISTER,
+    INPUT_FIELD,
+    FACEBOOK_OAUTH
+} from './constants';
 
 /**
  * Get the user data and send to API
@@ -39,6 +45,25 @@ function* watchRegisterUser(values) {
     }
 }
 
+function* watchFacebook({ tokenId, action }) {
+    const url = action === 'register' ? Api.fbRegister : userlogin.fbLogin;
+    try {
+        const response = yield call(url, { tokenId });
+        const { meta, data } = response.data;
+        if (meta.success && data) {
+            // yield put({  })
+        }
+    } catch (error) {
+        if (error.response && error.response.data) {
+            yield put(setErrorMessage(error.response.data.meta.message));
+        } else {
+            yield put(setErrorMessage(error.message));
+        }
+    } finally {
+        //
+    }
+}
+
 function* watchInputFields(payload) {
     const { field } = payload;
     let isValid;
@@ -64,7 +89,8 @@ function* watchInputFields(payload) {
 
 const registerUserSagas = [
     takeLatest(REGISTER, watchRegisterUser),
-    takeEvery(INPUT_FIELD, watchInputFields)
+    takeEvery(INPUT_FIELD, watchInputFields),
+    takeLatest(FACEBOOK_OAUTH, watchFacebook)
 ];
 
 export default registerUserSagas;

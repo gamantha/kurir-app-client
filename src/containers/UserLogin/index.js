@@ -20,8 +20,11 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import Facebook from '../../components/facebook';
+
 import * as actions from './reducer';
 import * as selectors from './selectors';
+import { facebookOauth } from '../UserRegister/reducer';
 import { images } from '../../assets';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL } from '../../helpers/styles';
 
@@ -239,9 +242,10 @@ class UserLogin extends Component {
                                         alignItems: 'center'
                                     }}
                                 >
-                                    <Image
-                                        source={images.facebook}
-                                        style={{ width: 50, height: 50 }}
+                                    <Facebook
+                                        navigation={this.props.navigation}
+                                        authenticate={this.props.facebookLogin}
+                                        action="login"
                                     />
                                     <Image
                                         source={images.google}
@@ -334,7 +338,8 @@ const mapDispatchToProps = dispatch =>
             updateLoginInputField: actions.updateLoginInputField,
             loginFlow: actions.loginFlow,
             textInputFocus: actions.textInputFocus,
-            clearErrorMessage: actions.clearErrorMessage
+            clearErrorMessage: actions.clearErrorMessage,
+            facebookLogin: facebookOauth
         },
         dispatch
     );
