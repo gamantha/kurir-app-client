@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity, Image, Alert } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Toast from 'react-native-simple-toast';
 import FBSDK from 'react-native-fbsdk';
@@ -17,21 +17,23 @@ const facebookRegister = (navigation, authenticate, action) =>
                     const accessToken = data.accessToken.toString();
                     authenticate(accessToken, action);
                     if (action === 'register') {
-                        Toast.show(
-                            'Register success, please check your email first!'
+                        Alert.alert(
+                            'Your account will be connected shortly, please do SignUp'
                         );
-                        navigation.navigate('Login');
                     }
                     if (action === 'login') {
-                        const navigateAction = NavigationActions.reset({
-                            index: 0,
-                            actions: [
-                                NavigationActions.navigate({
-                                    routeName: 'Dashboard'
-                                })
-                            ]
-                        });
-                        navigation.dispatch(navigateAction);
+                        Alert.alert(
+                            'Make sure you already sign up, please type your password and Login'
+                        );
+                        // const navigateAction = NavigationActions.reset({
+                        //     index: 0,
+                        //     actions: [
+                        //         NavigationActions.navigate({
+                        //             routeName: 'Dashboard'
+                        //         })
+                        //     ]
+                        // });
+                        // navigation.dispatch(navigateAction);
                     }
                 });
             }
