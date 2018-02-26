@@ -9,7 +9,13 @@ import {
 } from 'redux-saga/effects';
 import Api from '../../services/userregister';
 import userlogin from '../../services/userlogin';
-import { setIsLoading, setErrorMessage, setValidationValue } from './reducer';
+import {
+    setIsLoading,
+    setErrorMessage,
+    setValidationValue,
+    updateSingleInputField
+} from './reducer';
+import { updateLoginInputField as setEmailLogin } from '../UserLogin/reducer';
 import { validateEmail, validateName } from '../../helpers/utils';
 import {
     USER_REGISTRATION_SUCCESS,
@@ -51,7 +57,12 @@ function* watchFacebook({ tokenId, action }) {
         const response = yield call(url, { tokenId });
         const { meta, data } = response.data;
         if (meta.success && data) {
-            // yield put({  })
+            if (action === 'register') {
+                yield put(updateSingleInputField('email', data.email));
+            }
+            if (action === 'login') {
+                yield put(setEmailLogin('username', data.email));
+            }
         }
     } catch (error) {
         if (error.response && error.response.data) {
@@ -66,13 +77,20 @@ function* watchFacebook({ tokenId, action }) {
 
 function* watchInputFields(payload) {
     const { field } = payload;
+
     let isValid;
     const store = yield select();
     const inputFields = store.getIn(['userRegister', 'inputFields']).toJS();
-    const { email, password, repassword } = inputFields;
+    const { email, username, password, repassword } = inputFields;
     if (field === 'email') {
         yield delay(50);
         isValid = yield validateEmail(email);
+        yield put(setValidationValue(field, isValid));
+    }
+
+    if (field === 'username') {
+        isValid = yield validateName(username);
+
         yield put(setValidationValue(field, isValid));
     }
 

@@ -21,11 +21,13 @@ const initialState = fromJS({
     errorMessage: '',
     inputFields: {
         email: '',
+        username: '',
         password: '',
         repassword: ''
     },
     inputFieldValidations: {
         email: null,
+        username: null,
         password: null,
         repassword: null
     },
@@ -59,12 +61,14 @@ export default function userRegistrationReducer(state = initialState, action) {
                 'inputFields',
                 fromJS({
                     email: '',
+                    username: '',
                     password: '',
                     repassword: ''
                 }).set(
                     'inputFieldValidations',
                     fromJS({
                         email: null,
+                        username: null,
                         password: null,
                         repassword: null
                     })

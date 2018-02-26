@@ -2,15 +2,16 @@ import React from 'react';
 import {
     Animated,
     ActivityIndicator,
-    View,
-    TextInput,
-    Text,
-    TouchableOpacity,
+    BackHandler,
     Button,
     Image,
     Keyboard,
     KeyboardAvoidingView,
-    BackHandler
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+    ScrollView
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import { connect } from 'react-redux';
@@ -34,7 +35,7 @@ class UserRegister extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            inputHeight: 50
+            inputHeight: 45
         };
         this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
     }
@@ -77,8 +78,12 @@ class UserRegister extends React.Component {
     }
 
     onClickRegister = () => {
-        const { email, password, repassword } = this.props.inputFields;
-        const username = email.split('@')[0].replace(/[^\w\s]/gi, '');
+        const {
+            email,
+            username,
+            password,
+            repassword
+        } = this.props.inputFields;
         this.props.registerUser({
             username,
             email,
@@ -90,6 +95,9 @@ class UserRegister extends React.Component {
     setInputFields = (field, value) => {
         this.props.updateSingleInputField(field, value);
         if (field === 'email') {
+            this.props.validateFields(field);
+        }
+        if (field === 'username') {
             this.props.validateFields(field);
         }
         if (field === 'password') {
@@ -117,18 +125,20 @@ class UserRegister extends React.Component {
     render() {
         const { isLoading, errorMessage, inputFields, inputFieldValidation } =
             this.props || {};
-        const { email, password, repassword } = inputFields;
+        const { email, username, password, repassword } = inputFields;
 
         const {
             email: isValidEmail,
+            username: isValidUsername,
             password: isValidPassword,
             repassword: isValidRepassword
         } = inputFieldValidation;
+        console.log('username', username, isValidUsername);
         const signUpButtonStatus = isValidEmail && isValidRepassword;
 
         return (
-            <KeyboardAvoidingView style={styles.container} behaviour="padding">
-                <View style={styles.container}>
+            <ScrollView>
+                <View style={[styles.container]}>
                     <View
                         style={[
                             styles.container,
@@ -142,24 +152,27 @@ class UserRegister extends React.Component {
                                 alignItems: 'center'
                             }}
                         >
-                            <Animated.Image
+                            <Image
                                 source={images.logo}
                                 style={{
-                                    width: this.imageHeight,
-                                    height: this.imageHeight
+                                    width: 100,
+                                    height: 100
                                 }}
                             />
                         </View>
                         <View
                             style={{
-                                flex: 1,
+                                flex: 2,
                                 flexDirection: 'column',
-                                justifyContent: 'space-around'
+                                justifyContent: 'space-between'
                             }}
                         >
-                            <Text>Enter your email ID</Text>
+                            <Text style={styles.textTitle}>
+                                Enter your email ID
+                            </Text>
                             <View style={styles.inputTextContainer}>
                                 <TextInput
+                                    placeholder="Enter your email ID"
                                     style={[
                                         styles.inputText,
                                         {
@@ -192,9 +205,50 @@ class UserRegister extends React.Component {
                                     />
                                 )}
                             </View>
-                            <Text>Type your password</Text>
+                            <Text style={styles.textTitle}>Username</Text>
                             <View style={styles.inputTextContainer}>
                                 <TextInput
+                                    placeholder="Username"
+                                    style={[
+                                        styles.inputText,
+                                        {
+                                            height: this.state.inputHeight
+                                        }
+                                    ]}
+                                    onChangeText={text =>
+                                        this.setInputFields('username', text)
+                                    }
+                                    value={username}
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    underlineColorAndroid="transparent"
+                                />
+                                {isValidUsername === null ? (
+                                    <Icon
+                                        name="clear"
+                                        size={20}
+                                        color="#FFFFFF"
+                                        style={styles.icon}
+                                    />
+                                ) : (
+                                    <Icon
+                                        name={
+                                            isValidUsername ? 'check' : 'clear'
+                                        }
+                                        size={20}
+                                        color={
+                                            isValidUsername
+                                                ? '#9DD340'
+                                                : '#BD303f'
+                                        }
+                                        style={styles.icon}
+                                    />
+                                )}
+                            </View>
+                            <Text style={styles.textTitle}>Password</Text>
+                            <View style={styles.inputTextContainer}>
+                                <TextInput
+                                    placeholder="Password"
                                     style={[
                                         styles.inputText,
                                         {
@@ -232,10 +286,12 @@ class UserRegister extends React.Component {
                                     />
                                 )}
                             </View>
-
-                            <Text>Retype your password</Text>
+                            <Text style={styles.textTitle}>
+                                Retype Password
+                            </Text>
                             <View style={styles.inputTextContainer}>
                                 <TextInput
+                                    placeholder="Retype Password"
                                     style={[
                                         styles.inputText,
                                         {
@@ -281,15 +337,20 @@ class UserRegister extends React.Component {
                         </View>
                         <View
                             style={{
-                                flex: 1,
-                                justifyContent: 'space-around'
+                                paddingTop: 16
                             }}
                         >
-                            <Text style={{ textAlign: 'center' }}>
+                            <Text
+                                style={{
+                                    textAlign: 'center',
+                                    paddingBottom: 24
+                                }}
+                            >
                                 Link your social media profiles
                             </Text>
                             <View
                                 style={{
+                                    paddingBottom: 24,
                                     flexDirection: 'row',
                                     justifyContent: 'space-around'
                                 }}
@@ -326,6 +387,8 @@ class UserRegister extends React.Component {
 
                             <View
                                 style={{
+                                    paddingTop: 24,
+                                    paddingBottom: 24,
                                     flexDirection: 'row',
                                     justifyContent: 'center'
                                 }}
@@ -354,7 +417,7 @@ class UserRegister extends React.Component {
                         </View>
                     </View>
                 </View>
-            </KeyboardAvoidingView>
+            </ScrollView>
         );
     }
 }
