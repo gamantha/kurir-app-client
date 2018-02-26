@@ -7,7 +7,7 @@ import { images } from '../../assets';
 
 const { LoginManager, AccessToken } = FBSDK;
 
-const facebookRegister = (navigation, authenticate, action) =>
+const facebookRegister = (navigation, authenticate, action, socialType) =>
     LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
         function(result) {
             if (result.isCancelled) {
@@ -15,25 +15,12 @@ const facebookRegister = (navigation, authenticate, action) =>
             } else {
                 AccessToken.getCurrentAccessToken().then(data => {
                     const accessToken = data.accessToken.toString();
-                    authenticate(accessToken, action);
+                    authenticate(accessToken, action, socialType);
                     if (action === 'register') {
-                        Alert.alert(
-                            'Your account will be connected shortly, please do SignUp'
-                        );
+                        // do something later
                     }
                     if (action === 'login') {
-                        Alert.alert(
-                            'Make sure you already sign up, please type your password and Login'
-                        );
-                        // const navigateAction = NavigationActions.reset({
-                        //     index: 0,
-                        //     actions: [
-                        //         NavigationActions.navigate({
-                        //             routeName: 'Dashboard'
-                        //         })
-                        //     ]
-                        // });
-                        // navigation.dispatch(navigateAction);
+                        // do something later
                     }
                 });
             }
@@ -43,9 +30,11 @@ const facebookRegister = (navigation, authenticate, action) =>
         }
     );
 
-const Facebook = ({ navigation, authenticate, action }) => (
+const Facebook = ({ navigation, authenticate, action, socialType }) => (
     <TouchableOpacity
-        onPress={() => facebookRegister(navigation, authenticate, action)}
+        onPress={() =>
+            facebookRegister(navigation, authenticate, action, socialType)
+        }
     >
         <Image source={images.facebook} style={{ width: 50, height: 50 }} />
     </TouchableOpacity>
