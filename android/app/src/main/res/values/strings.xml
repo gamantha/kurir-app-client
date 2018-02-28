@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">kurir</string>
+    <string name="facebook_app_id">1620205228072974</string>
+    <string name="fb_login_protocol_scheme">fb1620205228072974</string>
 </resources>

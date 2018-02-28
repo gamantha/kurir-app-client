@@ -129,7 +129,7 @@ class ForgotPasswordInput extends Component {
                             }}
                         >
                             <TextInput
-                                style={[styles.inputText, { flex: 0.7 }]}
+                                style={[styles.inputText, { flex: 0.5 }]}
                                 onChangeText={value => this.setEmail(value)}
                                 value={email}
                                 autoCapitalize="none"
@@ -138,7 +138,7 @@ class ForgotPasswordInput extends Component {
                         </View>
                         <View style={{ flex: 0.3 }}>
                             <TouchableOpacity
-                                style={styles.touchAbleButton}
+                                style={[styles.touchAbleButton, { height: 45 }]}
                                 onPress={() => {
                                     this.handlePress(email);
                                 }}

@@ -18,8 +18,7 @@
         "react-test-renderer": "16.2.0"
     },
     "scripts": {
-        "fix-icons":
-            "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json",
+        "fix-icons": "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json",
         "start": "react-native start",
         "android": "react-native run-android",
         "ios": "react-native run-ios",
@@ -38,6 +37,8 @@
         "qs": "^6.5.1",
         "react": "16.2.0",
         "react-native": "0.52.0",
+        "react-native-fbsdk": "^0.7.0",
+        "react-native-google-signin": "^0.12.0",
         "react-native-sensitive-info": "^5.1.0",
         "react-native-simple-toast": "^0.0.7",
         "react-native-step-indicator": "^0.0.7",

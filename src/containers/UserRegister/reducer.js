@@ -7,7 +7,8 @@ import {
     SET_ERROR_MESSAGE,
     REGISTER,
     INPUT_FIELD,
-    CLEAR_ERROR_MESSAGE
+    CLEAR_ERROR_MESSAGE,
+    SOCIAL_OAUTH
 } from './constants';
 
 /**
@@ -20,11 +21,13 @@ const initialState = fromJS({
     errorMessage: '',
     inputFields: {
         email: '',
+        username: '',
         password: '',
         repassword: ''
     },
     inputFieldValidations: {
         email: null,
+        username: null,
         password: null,
         repassword: null
     },
@@ -52,19 +55,20 @@ export default function userRegistrationReducer(state = initialState, action) {
                 action.value
             );
         case CLEAR_ERROR_MESSAGE:
-            console.log('HERE');
             return state.set('errorMessage', '');
         case USER_REGISTRATION_SUCCESS:
             return state.set('registeredUser', fromJS(action.payload)).set(
                 'inputFields',
                 fromJS({
                     email: '',
+                    username: '',
                     password: '',
                     repassword: ''
                 }).set(
                     'inputFieldValidations',
                     fromJS({
                         email: null,
+                        username: null,
                         password: null,
                         repassword: null
                     })
@@ -106,6 +110,13 @@ export const inputFieldValidations = (field, value) => ({
 export const registerUser = payload => ({
     type: REGISTER,
     payload
+});
+
+export const socialOauth = (tokenId, action, socialType) => ({
+    type: SOCIAL_OAUTH,
+    tokenId,
+    action,
+    socialType
 });
 
 export const clearErrorMessage = () => ({

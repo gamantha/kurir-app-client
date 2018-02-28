@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "766194424593",
+    "project_id": "kurir-196416"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766194424593:android:4c9efc108c42bc7b",
+        "android_client_info": {
+          "package_name": "id.kurir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766194424593-8ma9ce68632cut2rnisj54isufvbplb2.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "766194424593-bn897u34465iu18k5nvj9t180l78e6gs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.kurir",
+            "certificate_hash": "490204d2a81abdc95c6fe1bae02ba5d916012ba2"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTgse0ivyOGD2LPlN4-sD0eOixzS-D2vU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
