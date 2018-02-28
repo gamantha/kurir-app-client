@@ -1,5 +1,5 @@
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
 // Main components
 import SplashScreen from './containers/SplashScreen';
@@ -22,12 +22,6 @@ export const Kurir = StackNavigator(
                 header: null
             }
         },
-        Onboard: {
-            screen: Onboarding,
-            navigationOptions: {
-                header: null
-            }
-        },
         Register: {
             screen: UserRegister,
             navigationOptions: {
@@ -46,31 +40,52 @@ export const Kurir = StackNavigator(
                 header: null
             }
         },
-        Dashboard: {
-            screen: UserDashboard,
-            navigationOptions: {
-                headerTitle: <DashboardNavbar />,
-                headerStyle: {
-                    backgroundColor: '#FFFFFF'
-                },
-                headerLeft: null
-            }
-        },
-        ChangePassword: {
-            screen: ChangePassword,
+        Drawer: {
+            screen: DrawerStack,
             navigationOptions: {
                 header: null
             }
         },
-        EditProfile: {
-            screen: EditProfile,
-            navigationOptions: {
-                header: null
-            }
-        }
     },
     //config
     {
         initialRouteName: 'Splash'
     }
 );
+
+//drawer navigation
+const DrawerNav = DrawerNavigator({
+    Onboard: {
+        screen: Onboarding,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Dashboard: {
+        screen: UserDashboard,
+        navigationOptions: {
+            headerTitle: <DashboardNavbar />,
+            headerStyle: {
+                backgroundColor: '#FFFFFF'
+            },
+            headerLeft: null
+        }
+    },
+    ChangePassword: {
+        screen: ChangePassword,
+        navigationOptions: {
+            header: null
+        }
+    },
+    EditProfile: {
+        screen: EditProfile,
+        navigationOptions: {
+            header: null
+        }
+    }
+})
+
+//drawer stack
+const DrawerStack = ({
+    DrawerNav : { screen: DrawerNav },
+})
