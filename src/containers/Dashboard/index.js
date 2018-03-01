@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Button, Image, Dimensions } from 'react-native';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    Button,
+    Image,
+    Dimensions
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SInfo from 'react-native-sensitive-info';
 import { NavigationActions } from 'react-navigation';
@@ -11,7 +18,7 @@ import { logoutFlow } from '../UserLogin/reducer';
 import { clearTokenData } from '../../reducers/tokenReducer';
 import Swiper from 'react-native-swiper';
 
-const { width, height } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window');
 class Dashboard extends Component {
     handleLogout = () => {
         clearTokenData();
@@ -32,25 +39,76 @@ class Dashboard extends Component {
                     }}
                 >
                     {/* This will be a swiper */}
-                    
-                    <Swiper style={style1.wrapper}
-                        dot={<View style={{backgroundColor: '#d4d2cf', width: 11, height: 11, borderRadius: 5, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
-                        activeDot={<View style={{backgroundColor: '#db4b35', width: 11, height: 11, borderRadius: 5, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
-                        paginationStyle={{ right: null, left:40}} loop>
+
+                    <Swiper
+                        style={style1.wrapper}
+                        dot={
+                            <View
+                                style={{
+                                    backgroundColor: '#d4d2cf',
+                                    width: 11,
+                                    height: 11,
+                                    borderRadius: 5,
+                                    marginLeft: 3,
+                                    marginRight: 3,
+                                    marginTop: 3,
+                                    marginBottom: 3
+                                }}
+                            />
+                        }
+                        activeDot={
+                            <View
+                                style={{
+                                    backgroundColor: '#db4b35',
+                                    width: 11,
+                                    height: 11,
+                                    borderRadius: 5,
+                                    marginLeft: 3,
+                                    marginRight: 3,
+                                    marginTop: 3,
+                                    marginBottom: 3
+                                }}
+                            />
+                        }
+                        paginationStyle={{ right: null, left: 40 }}
+                        loop
+                    >
                         <View style={style1.slide1}>
-                            <Image resizeMode='stretch' style={styles.image} source={images.slider1} />
+                            <Image
+                                resizeMode="stretch"
+                                style={styles.image}
+                                source={images.slider1}
+                            />
                             <Text style={style1.text}>Compettitive Rates</Text>
-                            <Text style={style1.subtext}>World class services</Text>
+                            <Text style={style1.subtext}>
+                                World class services
+                            </Text>
                         </View>
                         <View style={style1.slide1}>
-                            <Image resizeMode='stretch' style={styles.image} source={images.slider2} />
-                            <Text style={style1.text}>Compettitive Rates 2</Text>
-                            <Text style={style1.subtext}>World class services 2</Text>
+                            <Image
+                                resizeMode="stretch"
+                                style={styles.image}
+                                source={images.slider2}
+                            />
+                            <Text style={style1.text}>
+                                Compettitive Rates 2
+                            </Text>
+                            <Text style={style1.subtext}>
+                                World class services 2
+                            </Text>
                         </View>
                         <View style={style1.slide1}>
-                            <Image resizeMode='stretch' style={styles.image} source={images.slider3} />
-                            <Text style={style1.text}>Compettitive Rates 3</Text>
-                            <Text style={style1.subtext}>World class services 3</Text>
+                            <Image
+                                resizeMode="stretch"
+                                style={styles.image}
+                                source={images.slider3}
+                            />
+                            <Text style={style1.text}>
+                                Compettitive Rates 3
+                            </Text>
+                            <Text style={style1.subtext}>
+                                World class services 3
+                            </Text>
                         </View>
                     </Swiper>
                 </View>
@@ -62,6 +120,7 @@ class Dashboard extends Component {
                     }}
                 >
                     <TouchableOpacity
+                        onPress={this.handleLogout}
                         style={[
                             styles.container,
                             {
@@ -164,8 +223,7 @@ const mapDispatchToProps = dispatch =>
     );
 
 var style1 = {
-    wrapper: {
-    },
+    wrapper: {},
     slide1: {
         flex: 1,
         justifyContent: 'center',
@@ -176,29 +234,29 @@ var style1 = {
         color: '#fff',
         fontSize: 24,
         fontWeight: '600',
-        marginLeft:40,
-        textShadowOffset:{ width:1, height:2},
+        marginLeft: 40,
+        textShadowOffset: { width: 1, height: 2 },
         textShadowColor: 'rgba(51,51,51,0.5)',
         position: 'absolute',
-        left: (Dimensions.get('window').width / 0) - 25,
-        top: height*0.1
+        left: Dimensions.get('window').width / 0 - 25,
+        top: height * 0.1
     },
     subtext: {
         color: '#fff',
         fontSize: 14,
         fontWeight: '600',
-        marginLeft:40,
-        textShadowOffset:{ width:1, height:2},
+        marginLeft: 40,
+        textShadowOffset: { width: 1, height: 2 },
         textShadowColor: 'rgba(51,51,51,0.5)',
         position: 'absolute',
-        left: (Dimensions.get('window').width / 0) - 25,
-        top: height*0.15
+        left: Dimensions.get('window').width / 0 - 25,
+        top: height * 0.15
     },
 
     image: {
         width,
         flex: 1
-      }
-}
+    }
+};
 
 export default connect(null, mapDispatchToProps)(Dashboard);

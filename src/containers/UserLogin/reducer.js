@@ -42,7 +42,7 @@ export default function userLoginReducer(state = initialState, action) {
         case CLEAR_ERROR_MESSAGE:
             return state.set('errorMessage', '');
         case LOGOUT:
-            return state;
+            return initialState;
         default:
             return state;
     }
