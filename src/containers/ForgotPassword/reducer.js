@@ -47,12 +47,6 @@ export const showLoading = status => ({
     status
 });
 
-/**
- * Set email value on reducer object
- *
- * @param  Boolean status
- * @return Object
- */
 export const setEmail = email => ({
     type: SET_EMAIL,
     payload: email
