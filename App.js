@@ -3,7 +3,7 @@ import { View, SafeAreaView } from 'react-native';
 import { connect, Provider } from 'react-redux';
 
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './src/store';
+import { store } from './src/store';
 
 import { Kurir } from './src/routes';
 

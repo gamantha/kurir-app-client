@@ -1,8 +1,14 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import { Animated, Image, ActivityIndicator, Easing } from 'react-native';
-import SInfo from 'react-native-sensitive-info';
+import {
+    Animated,
+    Image,
+    ActivityIndicator,
+    Easing,
+    AsyncStorage
+} from 'react-native';
 import jwtDecode from 'jwt-decode';
+import Toast from 'react-native-simple-toast';
 
 import { images } from '../../assets';
 import Api from '../../services/api';
@@ -20,8 +26,8 @@ class SplashScreen extends Component {
     async componentWillMount() {
         const { navigate } = this.props.navigation;
         try {
-            const accessToken = await SInfo.getItem('accessToken', {});
-            const refreshToken = await SInfo.getItem('refreshToken', {});
+            const accessToken = await AsyncStorage.getItem('accessToken');
+            const refreshToken = await AsyncStorage.getItem('refreshToken');
             if (accessToken && accessToken.length > 1) {
                 const { exp } = jwtDecode(accessToken);
 
@@ -31,7 +37,7 @@ class SplashScreen extends Component {
 
                         Api.setAuthorizationToken(accessToken);
                     } catch (error) {
-                        console.log('Splash Error', error.message);
+                        Toast.show('Splash Error', error.message);
                     }
                 }
                 navigate('Dashboard');
@@ -43,7 +49,7 @@ class SplashScreen extends Component {
                 error.message === 'invalid_token' ||
                 error.message === 'invalid token'
             ) {
-                const refreshToken = await SInfo.getItem('refreshToken', {});
+                const refreshToken = await AsyncStorage.getItem('refreshToken');
                 const newToken = await reqRefreshToken(refreshToken);
                 if (newToken) {
                     Api.setAuthorizationToken(accessToken);

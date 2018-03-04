@@ -8,14 +8,13 @@ import {
     Dimensions
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import SInfo from 'react-native-sensitive-info';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { images } from '../../assets';
 import styles from '../../helpers/styles';
 import { logoutFlow } from '../UserLogin/reducer';
-import { clearTokenData } from '../../reducers/tokenReducer';
+import { clearTokenData } from '../../helpers/utils';
 import Swiper from 'react-native-swiper';
 
 const { width, height } = Dimensions.get('window');
@@ -120,7 +119,7 @@ class Dashboard extends Component {
                     }}
                 >
                     <TouchableOpacity
-                        onPress={this.handleLogout}
+                        onPress={() => {}}
                         style={[
                             styles.container,
                             {
@@ -167,6 +166,7 @@ class Dashboard extends Component {
                     }}
                 >
                     <TouchableOpacity
+                        onPress={this.handleLogout}
                         style={[
                             styles.container,
                             {

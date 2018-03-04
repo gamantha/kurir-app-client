@@ -24,6 +24,7 @@ import {
     SOCIAL_OAUTH
 } from './constants';
 import { LOGIN_SUCCESS } from '../UserLogin/constants';
+import { saveTokenData } from '../../helpers/utils';
 
 /**
  * Get the user data and send to API
@@ -69,6 +70,8 @@ function* watchSocialOauth({ tokenId, action, socialType }) {
         if (meta.success && data) {
             if (data.User && data.User.isEmailValidated) {
                 yield put({ type: LOGIN_SUCCESS, payload: meta.success });
+                const { accessToken, refreshToken, User } = data;
+                saveTokenData(accessToken, refreshToken, User);
             }
             if (action === 'register') {
                 yield put(updateSingleInputField('email', data.email));
