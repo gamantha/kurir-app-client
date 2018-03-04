@@ -78,7 +78,7 @@ class Dashboard extends Component {
                                 style={styles.image}
                                 source={images.slider1}
                             />
-                            <Text style={style1.text}>Compettitive Rates</Text>
+                            <Text style={style1.text}>Competitive Rates</Text>
                             <Text style={style1.subtext}>
                                 World class services
                             </Text>
@@ -89,9 +89,7 @@ class Dashboard extends Component {
                                 style={styles.image}
                                 source={images.slider2}
                             />
-                            <Text style={style1.text}>
-                                Compettitive Rates 2
-                            </Text>
+                            <Text style={style1.text}>Competitive Rates 2</Text>
                             <Text style={style1.subtext}>
                                 World class services 2
                             </Text>
@@ -102,9 +100,7 @@ class Dashboard extends Component {
                                 style={styles.image}
                                 source={images.slider3}
                             />
-                            <Text style={style1.text}>
-                                Compettitive Rates 3
-                            </Text>
+                            <Text style={style1.text}>Competitive Rates 3</Text>
                             <Text style={style1.subtext}>
                                 World class services 3
                             </Text>

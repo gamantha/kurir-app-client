@@ -18,8 +18,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Facebook from '../../components/facebook';
-import Google from '../../components/google';
+import Facebook from '../../components/Facebook';
+import Google from '../../components/Google';
 
 import { images } from '../../assets';
 
