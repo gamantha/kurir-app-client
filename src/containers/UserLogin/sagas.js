@@ -14,7 +14,7 @@ import {
     reqRefreshToken,
     logoutFlow
 } from './reducer';
-import { saveTokenData, clearTokenData } from '../../reducers/tokenReducer';
+import { saveTokenData, clearTokenData } from '../../helpers/utils';
 
 /**
  * Send the payload to API
@@ -30,7 +30,7 @@ function* watchLoginFlow(payload) {
         if (meta.success && data && data.User.isEmailValidated) {
             yield put({ type: LOGIN_SUCCESS, payload: meta.success });
             const { accessToken, refreshToken, User } = data;
-            saveTokenData({ accessToken, refreshToken, User });
+            saveTokenData(accessToken, refreshToken, User);
             yield put(updateLoginInputField('password', ''));
         }
         if (data.User.isEmailValidated === false) {
