@@ -3,7 +3,7 @@ import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
 // Main components
 import SplashScreen from './containers/SplashScreen';
-import Onboarding from './components/Onboarding';
+import Onboarding from './components/onboarding';
 import UserRegister from './containers/UserRegister';
 import UserLogin from './containers/UserLogin';
 import UserDashboard from './containers/Dashboard';
@@ -14,10 +14,18 @@ import EditProfile from './components/EditProfile';
 // Navigation components
 import DashboardNavbar from './navigations/DashboardNavbar';
 
+import { DrawerStack } from './containers/DrawerMenu';
+
 export const Kurir = StackNavigator(
     {
         Splash: {
             screen: SplashScreen,
+            navigationOptions: {
+                header: null
+            }
+        },
+        Onboard: {
+            screen: Onboarding,
             navigationOptions: {
                 header: null
             }
@@ -40,52 +48,17 @@ export const Kurir = StackNavigator(
                 header: null
             }
         },
-        Drawer: {
+        Main: {
             screen: DrawerStack,
             navigationOptions: {
                 header: null
             }
-        },
+        }
     },
     //config
     {
-        initialRouteName: 'Splash'
+        initialRouteName: 'Splash',
     }
 );
 
-//drawer navigation
-const DrawerNav = DrawerNavigator({
-    Onboard: {
-        screen: Onboarding,
-        navigationOptions: {
-            header: null
-        }
-    },
-    Dashboard: {
-        screen: UserDashboard,
-        navigationOptions: {
-            headerTitle: <DashboardNavbar />,
-            headerStyle: {
-                backgroundColor: '#FFFFFF'
-            },
-            headerLeft: null
-        }
-    },
-    ChangePassword: {
-        screen: ChangePassword,
-        navigationOptions: {
-            header: null
-        }
-    },
-    EditProfile: {
-        screen: EditProfile,
-        navigationOptions: {
-            header: null
-        }
-    }
-})
 
-//drawer stack
-const DrawerStack = ({
-    DrawerNav : { screen: DrawerNav },
-})
