@@ -40,7 +40,7 @@ class SplashScreen extends Component {
                         Toast.show('Splash Error', error.message);
                     }
                 }
-                navigate('Dashboard');
+                navigate('Main');
             } else {
                 navigate('Login');
             }
@@ -53,7 +53,7 @@ class SplashScreen extends Component {
                 const newToken = await reqRefreshToken(refreshToken);
                 if (newToken) {
                     Api.setAuthorizationToken(accessToken);
-                    navigate('Dashboard');
+                    navigate('Main');
                 }
             }
             navigate('Login');
