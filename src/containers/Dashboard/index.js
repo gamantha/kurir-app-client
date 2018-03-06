@@ -30,6 +30,11 @@ class Dashboard extends Component {
     };
 
     render() {
+        const { dispatch } = this.props.navigation;
+        const resetToPackageInfo = NavigationActions.navigate({
+            routeName: 'SendPackage',
+            action: [NavigationActions.navigate({ routeName: 'PackageInfo' })]
+        });
         return (
             <View style={styles.container}>
                 <View
@@ -115,7 +120,7 @@ class Dashboard extends Component {
                     }}
                 >
                     <TouchableOpacity
-                        onPress={() => {}}
+                        onPress={() => dispatch(resetToPackageInfo)}
                         style={[
                             styles.container,
                             {
