@@ -9,6 +9,7 @@ import userRegisterReducer from '../containers/UserRegister/reducer';
 import userLoginReducer from '../containers/UserLogin/reducer';
 import verificationCodeReducer from '../containers/VerificationCode/reducer';
 // import tokenReducer from './tokenReducer';
+import newPasswordReducer from '../containers/NewPassword/reducer';
 
 // Use this for encrypt token later
 const sensitiveStorage = createSensitiveStorage({
@@ -35,7 +36,8 @@ const rootReducer = combineReducers({
     userRegister: userRegisterReducer,
     userLogin: userLoginReducer,
     forgotPassword: forgotPasswordReducer,
-    verificationCode: verificationCodeReducer
+    verificationCode: verificationCodeReducer,
+    newPassword: newPasswordReducer
 });
 
 export default rootReducer;
