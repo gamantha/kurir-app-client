@@ -12,6 +12,7 @@ import Onboarding from './src/components/Onboarding';
 import ForgotPassword from './src/containers/ForgotPassword';
 import ChangePassword from './src/components/changePassword';
 import EditProfile from './src/components/EditProfile';
+import NewPassword from './src/containers/NewPassword';
 
 import { Kurir } from './src/routes';
 

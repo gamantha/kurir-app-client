@@ -10,6 +10,7 @@ import UserDashboard from './containers/Dashboard';
 import ForgotPassword from './containers/ForgotPassword';
 import ChangePassword from './components/changePassword';
 import EditProfile from './components/EditProfile';
+import NewPassword from './containers/NewPassword';
 
 // Navigation components
 import DashboardNavbar from './navigations/DashboardNavbar';
@@ -67,10 +68,16 @@ export const Kurir = StackNavigator(
             navigationOptions: {
                 header: null
             }
+        },
+        NewPassword: {
+            screen: NewPassword,
+            navigationOptions: {
+                header: null
+            }
         }
     },
     //config
     {
-        initialRouteName: 'Splash'
+        initialRouteName: 'NewPassword'
     }
 );
