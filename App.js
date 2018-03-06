@@ -5,14 +5,14 @@ import { connect, Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store } from './src/store';
 
-import { Kurir } from './src/routes';
+import RootView from './src';
 
 class App extends Component {
     render() {
         return (
             <Provider store={store}>
                 <SafeAreaView style={{ flex: 1 }}>
-                    <Kurir />
+                    <RootView />
                 </SafeAreaView>
             </Provider>
         );
