@@ -1,0 +1,379 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditProfile renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#FFFFFF",
+      "flex": 1,
+      "flexDirection": "column",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "marginLeft": 25,
+        "marginRight": 25,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginTop": 10,
+          },
+        ]
+      }
+    >
+      <View>
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "color": "#333",
+                "fontSize": 20,
+              },
+              undefined,
+              Object {
+                "fontFamily": "FontAwesome",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+      <View>
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "color": "#BD303f",
+                "fontSize": 20,
+              },
+              undefined,
+              Object {
+                "fontFamily": "FontAwesome",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "flex": 0.1,
+          "flexDirection": "row",
+          "marginBottom": 20,
+          "marginTop": 10,
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#333",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        Edit Profile
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "flexDirection": "column",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Image
+          source={
+            Object {
+              "testUri": "../../../src/assets/images/googleplus.png",
+            }
+          }
+          style={
+            Object {
+              "borderRadius": 10,
+              "height": 80,
+              "width": 80,
+            }
+          }
+        />
+      </View>
+      <View
+        style={Object {}}
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "#e65659",
+              "textAlign": "center",
+            }
+          }
+        >
+          Change Foto
+        </Text>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "flex": 1,
+          "marginTop": 20,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "flex": 0.7,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flex": 0.2,
+              "flexDirection": "row",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "fontSize": 16,
+              }
+            }
+          >
+            Name
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "flex": 0.5,
+              "justifyContent": "space-around",
+            }
+          }
+        >
+          <TextInput
+            allowFontScaling={true}
+            autoCapitalize="none"
+            style={
+              Array [
+                Object {
+                  "borderColor": "#BD303f",
+                  "borderRadius": 50,
+                  "borderWidth": 1,
+                  "flex": 1,
+                  "height": 20,
+                  "paddingLeft": 20,
+                },
+                Object {
+                  "flex": 0.7,
+                },
+              ]
+            }
+            underlineColorAndroid="transparent"
+          />
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flex": 0.2,
+              "flexDirection": "row",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "fontSize": 16,
+              }
+            }
+          >
+            Email Address
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "flex": 0.5,
+              "justifyContent": "space-around",
+            }
+          }
+        >
+          <TextInput
+            allowFontScaling={true}
+            autoCapitalize="none"
+            style={
+              Array [
+                Object {
+                  "borderColor": "#BD303f",
+                  "borderRadius": 50,
+                  "borderWidth": 1,
+                  "flex": 1,
+                  "height": 20,
+                  "paddingLeft": 20,
+                },
+                Object {
+                  "flex": 0.7,
+                },
+              ]
+            }
+            underlineColorAndroid="transparent"
+          />
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flex": 0.2,
+              "flexDirection": "row",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "fontSize": 16,
+              }
+            }
+          >
+            Phone Number
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "flex": 0.5,
+              "justifyContent": "space-around",
+            }
+          }
+        >
+          <TextInput
+            allowFontScaling={true}
+            autoCapitalize="none"
+            placeholder="+62"
+            placeholderTextColor="#4c4c4c"
+            style={
+              Array [
+                Object {
+                  "borderColor": "#BD303f",
+                  "borderRadius": 50,
+                  "borderWidth": 1,
+                  "flex": 1,
+                  "height": 20,
+                  "paddingLeft": 20,
+                },
+                Object {
+                  "flex": 0.7,
+                },
+              ]
+            }
+            underlineColorAndroid="transparent"
+          />
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flex": 0.2,
+              "flexDirection": "row",
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "fontSize": 16,
+              }
+            }
+          >
+            Address
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "flex": 0.5,
+              "justifyContent": "space-around",
+            }
+          }
+        >
+          <TextInput
+            allowFontScaling={true}
+            autoCapitalize="none"
+            style={
+              Array [
+                Object {
+                  "borderColor": "#BD303f",
+                  "borderRadius": 50,
+                  "borderWidth": 1,
+                  "flex": 1,
+                  "height": 20,
+                  "paddingLeft": 20,
+                },
+                Object {
+                  "flex": 0.7,
+                },
+              ]
+            }
+            underlineColorAndroid="transparent"
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

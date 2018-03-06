@@ -20,8 +20,8 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import Facebook from '../../components/facebook';
-import Google from '../../components/google';
+import Facebook from '../../components/Facebook';
+import Google from '../../components/Google';
 
 import * as actions from './reducer';
 import * as selectors from './selectors';

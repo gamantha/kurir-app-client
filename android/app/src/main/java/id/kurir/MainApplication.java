@@ -10,7 +10,6 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -38,8 +37,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RNGoogleSigninPackage(),
             new FBSDKPackage(mCallbackManager),
-            new VectorIconsPackage(),
-            new RNSensitiveInfoPackage()
+            new VectorIconsPackage()
       );
     }
 
