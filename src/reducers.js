@@ -5,6 +5,7 @@ import forgotPasswordReducer from './containers/ForgotPassword/reducer';
 import userRegisterReducer from './containers/UserRegister/reducer';
 import userLoginReducer from './containers/UserLogin/reducer';
 import verificationCodeReducer from './containers/VerificationCode/reducer';
+import newPasswordReducer from './containers/NewPassword/reducer';
 
 /**
  * Combine all reducers each containers
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
     userRegister: userRegisterReducer,
     userLogin: userLoginReducer,
     forgotPassword: forgotPasswordReducer,
-    verificationCode: verificationCodeReducer
+    verificationCode: verificationCodeReducer,
+    newPassword: newPasswordReducer
 });
 
 export default rootReducer;
