@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { images } from '../../assets';
+import { images } from '../assets';
 
 const DashboardNavbar = () => (
     <View
