@@ -9,8 +9,11 @@ import {
     Button,
     Dimensions,
     Keyboard,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    BackHandler,
+    Easing
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -27,7 +30,37 @@ class NewPassword extends Component {
         super(props);
     }
 
-    onCLickNewPassword = () => {
+    componentDidMount() {
+        BackHandler.addEventListener('addEventListener', () =>
+            BackHandler.exitApp()
+        );
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { success, errorMessage } = nextProps;
+        if (errorMessage !== '' && errorMessage !== this.props.errorMessage) {
+            // Toast.show(errorMessage);
+            console.log(" error gan "+errorMessage);
+            this.props.clearErrorMessage();
+        }
+        if (success && this.props.success !== success) {
+            const navigateAction = NavigationActions.reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({ routeName: 'NewPassword' })
+                ]
+            });
+            this.props.navigation.dispatch(navigateAction);
+        }
+    }
+
+    componentWillUnmount() {
+        BackHandler.addEventListener('addEventListener', () =>
+            BackHandler.exitApp()
+        );
+    }
+
+    onClickNewPassword = () => {
         const { password, rePassword } = this.props.newPassword || {};
         this.props.newPasswordFlow({ password, rePassword });
     };
@@ -38,7 +71,6 @@ class NewPassword extends Component {
     
     textInputFocus = field => {
         this.props.textInputFocus(field, '#F8E7E9');
-        console.log("ini text focus", field);
     };
 
     textInputBlur = field => {
@@ -201,9 +233,9 @@ class NewPassword extends Component {
                                 position: 'absolute',
                                 top: 20,
                                 marginRight: 20}]}
-                                disabled={!disableButton}
+                                // disabled={!disableButton}
                                 onPress={() => {
-                                    this.onCLickNewPassword();
+                                    this.onClickNewPassword();
                                 }}
                                 
                             >
@@ -223,13 +255,17 @@ const mapDispatchToProps = dispatch =>
         textInputFocus: actions.textInputFocus,
         updateNewPasswordField: actions.updateNewPasswordField,
         newPasswordFlow: actions.newPasswordFlow,
+        clearErrorMessage: actions.clearErrorMessage
     }, dispatch
 );
 
 const mapStateProps =() => 
     createStructuredSelector({
         newPassword: selectors.getNewPasswordField,
-        inputFocus: selectors.getTextInputFocus
+        inputFocus: selectors.getTextInputFocus(),
+        isLoading: selectors.getIsLoadingPassword,
+        success: selectors.getNewPasswordSuccess,
+        errorMessage: selectors.getNewPasswordError
     });
 
 export default connect(mapStateProps, mapDispatchToProps)(NewPassword);
