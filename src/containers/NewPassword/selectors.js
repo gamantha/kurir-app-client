@@ -22,3 +22,18 @@ export const getTextInputFocus = () =>
     createSelector ( selectNewPasswordReducer(), state=>
         state.get('inputTextFocus').toJS()
     );
+
+export const getIsLoadingPassword = () =>
+    createSelector ( selectNewPasswordReducer (), state =>
+        state.get('isLoadingNewPassword').toJS()
+    );
+
+export const getNewPasswordSuccess = () =>
+    createSelector ( selectNewPasswordReducer (), state =>
+        state.get('newPasswordSuccess').toJS()
+    );
+
+export const getNewPasswordError = () =>
+    createSelector ( selectNewPasswordReducer (), state =>
+        state.get('newPasswordError').toJS()
+    );
