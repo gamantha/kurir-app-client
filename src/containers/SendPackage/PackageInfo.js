@@ -115,9 +115,7 @@ class PackageInfo extends Component {
                         ]}
                     >
                         <TouchableOpacity
-                            onPress={() =>
-                                this.props.navigation.dispatch(resetAction)
-                            }
+                            onPress={() => this.props.navigation.goBack()}
                             style={[
                                 styles.touchAbleButton,
                                 {

@@ -7,7 +7,8 @@ import styles from '../../helpers/styles';
 
 const resetAction = NavigationActions.reset({
     index: 0,
-    actions: [NavigationActions.navigate({ routeName: 'PackageInfo' })]
+    key: 'StackRouterRoot',
+    actions: [NavigationActions.navigate({ routeName: 'Dashboard' })]
 });
 
 class ReceiverInfo extends Component {
@@ -125,12 +126,15 @@ class ReceiverInfo extends Component {
                                 }
                             ]}
                         >
-                            <Text style={styles.textButton}>Back</Text>
+                            <Text style={styles.textButton}>Cancel</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
+                            onPress={() =>
+                                this.props.navigation.navigate('Preview')
+                            }
                             style={[styles.touchAbleButton, { width: '45%' }]}
                         >
-                            <Text style={styles.textButton}>Confirm</Text>
+                            <Text style={styles.textButton}>Preview</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

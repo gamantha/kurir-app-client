@@ -3,22 +3,30 @@ import { Dimensions } from 'react-native';
 import { StackNavigator, withNavigation } from 'react-navigation';
 
 import SendPackageNavBar from '../../navigations/SendPackageNavBar';
+import OriginToDestination from './OriginToDestination';
 import PackageInfo from './PackageInfo';
 import ReceiverInfo from './ReceiverInfo';
+import Preview from './Preview';
 
 const width = Dimensions.get('window').width / 2.5;
 
 const SendPackage = StackNavigator(
     {
+        OriginToDestination: {
+            screen: OriginToDestination
+        },
         PackageInfo: {
             screen: PackageInfo
         },
         ReceiverInfo: {
             screen: ReceiverInfo
+        },
+        Preview: {
+            screen: Preview
         }
     },
     {
-        initialRouteName: 'PackageInfo',
+        initialRouteName: 'OriginToDestination',
         navigationOptions: {
             headerTitle: <SendPackageNavBar />,
             headerStyle: {
