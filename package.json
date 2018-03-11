@@ -15,7 +15,9 @@
         "eslint-plugin-react-native": "^3.2.1",
         "flow-bin": "0.61.0",
         "jest": "22.1.1",
-        "react-test-renderer": "16.2.0"
+        "react-test-renderer": "16.2.0",
+        "reactotron-react-native": "^1.14.0",
+        "reactotron-redux": "^1.13.0"
     },
     "scripts": {
         "fix-icons": "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json",

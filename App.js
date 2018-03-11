@@ -1,3 +1,5 @@
+import './src/reactoron-config';
+import Reactotron from 'reactotron-react-native';
 import React, { Component } from 'react';
 import { View, SafeAreaView } from 'react-native';
 import { connect, Provider } from 'react-redux';
