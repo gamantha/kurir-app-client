@@ -33,3 +33,10 @@ export function validateName(inputvalue) {
     const pattern = /([^a-zA-Z0-9_ -])/g;
     return !pattern.test(inputvalue);
 }
+
+// Get Token
+export function getTokenData(){
+    return AsyncStorage.getItem('accessToken')
+        .then(response => response)
+        .catch(err => err);
+}
