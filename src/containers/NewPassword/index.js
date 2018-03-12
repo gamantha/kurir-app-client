@@ -36,23 +36,23 @@ class NewPassword extends Component {
         );
     }
 
-    componentWillReceiveProps(nextProps) {
-        const { success, errorMessage } = nextProps;
-        if (errorMessage !== '' && errorMessage !== this.props.errorMessage) {
-            // Toast.show(errorMessage);
-            console.log(" error gan "+errorMessage);
-            this.props.clearErrorMessage();
-        }
-        if (success && this.props.success !== success) {
-            const navigateAction = NavigationActions.reset({
-                index: 0,
-                actions: [
-                    NavigationActions.navigate({ routeName: 'NewPassword' })
-                ]
-            });
-            this.props.navigation.dispatch(navigateAction);
-        }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     const { success, errorMessage } = nextProps;
+    //     if (errorMessage !== '' && errorMessage !== this.props.errorMessage) {
+    //         // Toast.show(errorMessage);
+    //         console.log(" error gan "+errorMessage);
+    //         this.props.clearErrorMessage();
+    //     }
+    //     if (success && this.props.success !== success) {
+    //         const navigateAction = NavigationActions.reset({
+    //             index: 0,
+    //             actions: [
+    //                 NavigationActions.navigate({ routeName: 'NewPassword' })
+    //             ]
+    //         });
+    //         this.props.navigation.dispatch(navigateAction);
+    //     }
+    // }
 
     componentWillUnmount() {
         BackHandler.addEventListener('addEventListener', () =>
@@ -255,7 +255,7 @@ const mapDispatchToProps = dispatch =>
         textInputFocus: actions.textInputFocus,
         updateNewPasswordField: actions.updateNewPasswordField,
         newPasswordFlow: actions.newPasswordFlow,
-        clearErrorMessage: actions.clearErrorMessage
+        // clearErrorMessage: actions.clearErrorMessage
     }, dispatch
 );
 
@@ -265,7 +265,7 @@ const mapStateProps =() =>
         inputFocus: selectors.getTextInputFocus(),
         isLoading: selectors.getIsLoadingPassword,
         success: selectors.getNewPasswordSuccess,
-        errorMessage: selectors.getNewPasswordError
+        // errorMessage: selectors.getNewPasswordError
     });
 
 export default connect(mapStateProps, mapDispatchToProps)(NewPassword);

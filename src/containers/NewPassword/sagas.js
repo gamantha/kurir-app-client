@@ -5,45 +5,50 @@ import { NEW_PASSWORD,
          NEW_PASSWORD_ERROR,
          NEW_PASSWORD_SUCCESS,
          } from './constants';
-import {setIsNewPassword, updateNewPasswordField} from './reducer';
+import { setIsNewPassword, updateNewPasswordField } from './reducer';
 import { getTokenData } from '../../helpers/utils';
 
-function* watchNewPasswordFlow(payload){
-    const accessToken = await AsyncStorage.getItem('accessToken');
-    yield put(setIsNewPassword(true));
+function * watchNewPasswordFlow(){
+    const store = yield select();
+    const payload = store.getIn(['newPassword', 'newPasswordField']).toJS();
+    // const accessToken = await AsyncStorage.getItem('accessToken');
 
-    try{
-        const response = yield call(Api.post, {
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json',
-                'Authorization' : accessToken,
+    console.log("log fck "+payload);
 
-            },
-            params: 'forgotpassword=true',
-            body: payload
-        });
+    // yield put(setIsNewPassword(true));
+
+    // try{
+    //     const response = yield call(Api.post, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type' : 'application/json',
+    //             'Authorization' : accessToken,
+
+    //         },
+    //         params: 'forgotpassword=true',
+    //         body: payload
+    //     });
         
-        const { meta, data } = response.data;
-        if(meta.success){
-            yield put({type: NEW_PASSWORD_SUCCESS, payload:meta.success});
-        }
+    //     const { meta, data } = response.data;
+    //     if(meta.success){
+    //         yield put({type: NEW_PASSWORD_SUCCESS, payload:meta.success});
+    //     }
 
-    } catch(error){
-        if(error.response && error.response.data){
-            yield put({
-                type: NEW_PASSWORD_ERROR,
-                payload: error.response.data.meta.message
-            });
-        } else {
-            yield put({
-                type: NEW_PASSWORD_ERROR,
-                payload: error.message
-            });
-        }
-    }finally{
-        yield put(setIsNewPassword(false));
-    }
+    // } catch(error){
+    //     if(error.response && error.response.data){
+    //         yield put({
+    //             type: NEW_PASSWORD_ERROR,
+    //             payload: error.response.data.meta.message
+    //         });
+    //     } else {
+    //         yield put({
+    //             type: NEW_PASSWORD_ERROR,
+    //             payload: error.message
+    //         });
+    //     }
+    // }finally{
+    //     yield put(setIsNewPassword(false));
+    // }
 }
 
 const userNewPasswordSagas = [
