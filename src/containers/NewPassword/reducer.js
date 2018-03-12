@@ -22,13 +22,12 @@ const initialState = fromJS({
     isLoadingNewPassword: false,
     newPasswordSuccess: null,
     newPasswordError: ''
-
 });
 
 export default function newPasswordReducer(state = initialState, action) {
     switch ( action.type ) {
         case UPDATE_NEW_PASSWORD:
-            return state.set(['newPasswordField', action.field], action.value);
+            return state.setIn(['newPasswordField', action.field], action.value);
         case TEXT_INPUT_FOCUS:
             return state.setIn(['inputTextFocus', action.field], action.style);
         case IS_LOADING:
@@ -57,8 +56,7 @@ export const textInputFocus = (field, style) => ({
 });
 
 export const newPasswordFlow = payload => ({
-    type: NEW_PASSWORD,
-    payload
+    type: NEW_PASSWORD
 });
 
 export const setIsNewPassword = status => ({
