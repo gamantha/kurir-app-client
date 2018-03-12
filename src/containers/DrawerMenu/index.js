@@ -1,5 +1,8 @@
 import React from 'react';
+<<<<<<< HEAD
 import { Dimensions } from 'react-native';
+=======
+>>>>>>> d7b628a89355dee0a9a497a9d4b4c83cb9f1175d
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
 // Main components
@@ -15,7 +18,6 @@ import DashboardNavbar from '../../navigations/DashboardNavbar';
 import SideMenu from './sidemenu.js';
 
 const { width } = Dimensions.get('screen');
-
 // drawer navigation
 // MAKE SURE TO PLACE / WRITE ROUTE ITEMS CONSECUTIVELY AND ADD 'drawerLabel' IN EACH 'navigationOptions'
 // DON'T MESS THE SEQUENCE!
