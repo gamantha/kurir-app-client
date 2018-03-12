@@ -1,4 +1,5 @@
 import React from 'react';
+import { Dimensions } from 'react-native';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
 // Main components
@@ -12,6 +13,8 @@ import DashboardNavbar from '../../navigations/DashboardNavbar';
 
 // drawer component
 import SideMenu from './sidemenu.js';
+
+const { width } = Dimensions.get('screen');
 
 // drawer navigation
 // MAKE SURE TO PLACE / WRITE ROUTE ITEMS CONSECUTIVELY AND ADD 'drawerLabel' IN EACH 'navigationOptions'
@@ -46,6 +49,7 @@ export const DrawerRoute = DrawerNavigator(
     },
     {
         contentComponent: SideMenu,
+        drawerWidth: width,
         drawerBackgroundColor: 'rgba(222, 30, 67, 1)',
         contentOptions: {
             activeTintColor: '#FFFFFF',
