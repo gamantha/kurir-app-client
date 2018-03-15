@@ -51,7 +51,7 @@ class UserLogin extends Component {
             const navigateAction = NavigationActions.reset({
                 index: 0,
                 actions: [
-                    NavigationActions.navigate({ routeName: 'Dashboard' })
+                    NavigationActions.navigate({ routeName: 'Main' })
                 ]
             });
             this.props.navigation.dispatch(navigateAction);
