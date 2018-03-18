@@ -219,6 +219,11 @@ class Preview extends Component {
                                     </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
+                                    onPress={() =>
+                                        this.props.navigation.navigate(
+                                            'Confirmation'
+                                        )
+                                    }
                                     style={{
                                         borderColor: '#BD303f',
                                         justifyContent: 'center',

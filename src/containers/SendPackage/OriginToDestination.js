@@ -14,8 +14,7 @@ import styles from '../../helpers/styles';
 
 const resetAction = NavigationActions.reset({
     index: 0,
-    key: 'StackRouterRoot',
-    actions: [NavigationActions.navigate({ routeName: 'Dashboard' })]
+    actions: [NavigationActions.navigate({ routeName: 'Main' })]
 });
 
 class OriginToDestination extends Component {
@@ -304,7 +303,9 @@ class OriginToDestination extends Component {
                         >
                             <TouchableOpacity
                                 onPress={() =>
-                                    this.props.navigation.dispatch(resetAction)
+                                    this.props.screenProps.rootNavigation.dispatch(
+                                        resetAction
+                                    )
                                 }
                                 style={[
                                     styles.touchAbleButton,

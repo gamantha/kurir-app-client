@@ -59,7 +59,29 @@ export const DrawerRoute = DrawerNavigator(
 
 //drawer stack
 export const DrawerStack = StackNavigator({
-    DrawerRoute: {
-        screen: DrawerRoute
+    Dashboard: {
+        screen: UserDashboard,
+        navigationOptions: {
+            headerTitle: <DashboardNavbar />,
+            headerStyle: {
+                backgroundColor: '#FFFFFF'
+            },
+            headerLeft: null,
+            drawerLabel: 'Home'
+        }
+    },
+    EditProfile: {
+        screen: EditProfile,
+        navigationOptions: {
+            header: null,
+            drawerLabel: 'Profile'
+        }
+    },
+    ChangePassword: {
+        screen: ChangePassword,
+        navigationOptions: {
+            header: null,
+            drawerLabel: 'Change Password'
+        }
     }
 });

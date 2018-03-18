@@ -11,55 +11,58 @@ import ForgotPassword from '../containers/ForgotPassword';
 import ChangePassword from '../components/changePassword';
 import EditProfile from '../components/EditProfile';
 import SendPackage from '../containers/SendPackage';
+import { DrawerStack } from '../containers/DrawerMenu';
 
 // Navigation components
 import DashboardNavbar from './DashboardNavbar';
 
-const AppNavigator = StackNavigator(
-    {
-        Splash: {
-            screen: SplashScreen,
-            navigationOptions: {
-                header: null
-            }
-        },
-        Onboard: {
-            screen: Onboarding,
-            navigationOptions: {
-                header: null
-            }
-        },
-        Register: {
-            screen: UserRegister,
-            navigationOptions: {
-                header: null
-            }
-        },
-        Login: {
-            screen: UserLogin,
-            navigationOptions: {
-                header: null
-            }
-        },
-        Password: {
-            screen: ForgotPassword,
-            navigationOptions: {
-                header: null
-            }
-        },
-        Main: {
-            screen: ({ navigation }) => (
-                <DrawerStack screenProps={{ rootNavigation: navigation }} />
-            ),
-            navigationOptions: {
-                header: null
-            }
+const AppNavigator = StackNavigator({
+    Splash: {
+        screen: SplashScreen,
+        navigationOptions: {
+            header: null
         }
     },
-    //config
-    {
-        initialRouteName: 'SendPackage'
+    Onboard: {
+        screen: Onboarding,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Register: {
+        screen: UserRegister,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Login: {
+        screen: UserLogin,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Password: {
+        screen: ForgotPassword,
+        navigationOptions: {
+            header: null
+        }
+    },
+    Main: {
+        screen: ({ navigation }) => (
+            <DrawerStack screenProps={{ rootNavigation: navigation }} />
+        ),
+        navigationOptions: {
+            header: null
+        }
+    },
+    SendPackage: {
+        screen: ({ navigation }) => (
+            <SendPackage screenProps={{ rootNavigation: navigation }} />
+        ),
+        navigationOptions: {
+            header: null
+        }
     }
-);
+});
 
 export default AppNavigator;

@@ -7,6 +7,7 @@ import OriginToDestination from './OriginToDestination';
 import PackageInfo from './PackageInfo';
 import ReceiverInfo from './ReceiverInfo';
 import Preview from './Preview';
+import Confirmation from './Confirmation';
 
 const width = Dimensions.get('window').width / 2.5;
 
@@ -23,6 +24,9 @@ const SendPackage = StackNavigator(
         },
         Preview: {
             screen: Preview
+        },
+        Confirmation: {
+            screen: Confirmation
         }
     },
     {

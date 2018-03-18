@@ -13,7 +13,6 @@ const resetAction = NavigationActions.reset({
 
 class PackageInfo extends Component {
     render() {
-        console.log('props', this.props);
         return (
             <View
                 style={{

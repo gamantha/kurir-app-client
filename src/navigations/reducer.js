@@ -1,7 +1,7 @@
 import AppNavigator from '.';
 
 const initState = AppNavigator.router.getStateForAction(
-    AppNavigator.router.getActionForPathAndParams('Dashboard')
+    AppNavigator.router.getActionForPathAndParams('Splash')
 );
 
 const navReducer = (state = initState, action) => {
