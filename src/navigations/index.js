@@ -1,6 +1,5 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
 // Main components
 import SplashScreen from '../containers/SplashScreen';
@@ -15,8 +14,6 @@ import SendPackage from '../containers/SendPackage';
 
 // Navigation components
 import DashboardNavbar from './DashboardNavbar';
-
-const width = Dimensions.get('window').width / 2.5;
 
 const AppNavigator = StackNavigator(
     {
@@ -50,30 +47,10 @@ const AppNavigator = StackNavigator(
                 header: null
             }
         },
-        Dashboard: {
-            screen: UserDashboard,
-            navigationOptions: {
-                headerTitle: <DashboardNavbar />,
-                headerStyle: {
-                    backgroundColor: '#FFFFFF'
-                },
-                headerLeft: null
-            }
-        },
-        SendPackage: {
-            screen: SendPackage,
-            navigationOptions: {
-                header: null
-            }
-        },
-        ChangePassword: {
-            screen: ChangePassword,
-            navigationOptions: {
-                header: null
-            }
-        },
-        EditProfile: {
-            screen: EditProfile,
+        Main: {
+            screen: ({ navigation }) => (
+                <DrawerStack screenProps={{ rootNavigation: navigation }} />
+            ),
             navigationOptions: {
                 header: null
             }
