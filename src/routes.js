@@ -3,7 +3,7 @@ import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
 // Main components
 import SplashScreen from './containers/SplashScreen';
-import Onboarding from './components/onboarding';
+import Onboarding from './components/Onboarding';
 import UserRegister from './containers/UserRegister';
 import UserLogin from './containers/UserLogin';
 import UserDashboard from './containers/Dashboard';
@@ -49,7 +49,9 @@ export const Kurir = StackNavigator(
             }
         },
         Main: {
-            screen: DrawerStack,
+            screen: ({ navigation }) => (
+                <DrawerStack screenProps={{ rootNavigation: navigation }} />
+            ),
             navigationOptions: {
                 header: null
             }
@@ -57,8 +59,6 @@ export const Kurir = StackNavigator(
     },
     //config
     {
-        initialRouteName: 'Splash',
+        initialRouteName: 'Splash'
     }
 );
-
-

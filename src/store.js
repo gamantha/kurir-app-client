@@ -9,7 +9,7 @@ import rootSaga from './sagas';
 const sagaMiddleWare = createSagaMiddleware();
 
 const middleware = [
-    process.env.NODE_ENV === `development` && createLogger(),
+    // process.env.NODE_ENV === `development` && createLogger(),
     sagaMiddleWare
 ].filter(x => !!x);
 
