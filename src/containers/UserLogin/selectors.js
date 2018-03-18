@@ -14,7 +14,7 @@ export const selectUserLoginReducer = () => state => state.get('userLogin');
  */
 export const getLoginInputField = () =>
     createSelector(selectUserLoginReducer(), state =>
-        state.get('loginInputField').toJS()
+        state.get('loginInputField').toObject()
     );
 
 /**
@@ -35,7 +35,7 @@ export const getLoginData = () =>
 
 export const getTextInputFocus = () =>
     createSelector(selectUserLoginReducer(), state =>
-        state.get('inputTextFocus').toJS()
+        state.get('inputTextFocus').toObject()
     );
 
 export const getErrorMessage = () =>
