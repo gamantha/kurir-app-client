@@ -7,6 +7,8 @@ import {
     Easing,
     AsyncStorage
 } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import jwtDecode from 'jwt-decode';
 import Toast from 'react-native-simple-toast';
 
@@ -15,25 +17,18 @@ import Api from '../../services/api';
 import { reqRefreshToken } from '../../containers/UserLogin/reducer';
 
 class SplashScreen extends Component {
-    constructor() {
-        super();
-        this.state = {
-            loading: true
-        };
-        this.divideScale = new Animated.Value(0);
-    }
-
-    async componentWillMount() {
+    async componentDidMount() {
         const { navigate } = this.props.navigation;
         try {
             const accessToken = await AsyncStorage.getItem('accessToken');
             const refreshToken = await AsyncStorage.getItem('refreshToken');
+
             if (accessToken && accessToken.length > 1) {
                 const { exp } = jwtDecode(accessToken);
 
                 if (exp < Date.now() / 1000) {
                     try {
-                        const newToken = await reqRefreshToken(refreshToken);
+                        const newToken = await refreshToken(refreshToken);
 
                         Api.setAuthorizationToken(accessToken);
                     } catch (error) {
@@ -50,7 +45,7 @@ class SplashScreen extends Component {
                 error.message === 'invalid token'
             ) {
                 const refreshToken = await AsyncStorage.getItem('refreshToken');
-                const newToken = await reqRefreshToken(refreshToken);
+                const newToken = await this.props.reqRefreshToken(refreshToken);
                 if (newToken) {
                     Api.setAuthorizationToken(accessToken);
                     navigate('Main');
@@ -59,15 +54,6 @@ class SplashScreen extends Component {
             navigate('Login');
         }
     }
-
-    moveit = () => {
-        this.divideScale.setValue(0.3);
-        Animated.timing(this.divideScale, {
-            toValue: 1,
-            duration: 1000,
-            easing: Easing.bounce
-        }).start(() => this.moveit());
-    };
 
     render() {
         return (
@@ -81,4 +67,12 @@ class SplashScreen extends Component {
     }
 }
 
-export default SplashScreen;
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(
+        {
+            refreshToken: reqRefreshToken
+        },
+        dispatch
+    );
+
+export default connect(null, mapDispatchToProps)(SplashScreen);

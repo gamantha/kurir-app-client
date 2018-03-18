@@ -28,7 +28,7 @@ export const getErrorMessage = () =>
  */
 export const getInputFields = () =>
     createSelector(selectUserRegistrationReducer(), state =>
-        state.get('inputFields').toJS()
+        state.get('inputFields').toObject()
     );
 
 /**
@@ -37,7 +37,7 @@ export const getInputFields = () =>
  */
 export const getInputFieldValidation = () =>
     createSelector(selectUserRegistrationReducer(), state =>
-        state.get('inputFieldValidations').toJS()
+        state.get('inputFieldValidations').toObject()
     );
 
 /**
