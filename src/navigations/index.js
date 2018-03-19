@@ -6,12 +6,10 @@ import SplashScreen from '../containers/SplashScreen';
 import Onboarding from '../components/Onboarding';
 import UserRegister from '../containers/UserRegister';
 import UserLogin from '../containers/UserLogin';
-import UserDashboard from '../containers/Dashboard';
 import ForgotPassword from '../containers/ForgotPassword';
-import ChangePassword from '../components/changePassword';
-import EditProfile from '../components/EditProfile';
 import SendPackage from '../containers/SendPackage';
-import { DrawerStack } from '../containers/DrawerMenu';
+import DrawerStack from '../containers/DrawerMenu';
+import SideMenu from '../containers/DrawerMenu/SideMenu';
 
 // Navigation components
 import DashboardNavbar from './DashboardNavbar';
@@ -58,6 +56,14 @@ const AppNavigator = StackNavigator({
     SendPackage: {
         screen: ({ navigation }) => (
             <SendPackage screenProps={{ rootNavigation: navigation }} />
+        ),
+        navigationOptions: {
+            header: null
+        }
+    },
+    SideMenu: {
+        screen: ({ navigation }) => (
+            <SideMenu screenProps={{ rootNavigation: navigation }} />
         ),
         navigationOptions: {
             header: null
