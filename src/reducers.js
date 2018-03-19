@@ -6,7 +6,7 @@ import userRegisterReducer from './containers/UserRegister/reducer';
 import userLoginReducer from './containers/UserLogin/reducer';
 import verificationCodeReducer from './containers/VerificationCode/reducer';
 import newPasswordReducer from './containers/NewPassword/reducer';
-
+import navReducer from './navigations/reducer';
 /**
  * Combine all reducers each containers
  * Into one Javascript Object
@@ -17,7 +17,8 @@ const rootReducer = combineReducers({
     userLogin: userLoginReducer,
     forgotPassword: forgotPasswordReducer,
     verificationCode: verificationCodeReducer,
-    newPassword: newPasswordReducer
+    newPassword: newPasswordReducer,
+    navigation: navReducer
 });
 
 export default rootReducer;

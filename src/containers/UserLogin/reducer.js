@@ -41,6 +41,7 @@ export default function userLoginReducer(state = initialState, action) {
             return state.setIn(['inputTextFocus', action.field], action.style);
         case CLEAR_ERROR_MESSAGE:
             return state.set('errorMessage', '');
+
         case LOGOUT:
             return initialState;
         default:

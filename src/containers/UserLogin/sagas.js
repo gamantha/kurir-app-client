@@ -1,5 +1,6 @@
 import { put, call, takeEvery, takeLatest, take } from 'redux-saga/effects';
 import { NavigationActions } from 'react-navigation';
+import { AsyncStorage } from 'react-native';
 import Api from '../../services/userlogin';
 import {
     LOGIN_SUCCESS,
@@ -30,6 +31,7 @@ function* watchLoginFlow(payload) {
         if (meta.success && data && data.User.isEmailValidated) {
             yield put({ type: LOGIN_SUCCESS, payload: meta.success });
             const { accessToken, refreshToken, User } = data;
+
             saveTokenData(accessToken, refreshToken, User);
             yield put(updateLoginInputField('password', ''));
         }

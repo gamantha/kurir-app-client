@@ -10,7 +10,8 @@ export const images = {
     kurirheader: require('./images/kurirheader.png'),
     box: require('./images/box.png'),
     rocket: require('./images/rocket.png'),
-    slider1:require('./images/kurir-1.jpg'),
-    slider2:require('./images/kurir-2.jpg'),
-    slider3:require('./images/kurir-3.jpg'),
+    slider1: require('./images/kurir-1.jpg'),
+    slider2: require('./images/kurir-2.jpg'),
+    slider3: require('./images/kurir-3.jpg'),
+    receiver: require('./images/receiver-detail.png')
 };
