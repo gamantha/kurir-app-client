@@ -78,6 +78,6 @@ export const Kurir = StackNavigator(
     },
     //config
     {
-        initialRouteName: 'NewPassword'
+        initialRouteName: 'Login'
     }
 );

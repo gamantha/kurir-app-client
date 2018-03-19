@@ -35,8 +35,10 @@ export function validateName(inputvalue) {
 }
 
 // Get Token
-export function getTokenData(){
-    return AsyncStorage.getItem('accessToken')
-        .then(response => response)
-        .catch(err => err);
+export const getTokenData = async () => {
+    let token = await AsyncStorage.getItem('accessToken');
+
+    if (!token) {
+      return token;
+    }
 }

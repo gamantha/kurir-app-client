@@ -1,4 +1,4 @@
-import { put, call, takeEvery, takeLatest, take } from 'redux-saga/effects';
+import { put, call, takeEvery, takeLatest, take, select } from 'redux-saga/effects';
 import { navigationActions } from 'react-navigation';
 import { Api } from '../../services/newpassword';
 import { NEW_PASSWORD,
@@ -11,44 +11,51 @@ import { getTokenData } from '../../helpers/utils';
 function * watchNewPasswordFlow(){
     const store = yield select();
     const payload = store.getIn(['newPassword', 'newPasswordField']).toJS();
-    // const accessToken = await AsyncStorage.getItem('accessToken');
+    var array = [];
+    for (let prop in payload) {
+        array.push(payload[prop]);
+    }
+    const password = array[0];
+    
 
-    console.log("log fck "+payload);
+    getTokenData().then((token) => {
+        const header = {   method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json',
+            'Authorization' : token,
 
-    // yield put(setIsNewPassword(true));
+        },
+        params: 'forgotpassword=true',
+        body: {
+            'new_password': password
+        }
+    };
+   
+    
+    const response = call(Api.post, header);
+    });
 
-    // try{
-    //     const response = yield call(Api.post, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type' : 'application/json',
-    //             'Authorization' : accessToken,
+     // yield put(setIsNewPassword(true));
 
-    //         },
-    //         params: 'forgotpassword=true',
-    //         body: payload
-    //     });
+    //  try{
         
-    //     const { meta, data } = response.data;
-    //     if(meta.success){
-    //         yield put({type: NEW_PASSWORD_SUCCESS, payload:meta.success});
-    //     }
 
     // } catch(error){
     //     if(error.response && error.response.data){
     //         yield put({
-    //             type: NEW_PASSWORD_ERROR,
+    //             // type: NEW_PASSWORD_ERROR,
     //             payload: error.response.data.meta.message
     //         });
     //     } else {
     //         yield put({
-    //             type: NEW_PASSWORD_ERROR,
+    //             // type: NEW_PASSWORD_ERROR,
     //             payload: error.message
     //         });
     //     }
     // }finally{
-    //     yield put(setIsNewPassword(false));
+    //     // yield put(setIsNewPassword(false));
     // }
+
 }
 
 const userNewPasswordSagas = [

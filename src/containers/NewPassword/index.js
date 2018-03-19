@@ -11,7 +11,8 @@ import {
     Keyboard,
     KeyboardAvoidingView,
     BackHandler,
-    Easing
+    Easing,
+    AsyncStorage
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -30,10 +31,22 @@ class NewPassword extends Component {
         super(props);
     }
 
-    componentDidMount() {
-        BackHandler.addEventListener('addEventListener', () =>
-            BackHandler.exitApp()
-        );
+    // componentWillMount(){
+        
+    //     try {
+    //         var value = AsyncStorage.getItem('accessToken').then(
+    //         (values) => {
+    //         //   value = values;
+    //             console.log('Then: ',values);
+    //             callback(values)
+    //         });
+    //       } catch (error) {
+    //         console.log('Error: ',error);
+    //       }
+    //   }
+
+    componentWillMount(){
+        
     }
 
     // componentWillReceiveProps(nextProps) {
