@@ -29,7 +29,19 @@ class Dashboard extends Component {
         this.props.screenProps.rootNavigation.dispatch(resetAction);
     };
 
+    handleSendPackage = dispatch => {
+        const resetToPackageInfo = NavigationActions.navigate({
+            routeName: 'SendPackage',
+            action: NavigationActions.navigate({
+                routeName: 'OriginToDestination'
+            })
+        });
+        dispatch(resetToPackageInfo);
+    };
+
     render() {
+        const { dispatch } = this.props.screenProps.rootNavigation;
+
         return (
             <View style={styles.container}>
                 <View
@@ -115,7 +127,7 @@ class Dashboard extends Component {
                     }}
                 >
                     <TouchableOpacity
-                        onPress={() => {}}
+                        onPress={() => this.handleSendPackage(dispatch)}
                         style={[
                             styles.container,
                             {

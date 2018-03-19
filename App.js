@@ -13,14 +13,14 @@ import ForgotPassword from './src/containers/ForgotPassword';
 import ChangePassword from './src/components/changePassword';
 import EditProfile from './src/components/EditProfile';
 
-import { Kurir } from './src/routes';
+import RootView from './src';
 
 class App extends Component {
     render() {
         return (
             <Provider store={store}>
                 <SafeAreaView style={{ flex: 1 }}>
-                    <Kurir />
+                    <RootView />
                 </SafeAreaView>
             </Provider>
         );
