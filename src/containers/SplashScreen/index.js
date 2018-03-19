@@ -11,48 +11,38 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import jwtDecode from 'jwt-decode';
 import Toast from 'react-native-simple-toast';
+import { createStructuredSelector } from 'reselect';
 
 import { images } from '../../assets';
 import Api from '../../services/api';
-import { reqRefreshToken } from '../../containers/UserLogin/reducer';
+import { reqRefreshToken } from '../UserLogin/reducer';
+import { getIsLoadingUser } from '../UserLogin/selectors';
 
 class SplashScreen extends Component {
-    async componentDidMount() {
+    componentWillMount() {
         const { navigate } = this.props.navigation;
-        try {
-            const accessToken = await AsyncStorage.getItem('accessToken');
-            const refreshToken = await AsyncStorage.getItem('refreshToken');
-
-            if (accessToken && accessToken.length > 1) {
-                const { exp } = jwtDecode(accessToken);
-
-                if (exp < Date.now() / 1000) {
-                    try {
-                        const newToken = await refreshToken(refreshToken);
-
-                        Api.setAuthorizationToken(accessToken);
-                    } catch (error) {
-                        Toast.show('Splash Error', error.message);
+        let accessToken;
+        AsyncStorage.getItem('accessToken')
+            .then(res => {
+                if (res === null || typeof res === 'undefined') {
+                    navigate('Onboard');
+                } else {
+                    accessToken = res;
+                    Api.setAuthorizationToken(accessToken);
+                    return AsyncStorage.getItem('refreshToken');
+                }
+            })
+            .then(refreshToken => {
+                if (accessToken && accessToken.length > 1) {
+                    const { exp } = jwtDecode(accessToken);
+                    if (exp < Math.floor(Date.now() / 1000) - 300) {
+                        this.props.refreshToken(refreshToken);
+                    } else {
+                        navigate('Main');
                     }
                 }
-                navigate('Main');
-            } else {
-                navigate('Login');
-            }
-        } catch (error) {
-            if (
-                error.message === 'invalid_token' ||
-                error.message === 'invalid token'
-            ) {
-                const refreshToken = await AsyncStorage.getItem('refreshToken');
-                const newToken = await this.props.reqRefreshToken(refreshToken);
-                if (newToken) {
-                    Api.setAuthorizationToken(accessToken);
-                    navigate('Main');
-                }
-            }
-            navigate('Login');
-        }
+            })
+            .catch(err => Toast.show(err.message));
     }
 
     render() {
@@ -67,6 +57,11 @@ class SplashScreen extends Component {
     }
 }
 
+const mapStateToProps = () =>
+    createStructuredSelector({
+        loading: getIsLoadingUser()
+    });
+
 const mapDispatchToProps = dispatch =>
     bindActionCreators(
         {
@@ -75,4 +70,4 @@ const mapDispatchToProps = dispatch =>
         dispatch
     );
 
-export default connect(null, mapDispatchToProps)(SplashScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SplashScreen);

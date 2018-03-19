@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Button, Image } from 'react-native';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    Button,
+    Image,
+    Platform
+} from 'react-native';
 import Swiper from 'react-native-swiper';
 
 import { images } from '../../assets';
@@ -81,11 +88,25 @@ class OnboardingComponent extends React.Component {
                     >
                         <Text style={styles.nextText}> NEXT </Text>
                     </TouchableOpacity>
-                    <Button
+                    <TouchableOpacity
+                        style={{ paddingTop: 20 }}
                         onPress={() => this.props.navigation.navigate('Login')}
-                        color="#424242"
-                        title="Skip"
-                    />
+                    >
+                        <Text
+                            style={[
+                                styles.nextText,
+                                {
+                                    color:
+                                        Platform.OS === 'ios'
+                                            ? '#424242'
+                                            : 'black'
+                                }
+                            ]}
+                        >
+                            {' '}
+                            SKIP{' '}
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.slide2}>
                     <Image style={styles.imageMargin} source={images.handoff} />
@@ -103,11 +124,25 @@ class OnboardingComponent extends React.Component {
                     >
                         <Text style={styles.nextText}> NEXT </Text>
                     </TouchableOpacity>
-                    <Button
+                    <TouchableOpacity
+                        style={{ paddingTop: 20 }}
                         onPress={() => this.props.navigation.navigate('Login')}
-                        color="#424242"
-                        title="Skip"
-                    />
+                    >
+                        <Text
+                            style={[
+                                styles.nextText,
+                                {
+                                    color:
+                                        Platform.OS === 'ios'
+                                            ? '#424242'
+                                            : 'black'
+                                }
+                            ]}
+                        >
+                            {' '}
+                            SKIP{' '}
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.slide3}>
                     <Image
@@ -128,11 +163,25 @@ class OnboardingComponent extends React.Component {
                     >
                         <Text style={styles.nextText}>NEXT</Text>
                     </TouchableOpacity>
-                    <Button
+                    <TouchableOpacity
+                        style={{ paddingTop: 20 }}
                         onPress={() => this.props.navigation.navigate('Login')}
-                        color="#424242"
-                        title="Skip"
-                    />
+                    >
+                        <Text
+                            style={[
+                                styles.nextText,
+                                {
+                                    color:
+                                        Platform.OS === 'ios'
+                                            ? '#424242'
+                                            : 'black'
+                                }
+                            ]}
+                        >
+                            {' '}
+                            SKIP{' '}
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </Swiper>
         );
