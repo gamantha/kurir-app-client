@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, FlatList, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import HistoryNavbar from '../../navigations/HistoryNavbar';
 
 const styles = StyleSheet.create({
     container: {
@@ -19,24 +21,6 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: 'row',
-    },
-    boxContainer: {
-        marginBottom: 5,
-        paddingHorizontal: 25,
-        borderBottomWidth: 3,
-        borderBottomColor: '#dddddd'
-    },
-    boxIcon: {
-        justifyContent: 'space-between',
-        marginTop: 10
-    },
-    boxTextChange: {
-        marginVertical:10,
-        alignItems: 'flex-start'
-    },
-    textChange: {
-        fontSize: 16,
-        color: '#333'
     },
     section: {
         flexDirection: 'row',
@@ -119,15 +103,8 @@ export default class HistoryScreen extends Component{
             },
         ]
         return(
-            <View style={styles.container}>
-                <View style={styles.boxContainer}>
-                    <View style={[styles.row, styles.boxIcon]}>
-                        <View><Icon size={20} color="#333" name="arrow-left"/></View>
-                    </View>
-                    <View style= {[styles.row, styles.boxTextChange]}>
-                        <Text style= {styles.textChange}>Edit Profile</Text>
-                    </View>
-                </View>
+            <ScrollView style={styles.container}>
+                <HistoryNavbar />
                 <FlatList
                     data={historyData}
                     keyExtractor={(item, index) => (index)}
@@ -161,7 +138,7 @@ export default class HistoryScreen extends Component{
                             </View>
                         </View>
                 }/>
-            </View>
+            </ScrollView>
         )
     }
 }
