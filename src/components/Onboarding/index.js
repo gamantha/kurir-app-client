@@ -34,7 +34,8 @@ const styles = {
     headline: {
         color: '#424242',
         fontSize: 24,
-        marginBottom: 15
+        marginBottom: 15,
+        marginTop:50
     },
     button: {
         alignItems: 'center',
@@ -48,7 +49,8 @@ const styles = {
         padding: 2
     },
     imageMargin: {
-        marginBottom: 30
+        marginBottom: 10,
+        height:130,
     },
     body: {
         color: '#424242',
@@ -65,7 +67,34 @@ class OnboardingComponent extends React.Component {
         return (
             <Swiper
                 style={styles.wrapper}
-                activeDotColor="#d7283b"
+                dot={
+                    <View
+                        style={{
+                            backgroundColor: '#f8d3d7',
+                            width: 9,
+                            height: 9,
+                            borderRadius: 5,
+                            marginLeft: 3,
+                            marginRight: 3,
+                            marginTop: 3,
+                            marginBottom: 300
+                        }}
+                    />
+                }
+                activeDot={
+                    <View
+                        style={{
+                            backgroundColor: '#d7283b',
+                            width: 9,
+                            height: 9,
+                            borderRadius: 5,
+                            marginLeft: 3,
+                            marginRight: 3,
+                            marginTop: 3,
+                            marginBottom: 300
+                        }}
+                    />
+                }
                 loop={false}
                 ref="swiper"
             >
