@@ -1,6 +1,8 @@
 import { put, call, takeEvery, takeLatest, take } from 'redux-saga/effects';
 import { NavigationActions } from 'react-navigation';
+import { AsyncStorage } from 'react-native';
 import Api from '../../services/userlogin';
+import rootApi from '../../services/api';
 import {
     LOGIN_SUCCESS,
     LOGIN_ERROR,
@@ -30,6 +32,7 @@ function* watchLoginFlow(payload) {
         if (meta.success && data && data.User.isEmailValidated) {
             yield put({ type: LOGIN_SUCCESS, payload: meta.success });
             const { accessToken, refreshToken, User } = data;
+            rootApi.setAuthorizationToken(accessToken);
             saveTokenData(accessToken, refreshToken, User);
             yield put(updateLoginInputField('password', ''));
         }
@@ -61,16 +64,20 @@ function* watchLogoutFlow() {
     }
 }
 
-// send the payload to backend then
-function* watchRefreshToken({ payload: { refreshToken } }) {
+function* watchRefreshToken(data) {
+    yield put(setIsLogin(true));
+    const { payload: refreshToken } = data;
     try {
-        const response = yield call(Api.post, refreshToken);
+        const response = yield call(Api.refresh, { refreshToken });
         const { meta, data } = response.data;
         if (meta.success && data) {
+            yield put(NavigationActions.navigate({ routeName: 'Main' }));
             const { accessToken, refreshToken } = data;
+            rootApi.setAuthorizationToken(accessToken);
             saveTokenData({ accessToken, refreshToken });
         }
     } catch (error) {
+        yield put(NavigationActions.navigate({ routeName: 'Login' }));
         if (error.response && error.response.data) {
             yield put({
                 type: LOGIN_ERROR,
@@ -80,7 +87,7 @@ function* watchRefreshToken({ payload: { refreshToken } }) {
             yield put({ type: LOGIN_ERROR, payload: error.message });
         }
     } finally {
-        // do something here later
+        yield put(setIsLogin(false));
     }
 }
 

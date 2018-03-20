@@ -11,55 +11,33 @@ import EditProfile from '../../components/EditProfile';
 // Navigation components
 import DashboardNavbar from '../../navigations/DashboardNavbar';
 
-// drawer component
-import SideMenu from './sidemenu.js';
-
-const { width } = Dimensions.get('screen');
-// drawer navigation
-// MAKE SURE TO PLACE / WRITE ROUTE ITEMS CONSECUTIVELY AND ADD 'drawerLabel' IN EACH 'navigationOptions'
-// DON'T MESS THE SEQUENCE!
-export const DrawerRoute = DrawerNavigator(
-    {
-        Dashboard: {
-            screen: UserDashboard,
-            navigationOptions: {
-                headerTitle: <DashboardNavbar />,
-                headerStyle: {
-                    backgroundColor: '#FFFFFF'
-                },
-                headerLeft: null,
-                drawerLabel: 'Home'
-            }
-        },
-        EditProfile: {
-            screen: EditProfile,
-            navigationOptions: {
-                header: null,
-                drawerLabel: 'Profile'
-            }
-        },
-        ChangePassword: {
-            screen: ChangePassword,
-            navigationOptions: {
-                header: null,
-                drawerLabel: 'Change Password'
-            }
+//drawer stack
+const DrawerStack = StackNavigator({
+    Dashboard: {
+        screen: UserDashboard,
+        navigationOptions: {
+            headerTitle: <DashboardNavbar />,
+            headerStyle: {
+                backgroundColor: '#FFFFFF'
+            },
+            headerLeft: null,
+            drawerLabel: 'Home'
         }
     },
-    {
-        contentComponent: SideMenu,
-        drawerWidth: width,
-        drawerBackgroundColor: 'rgba(222, 30, 67, 1)',
-        contentOptions: {
-            activeTintColor: '#FFFFFF',
-            inactiveTintColor: '#FFFFFF'
+    EditProfile: {
+        screen: EditProfile,
+        navigationOptions: {
+            header: null,
+            drawerLabel: 'Profile'
+        }
+    },
+    ChangePassword: {
+        screen: ChangePassword,
+        navigationOptions: {
+            header: null,
+            drawerLabel: 'Change Password'
         }
     }
-);
-
-//drawer stack
-export const DrawerStack = StackNavigator({
-    DrawerRoute: {
-        screen: DrawerRoute
-    }
 });
+
+export default DrawerStack;

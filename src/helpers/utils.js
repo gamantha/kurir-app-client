@@ -6,20 +6,28 @@ import { AsyncStorage } from 'react-native';
 /**
  * TODO Change this to redux-persist reducer later
  */
-export function saveTokenData(accessToken, refreshToken, User) {
-    return AsyncStorage.multiSet([
-        ['accessToken', accessToken],
-        ['refreshToken', refreshToken],
-        ['User', JSON.stringify(User)]
-    ])
-        .then(response => response)
-        .catch(err => err);
+export async function saveTokenData(accessToken, refreshToken, User) {
+    try {
+        return await AsyncStorage.multiSet([
+            ['accessToken', accessToken],
+            ['refreshToken', refreshToken],
+            ['User', JSON.stringify(User)]
+        ]);
+    } catch (error) {
+        throw new Error(error.message);
+    }
 }
 
-export async function clearTokenData() {
-    return AsyncStorage.multiRemove(['accessToken', 'refreshToken', 'User'])
-        .then(response => response)
-        .catch(err => err);
+export function clearTokenData() {
+    try {
+        return AsyncStorage.multiRemove([
+            'accessToken',
+            'refreshToken',
+            'User'
+        ]);
+    } catch (error) {
+        throw new Error(error.message);
+    }
 }
 
 // Email Validation

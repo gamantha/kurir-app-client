@@ -34,7 +34,7 @@ class Api {
         this.config.headers[key] = value;
     }
     setAuthorizationToken(token) {
-        this.setHeader('Authorization', `${token}`);
+        this.setHeader('Authorization', `bearer ${token}`);
     }
     sendRequest(requestMethod, url, data = {}) {
         let headers = data.config ? data.config.headers || {} : {};
@@ -61,11 +61,11 @@ class Api {
                         data.json
                             ? { 'Content-type': 'application/json' }
                             : data.form
-                              ? {
-                                    'Content-Type':
-                                        'application/x-www-form-urlencoded'
-                                }
-                              : { 'Content-Type': 'multipart/form' }
+                                ? {
+                                      'Content-Type':
+                                          'application/x-www-form-urlencoded'
+                                  }
+                                : { 'Content-Type': 'multipart/form' }
                     ),
                     timeout: 60 * 1000,
                     paramsSerializer: params => querystring.stringify(params),
@@ -75,11 +75,7 @@ class Api {
             )
             .then(json => {
                 return new Promise((resolve, reject) => {
-                    if (json.message) {
-                        reject(json);
-                    } else {
-                        resolve(json);
-                    }
+                    json.message ? reject(json) : resolve(json);
                 });
             });
     }
