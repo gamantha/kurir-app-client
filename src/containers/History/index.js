@@ -9,18 +9,22 @@ import ShipmentDetail from './ShipmentDetail';
 const History = StackNavigator(
     {
         History: {
-            screen: HistoryScreen
+            screen: HistoryScreen,
+            navigationOptions: {
+                header: <HistoryNavbar title={'History'}/>,
+                headerLeft: null
+            }
         },
         Shipment: {
-            screen: ShipmentDetail
+            screen: ShipmentDetail,
+            navigationOptions: {
+                header: <HistoryNavbar title={'Shipment Details'}/>,
+                headerLeft: null
+            }
         }
     },
     {
         initialRouteName: 'History',
-        navigationOptions: {
-            header: <HistoryNavbar />,
-            headerLeft: null
-        }
     }
 )
 
