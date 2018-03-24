@@ -10,13 +10,14 @@ const styles = StyleSheet.create({
     },
     wrapper: {
         alignItems: 'flex-start',
-        marginVertical: 5,
+        marginVertical: 8,
         paddingHorizontal: 10,
         paddingVertical: 5,
-        borderBottomColor: '#dddddd',
-        borderTopColor: '#dddddd',
-        borderBottomWidth: 2,
-        borderTopWidth: 2,
+        borderBottomColor: '#aeaeae',
+        borderTopColor: '#aeaeae',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderTopWidth: StyleSheet.hairlineWidth,
+        backgroundColor: '#ffffff'
     },
     row: {
         flexDirection: 'row',
@@ -104,6 +105,7 @@ export default class HistoryScreen extends Component{
         return(
             
                 <FlatList
+                    style={styles.container}
                     data={historyData}
                     keyExtractor={(item, index) => (index)}
                     renderItem={({item, index}) =>
