@@ -41,3 +41,12 @@ export function validateName(inputvalue) {
     const pattern = /([^a-zA-Z0-9_ -])/g;
     return !pattern.test(inputvalue);
 }
+
+export function toObject(arr) {
+    let obj = {};
+    if(Array.isArray(arr)) {
+        arr.forEach((item, index) => obj[index] = item);
+        return obj;
+    }
+    return arr;
+}
