@@ -52,7 +52,7 @@ const DashboardNavbar = ({ navigation }) => {
 };
 
 const mapStateToProps = state => ({
-    navigation: state.get('navigation')
+    navigation: state['navigation']
 });
 
 export default connect(mapStateToProps)(DashboardNavbar);

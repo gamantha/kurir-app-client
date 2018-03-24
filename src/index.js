@@ -10,7 +10,7 @@ import AppNavigator from './navigations';
 
 export const navigationMiddleware = createReactNavigationReduxMiddleware(
     'root',
-    state => state.get('navigation')
+    state => state['navigation']
 );
 
 const addListener = createReduxBoundAddListener('root');
@@ -48,7 +48,7 @@ class RootView extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    navigation: state.get('navigation')
+    navigation: state['navigation']
 });
 
 // export const selectUserLoginReducer = () => state => state.get('userLogin');

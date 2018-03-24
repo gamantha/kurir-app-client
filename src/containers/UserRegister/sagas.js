@@ -97,7 +97,7 @@ function* watchInputFields(payload) {
 
     let isValid;
     const store = yield select();
-    const inputFields = store.getIn(['userRegister', 'inputFields']).toJS();
+    const inputFields = store['userRegister']['inputFields'];
     const { email, username, password, repassword } = inputFields;
     if (field === 'email') {
         yield delay(50);
