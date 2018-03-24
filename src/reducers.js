@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux-immutable';
+import { combineReducers } from 'redux';
 import { AsyncStorage } from 'react-native';
 import { persistReducer } from 'redux-persist';
 import forgotPasswordReducer from './containers/ForgotPassword/reducer';
