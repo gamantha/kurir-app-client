@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         paddingHorizontal: 25,
         borderBottomWidth: 3,
-        borderBottomColor: '#dddddd'
+        borderBottomColor: '#dddddd',
+        backgroundColor: '#ffffff'
     },
     boxIcon: {
         flexDirection: 'row',
@@ -25,13 +26,13 @@ const styles = StyleSheet.create({
     },
 });
 
-const HistoryNavbar = () => (
+const HistoryNavbar = (props) => (
     <View style={styles.boxContainer}>
         <View style={styles.boxIcon}>
             <Icon size={20} color="#333" name="arrow-left"/>
         </View>
         <View style= {styles.boxTextChange}>
-            <Text style= {styles.textChange}>History</Text>
+            <Text style= {styles.textChange}>{props.title}</Text>
         </View>
     </View>
 );
