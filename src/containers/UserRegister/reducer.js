@@ -1,4 +1,3 @@
-import { fromJS } from 'immutable';
 import {
     USER_REGISTRATION_SUCCESS,
     IS_LOADING,
@@ -14,9 +13,9 @@ import {
 /**
  * Initial state for containers
  *
- * @type {Immutable Maps}
+ * @type {Maps}
  */
-const initialState = fromJS({
+const initialState = {
     isLoading: false,
     errorMessage: '',
     inputFields: {
@@ -32,7 +31,7 @@ const initialState = fromJS({
         repassword: null
     },
     registeredUser: {}
-});
+};
 
 /**
  * Setter for userRegistration in main reducer.
@@ -44,36 +43,38 @@ const initialState = fromJS({
 export default function userRegistrationReducer(state = initialState, action) {
     switch (action.type) {
         case IS_LOADING:
-            return state.set('isLoading', action.status);
+            return { ...state, 'isLoading': action.status };
         case SET_ERROR_MESSAGE:
-            return state.set('errorMessage', action.payload);
+            return { ...state, 'errorMessage': action.payload };
         case UPDATE_SINGLE_INPUT_FIELD:
-            return state.setIn(['inputFields', action.field], action.value);
+            var newField = [];
+            newField[action.field] = action.value;
+            return { ...state,
+                    inputFields: { ...state['inputFields'], ...newField }
+            }
         case INPUT_FIELD_VALIDATION:
-            return state.setIn(
-                ['inputFieldValidations', action.field],
-                action.value
-            );
+            var newField = [];
+            newField[action.field] = action.value;
+            return { ...state,
+                     inputFieldValidations: { ...state['inputFieldValidations'], ...newField }
+            };
         case CLEAR_ERROR_MESSAGE:
             return state.set('errorMessage', '');
         case USER_REGISTRATION_SUCCESS:
-            return state.set('registeredUser', fromJS(action.payload)).set(
-                'inputFields',
-                fromJS({
-                    email: '',
-                    username: '',
-                    password: '',
-                    repassword: ''
-                }).set(
-                    'inputFieldValidations',
-                    fromJS({
+            return { ...state,
+                     inputFields: {
+                        email: '',
+                        username: '',
+                        password: '',
+                        repassword: ''
+                    },
+                    inputFieldValidations: {
                         email: null,
                         username: null,
                         password: null,
                         repassword: null
-                    })
-                )
-            );
+                    }
+            };
         default:
             return state;
     }
