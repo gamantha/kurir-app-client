@@ -7,7 +7,6 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-import { NavigationActions } from 'react-navigation';
 
 import { images } from '../../assets';
 import styles from '../../helpers/styles';
@@ -69,15 +68,15 @@ class OriginToDestination extends Component {
             sendPackage,
             inputFocus,
             from,
-            approachWeight,
+            approximateWeight,
             to,
-            textInputWeight,
+            textInputApproximateWeight,
             textInputfrom,
             textInputTo
         } =
             this.props || {};
 
-        const disableButton = from !== '' && to !== '' && approachWeight !== '';
+        const disableButton = from !== '' && to !== '' && approximateWeight !== '';
 
         const { isActiveWeight } = this.state;
         return (
@@ -165,20 +164,20 @@ class OriginToDestination extends Component {
                                         style={styles.inputText}
                                         onFocus={() =>
                                             this.handleFocus(
-                                                'textInputWeight',
+                                                'textInputApproximateWeight',
                                                 '#F8E7E9'
                                             )
                                         }
                                         onBlur={() =>
                                             this.handleFocus(
-                                                'textInputWeight',
+                                                'textInputApproximateWeight',
                                                 '#FFFFFF'
                                             )
                                         }
                                         onChangeText={value =>
-                                            this.updateField('approachWeight', value)
+                                            this.updateField('approximateWeight', value)
                                         }
-                                        value={approachWeight}
+                                        value={approximateWeight}
                                         autoCapitalize="none"
                                         autoCorrect={false}
                                         underlineColorAndroid="transparent"

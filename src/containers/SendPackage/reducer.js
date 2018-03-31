@@ -2,16 +2,17 @@ import {
     SEND_PACKAGE,
     SEND_PACKAGE_ERROR,
     CLEAR_ERROR_MESSAGE,
-    UPDATE_SEND_PACKAGE
-} from 'constants';
+    UPDATE_SEND_PACKAGE,
+    SEND_PACKAGE_SUCCESS
+} from './constants';
 
 const initialState = {
     from: '',
     to:'',
-    approachWeight:'',
+    approximateWeight:'',
     textInputFrom: '#FFFFFF',
     textInputTo: '#FFFFFF',
-    textInputApproachWight: '#FFFFFF',
+    textInputApproximateWeight: '#FFFFFF',
     loading:false,
     message: '',
 };

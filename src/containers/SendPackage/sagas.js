@@ -7,7 +7,25 @@ import {
     SEND_PACKAGE_ERROR,
     CLEAR_ERROR_MESSAGE,
     UPDATE_SEND_PACKAGE
-} from 'constants';
-
+} from './constants';
 import { getTokenData } from '../../helpers/utils';
-import { setIsNewPassword, updateNewPasswordField } from './reducer';
+
+function* watchSendPackage() {
+    const { from: reducer } = yield select();
+
+    try{
+        const { data } = yield call(Api.post, {
+            
+        });
+
+        
+    } catch (error) {
+
+    } finally {
+
+    }
+}
+
+const sendpackageSagas = [takeLatest(SEND_PACKAGE, watchSendPackage)];
+
+export default sendpackageSagas;
