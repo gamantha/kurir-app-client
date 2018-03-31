@@ -18,7 +18,7 @@ import Api from '../../services/api';
 import { reqRefreshToken } from '../UserLogin/reducer';
 
 class SplashScreen extends Component {
-    componentWillMount() {
+    componentDidMount() {
         const { navigate } = this.props.navigation;
         let accessToken;
         AsyncStorage.getItem('accessToken')

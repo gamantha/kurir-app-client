@@ -1,4 +1,11 @@
-import { put, call, takeEvery, takeLatest, take } from 'redux-saga/effects';
+import {
+    all,
+    put,
+    call,
+    takeEvery,
+    takeLatest,
+    take
+} from 'redux-saga/effects';
 import { NavigationActions } from 'react-navigation';
 import { AsyncStorage } from 'react-native';
 import Api from '../../services/userlogin';
@@ -30,7 +37,7 @@ function* watchLoginFlow(payload) {
         const response = yield call(Api.post, payload);
         const { meta, data } = response.data;
         if (meta.success && data && data.User.isEmailValidated) {
-            yield put({ type: LOGIN_SUCCESS, payload: meta.success });
+            yield put({ type: LOGIN_SUCCESS, payload: data.User });
             const { accessToken, refreshToken, User } = data;
             rootApi.setAuthorizationToken(accessToken);
             saveTokenData(accessToken, refreshToken, User);
@@ -91,10 +98,8 @@ function* watchRefreshToken(data) {
     }
 }
 
-const userLoginSagas = [
+export default [
     takeLatest(LOGIN, watchLoginFlow),
     takeLatest(REFRESH_TOKEN, watchRefreshToken),
     take(LOGOUT, watchLogoutFlow)
 ];
-
-export default userLoginSagas;

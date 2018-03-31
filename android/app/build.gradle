@@ -95,12 +95,13 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    buildToolsVersion "26.0.1"
 
     defaultConfig {
         applicationId "id.kurir"
         minSdkVersion 16
         targetSdkVersion 26
+        multiDexEnabled = true
         versionCode 1
         versionName "1.0"
         ndk {
@@ -129,6 +130,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -147,8 +149,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-picker')
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:26.0.2"
+    compile "com.android.support:appcompat-v7:26.0.1"
     compile "com.facebook.react:react-native:+"
     compile(project(":react-native-google-signin")){
         exclude group: "com.google.android.gms" // very important

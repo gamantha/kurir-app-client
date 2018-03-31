@@ -22,13 +22,12 @@ export default function newPasswordReducer(state = initialState, action) {
         case NEW_PASSWORD:
             return { ...state, loading: true };
         case NEW_PASSWORD_SUCCESS:
+        case NEW_PASSWORD_ERROR:
             return {
                 ...state,
                 message: action.payload,
                 loading: false
             };
-        case NEW_PASSWORD_ERROR:
-            return { ...state, message: action.payload, loading: false };
         default:
             return state;
     }

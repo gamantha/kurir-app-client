@@ -1,5 +1,5 @@
 export const NEW_PASSWORD_SUCCESS =
-    'src/containers/NewPassword/UserLogin/NEW_PASSWORD_SUCCESS';
+    'src/containers/NewPassword/NEW_PASSWORD_SUCCESS';
 export const NEW_PASSWORD_ERROR =
     'src/containers/NewPassword/NEW_PASSWORD_ERROR';
 export const CLEAR_ERROR_MESSAGE =
