@@ -20,10 +20,17 @@ const { width, height } = Dimensions.get('window');
 
 class Dashboard extends Component {
     handleSendPackage = dispatch => {
+        // const resetToPackageInfo = NavigationActions.navigate({
+        //     routeName: 'SendPackage',
+        //     action: NavigationActions.navigate({
+        //         routeName: 'OriginToDestination'
+        //     })
+        // });
+        // dispatch(resetToPackageInfo);
         const resetToPackageInfo = NavigationActions.navigate({
-            routeName: 'SendPackage',
+            routeName: 'RegisterKurir',
             action: NavigationActions.navigate({
-                routeName: 'OriginToDestination'
+                routeName: 'RegisterKurir',
             })
         });
         dispatch(resetToPackageInfo);
