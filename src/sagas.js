@@ -5,6 +5,7 @@ import registerUserSagas from './containers/UserRegister/sagas';
 import forgotPasswordSagas from './containers/ForgotPassword/sagas';
 import verifycationCodeSagas from './containers/VerificationCode/sagas';
 import newPasswordSagas from './containers/NewPassword/sagas';
+import sendPackageSagas from './containers/SendPackage/sagas';
 
 export default function* rootSaga() {
     yield all([
