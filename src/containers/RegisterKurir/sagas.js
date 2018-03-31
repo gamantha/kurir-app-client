@@ -25,6 +25,12 @@ function* wathRequest() {
                 type: UPLOAD_FULFILLED,
                 payload: data.meta.message
             });
+            yield put(
+                NavigationActions.reset({
+                    index: 0,
+                    actions: [NavigationActions.navigate({ routeName: 'Main' })]
+                })
+            );
         }
     } catch (error) {
         if (error.response && error.response.data) {

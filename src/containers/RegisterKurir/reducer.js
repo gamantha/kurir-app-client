@@ -36,7 +36,11 @@ const reducer = (state = initialState, action) => {
             return { ...state, loading: true };
         case UPLOAD_FULFILLED:
         case UPLOAD_REJECTED:
-            return { ...state, message: action.payload, loading: false };
+            return {
+                ...state,
+                message: action.payload,
+                loading: false
+            };
         default:
             return state;
     }
