@@ -138,6 +138,7 @@ class SideMenu extends Component {
                         />
                     </View>
                     <TouchableOpacity
+                        onPress={() => this.props.registerAsKurir()}
                         style={{
                             flex: 1,
                             justifyContent: 'center'
@@ -175,7 +176,9 @@ const mapDispatchToProps = dispatch => ({
                 actions: [NavigationActions.navigate({ routeName: 'Login' })]
             })
         ),
-    clearState: () => dispatch(logoutFlow())
+    clearState: () => dispatch(logoutFlow()),
+    registerAsKurir: () =>
+        dispatch(NavigationActions.navigate({ routeName: 'RegisterKurir' }))
 });
 
 export default connect(null, mapDispatchToProps)(SideMenu);
