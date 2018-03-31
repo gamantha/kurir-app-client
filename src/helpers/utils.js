@@ -49,6 +49,7 @@ export const getTokenData = async () => {
     if (!token) {
         return token;
     }
+    return null;
 };
 export function toObject(arr) {
     let obj = {};

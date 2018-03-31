@@ -1,4 +1,4 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import {
     View,
     TouchableOpacity,
@@ -20,8 +20,7 @@ import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import styles from '../../helpers/styles';
 import { images } from '../../assets';
-import * as actions from './reducer';
-import * as selectors from './selectors';
+import { updateField, requestNewPassword } from './reducer';
 import Toast from 'react-native-simple-toast';
 
 const { width, height } = Dimensions.get('window');
@@ -31,41 +30,12 @@ class NewPassword extends Component {
         super(props);
     }
 
-    // componentWillMount(){
-        
-    //     try {
-    //         var value = AsyncStorage.getItem('accessToken').then(
-    //         (values) => {
-    //         //   value = values;
-    //             console.log('Then: ',values);
-    //             callback(values)
-    //         });
-    //       } catch (error) {
-    //         console.log('Error: ',error);
-    //       }
-    //   }
-
-    componentWillMount(){
-        
+    componentWillReceiveProps(nextProps) {
+        const { message, success } = nextProps;
+        if (message !== '') {
+            Toast.show(message);
+        }
     }
-
-    // componentWillReceiveProps(nextProps) {
-    //     const { success, errorMessage } = nextProps;
-    //     if (errorMessage !== '' && errorMessage !== this.props.errorMessage) {
-    //         // Toast.show(errorMessage);
-    //         console.log(" error gan "+errorMessage);
-    //         this.props.clearErrorMessage();
-    //     }
-    //     if (success && this.props.success !== success) {
-    //         const navigateAction = NavigationActions.reset({
-    //             index: 0,
-    //             actions: [
-    //                 NavigationActions.navigate({ routeName: 'NewPassword' })
-    //             ]
-    //         });
-    //         this.props.navigation.dispatch(navigateAction);
-    //     }
-    // }
 
     componentWillUnmount() {
         BackHandler.addEventListener('addEventListener', () =>
@@ -73,54 +43,56 @@ class NewPassword extends Component {
         );
     }
 
-    onClickNewPassword = () => {
-        const { password, rePassword } = this.props.newPassword || {};
-        this.props.newPasswordFlow({ password, rePassword });
+    updateField = (field, value) => {
+        this.props.updateField(field, value);
     };
 
-    setNewPasswordField = (field, value) => {
-        this.props.updateNewPasswordField(field, value);
-    };
-    
-    textInputFocus = field => {
-        this.props.textInputFocus(field, '#F8E7E9');
+    handleFocus = (field, value) => {
+        this.props.handleFocus(field, value);
     };
 
-    textInputBlur = field => {
-        this.props.textInputFocus(field, '#FFFFFF');
+    handlePress = () => {
+        this.props.handleNewPassword();
     };
 
     render() {
         const {
             newPassword,
-            inputFocus
-        } = this.props || {};
+            inputFocus,
+            password,
+            rePassword,
+            textInputPassword,
+            textInputRepassword
+        } =
+            this.props || {};
 
-        const { password, rePassword } = newPassword;
         const disableButton = rePassword !== '' && password !== '';
 
         return (
             <View style={styles.container}>
-                <View style={{
+                <View
+                    style={{
                         flex: 1,
                         justifyContent: 'space-between'
                     }}
                 >
-                    <View 
-                        style={{ 
-                            flex:1, 
-                            justifyContent:'space-between', 
-                            flexDirection: 'column', 
-                            marginLeft: 25, 
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: 'space-between',
+                            flexDirection: 'column',
+                            marginLeft: 25,
                             marginRight: 25
                         }}
                     >
-                        <View style={{
+                        <View
+                            style={{
                                 flex: 1.5,
                                 marginTop: 40
                             }}
                         >
-                            <Text style={{
+                            <Text
+                                style={{
                                     fontSize: 16,
                                     fontWeight: 'bold'
                                 }}
@@ -142,27 +114,30 @@ class NewPassword extends Component {
                                 }}
                             >
                                 <Text style={{ fontSize: 16 }}>
-                                    Now you can change your password and fill the forms below
+                                    Now you can change your password and fill
+                                    the forms below
                                 </Text>
                             </View>
                         </View>
                     </View>
                     <View
-                        style={{ flex: 1.5, 
-                                marginLeft: 25, 
-                                marginRight: 25,
-                             }}
+                        style={{
+                            flex: 1.5,
+                            marginLeft: 25,
+                            marginRight: 25
+                        }}
                     >
-                       
-                       <View
+                        <View
                             style={{
                                 flex: 0.2,
-                                marginTop:10,
+                                marginTop: 10,
                                 flexDirection: 'row',
                                 alignItems: 'flex-start'
                             }}
                         >
-                            <Text style={{ fontSize: 16 }}>Your new password:</Text>
+                            <Text style={{ fontSize: 16 }}>
+                                Your old password:
+                            </Text>
                         </View>
                         <View
                             style={{
@@ -171,17 +146,25 @@ class NewPassword extends Component {
                             }}
                         >
                             <TextInput
-                                style={[styles.inputText, { flex: 0.8 },{ backgroundColor: inputFocus.password }]}
-                                onFocus={() => 
-                                    this.textInputFocus('password')
+                                style={[
+                                    styles.inputText,
+                                    { flex: 0.8 },
+                                    { backgroundColor: textInputPassword }
+                                ]}
+                                onFocus={() =>
+                                    this.handleFocus(
+                                        'textInputPassword',
+                                        '#F8E7E9'
+                                    )
                                 }
-                                onBlur={() => 
-                                    this.textInputBlur('password')
+                                onBlur={() =>
+                                    this.handleFocus(
+                                        'textInputPassword',
+                                        '#FFFFFF'
+                                    )
                                 }
                                 onChangeText={value =>
-                                    this.setNewPasswordField(
-                                        'password', value,
-                                    )
+                                    this.updateField('oldPassword', value)
                                 }
                                 value={password}
                                 secureTextEntry
@@ -194,12 +177,14 @@ class NewPassword extends Component {
                         <View
                             style={{
                                 flex: 0.2,
-                                marginTop:10,
+                                marginTop: 10,
                                 flexDirection: 'row',
                                 alignItems: 'flex-start'
                             }}
                         >
-                            <Text style={{ fontSize: 16 }}>Retype your new password:</Text>
+                            <Text style={{ fontSize: 16 }}>
+                                Your new password:
+                            </Text>
                         </View>
                         <View
                             style={{
@@ -208,17 +193,25 @@ class NewPassword extends Component {
                             }}
                         >
                             <TextInput
-                                style={[styles.inputText, { flex: 0.8 }, { backgroundColor: inputFocus.rePassword}]}
-                                onFocus={() => 
-                                    this.textInputFocus('rePassword')
+                                style={[
+                                    styles.inputText,
+                                    { flex: 0.8 },
+                                    { backgroundColor: textInputRepassword }
+                                ]}
+                                onFocus={() =>
+                                    this.handleFocus(
+                                        'textInputRepassword',
+                                        '#F8E7E9'
+                                    )
                                 }
-                                onBlur={() => 
-                                    this.textInputBlur('rePassword')
+                                onBlur={() =>
+                                    this.handleFocus(
+                                        'textInputRepassword',
+                                        '#FFFFFF'
+                                    )
                                 }
                                 onChangeText={value =>
-                                    this.setNewPasswordField(
-                                        'rePassword', value
-                                    )
+                                    this.updateField('newPassword', value)
                                 }
                                 value={rePassword}
                                 secureTextEntry
@@ -228,57 +221,59 @@ class NewPassword extends Component {
                             />
                         </View>
                     </View>
-                    <View style={{ flex: 1.9 }}
-                    >
+                    <View style={{ flex: 1.9 }}>
                         <Image
-                        source={images.baseline}
-                        style={[{position: 'absolute',
-                            width: '100%',
-                            height: '100%',
-                            justifyContent: 'center',
-                            flex:0.9,
-                            marginTop:20,
-                            resizeMode: 'stretch'}]}
+                            source={images.baseline}
+                            style={[
+                                {
+                                    position: 'absolute',
+                                    width: '100%',
+                                    height: '100%',
+                                    justifyContent: 'center',
+                                    flex: 0.9,
+                                    marginTop: 20,
+                                    resizeMode: 'stretch'
+                                }
+                            ]}
                         />
-                        <View style={{ flex: 0.1,flexDirection:'column', alignItems:'center' }}>
+                        <View
+                            style={{
+                                flex: 0.1,
+                                flexDirection: 'column',
+                                alignItems: 'center'
+                            }}
+                        >
                             <TouchableOpacity
-                                style={[styles.touchAbleButton, { height: 45,width:280, marginLeft: 30,
-                                position: 'absolute',
-                                top: 20,
-                                marginRight: 20}]}
+                                style={[
+                                    styles.touchAbleButton,
+                                    {
+                                        height: 45,
+                                        width: 280,
+                                        marginLeft: 30,
+                                        position: 'absolute',
+                                        top: 20,
+                                        marginRight: 20
+                                    }
+                                ]}
                                 // disabled={!disableButton}
-                                onPress={() => {
-                                    this.onClickNewPassword();
-                                }}
-                                
+                                onPress={this.handlePress}
                             >
-                                <Text style={styles.textButton}>
-                                    SAVE
-                                </Text>
+                                <Text style={styles.textButton}>SAVE</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
-                </View>  
+                </View>
             </View>
         );
     }
 }
-const mapDispatchToProps = dispatch =>
-    bindActionCreators({
-        textInputFocus: actions.textInputFocus,
-        updateNewPasswordField: actions.updateNewPasswordField,
-        newPasswordFlow: actions.newPasswordFlow,
-        // clearErrorMessage: actions.clearErrorMessage
-    }, dispatch
-);
 
-const mapStateProps =() => 
-    createStructuredSelector({
-        newPassword: selectors.getNewPasswordField,
-        inputFocus: selectors.getTextInputFocus(),
-        isLoading: selectors.getIsLoadingPassword,
-        success: selectors.getNewPasswordSuccess,
-        // errorMessage: selectors.getNewPasswordError
-    });
+const mapDispatchToProps = dispatch => ({
+    updateField: (field, value) => dispatch(updateField(field, value)),
+    handleFocus: (field, value) => dispatch(updateField(field, value)),
+    handleNewPassword: () => dispatch(requestNewPassword())
+});
+
+const mapStateProps = state => state.newPassword;
 
 export default connect(mapStateProps, mapDispatchToProps)(NewPassword);
