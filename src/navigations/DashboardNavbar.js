@@ -5,7 +5,7 @@ import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { images } from '../assets';
 
-const DashboardNavbar = ({ navigation }) => {
+const DashboardNavbar = ({ toSideMenu }) => {
     return (
         <View
             style={{
@@ -15,17 +15,7 @@ const DashboardNavbar = ({ navigation }) => {
             }}
         >
             <TouchableOpacity
-                onPress={() =>
-                    NavigationActions.navigate({
-                        index: 1,
-                        key: 'StackRouterRoot',
-                        actions: [
-                            NavigationActions.navigate({
-                                routeName: 'SideMenu'
-                            })
-                        ]
-                    })
-                }
+                onPress={() => toSideMenu()}
                 style={{
                     flex: 0.2,
                     alignItems: 'center',
@@ -51,8 +41,13 @@ const DashboardNavbar = ({ navigation }) => {
     );
 };
 
-const mapStateToProps = state => ({
-    navigation: state.get('navigation')
+const mapDispatchToProps = dispatch => ({
+    toSideMenu: () =>
+        dispatch(NavigationActions.navigate({ routeName: 'SideMenu' }))
 });
 
-export default connect(mapStateToProps)(DashboardNavbar);
+const mapStateToProps = state => ({
+    navigation: state['navigation']
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardNavbar);

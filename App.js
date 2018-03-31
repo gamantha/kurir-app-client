@@ -19,9 +19,11 @@ class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <SafeAreaView style={{ flex: 1 }}>
-                    <RootView />
-                </SafeAreaView>
+                <PersistGate loading={null} persistor={persistor}>
+                    <SafeAreaView style={{ flex: 1 }}>
+                        <RootView />
+                    </SafeAreaView>
+                </PersistGate>
             </Provider>
         );
     }

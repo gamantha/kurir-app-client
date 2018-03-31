@@ -1,4 +1,3 @@
-import { fromJS } from 'immutable';
 import {
     SHOW_LOADING,
     STATUS_MESSAGE,
@@ -6,14 +5,14 @@ import {
     FORGOT_PASSWORD
 } from './constants';
 
-const initialState = fromJS({
+const initialState = {
     email: '',
     showLoading: false,
     statusMessage: {
         status: false,
         message: ''
     }
-});
+};
 
 /**
  * Will handle all dispatched action and
@@ -26,11 +25,11 @@ const initialState = fromJS({
 export default function forgotPasswordReducer(state = initialState, action) {
     switch (action.type) {
         case SHOW_LOADING:
-            return state.set('showLoading', action.status);
+            return { ...state, 'showLoading' : action.status };
         case SET_EMAIL:
-            return state.set('email', action.payload);
+            return { ...state, 'email' : action.payload };
         case STATUS_MESSAGE:
-            return state.set('statusMessage', fromJS(action.payload));
+            return { ...state, 'statusMessage' : action.payload };
         default:
             return state;
     }

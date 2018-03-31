@@ -22,8 +22,7 @@
         "redux-mock-store": "^1.5.1"
     },
     "scripts": {
-        "fix-icons":
-            "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json",
+        "fix-icons": "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json",
         "start": "react-native start",
         "android": "react-native run-android",
         "ios": "react-native run-ios",
@@ -34,7 +33,9 @@
     },
     "jest": {
         "preset": "react-native",
-        "setupFiles": ["<rootDir>/setupTest.js"]
+        "setupFiles": [
+            "<rootDir>/setupTest.js"
+        ]
     },
     "dependencies": {
         "axios": "^0.17.1",
@@ -45,6 +46,7 @@
         "react-native": "0.52.0",
         "react-native-fbsdk": "^0.7.0",
         "react-native-google-signin": "^0.12.0",
+        "react-native-image-picker": "^0.26.7",
         "react-native-simple-toast": "^0.0.7",
         "react-native-step-indicator": "^0.0.7",
         "react-native-swiper": "^1.5.13",
@@ -53,11 +55,9 @@
         "react-navigation-redux-helpers": "^1.0.2",
         "react-redux": "^5.0.6",
         "redux": "^3.7.2",
-        "redux-immutable": "^4.0.0",
         "redux-logger": "^3.0.6",
         "redux-persist": "^5.6.12",
         "redux-saga": "^0.16.0",
-        "redux-thunk": "^2.2.0",
         "reselect": "^3.0.1"
     }
 }

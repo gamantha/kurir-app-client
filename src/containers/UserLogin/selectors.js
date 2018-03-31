@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { toObject } from "../../helpers/utils";
 
 /**
  * Subscribe to userLogin main reducer
@@ -6,7 +7,7 @@ import { createSelector } from 'reselect';
  * see './src/reducers/index.js'
  * @return Object
  */
-export const selectUserLoginReducer = () => state => state.get('userLogin');
+export const selectUserLoginReducer = () => state => state['userLogin'];
 
 /**
  * Getter for password object state in reducer
@@ -14,7 +15,7 @@ export const selectUserLoginReducer = () => state => state.get('userLogin');
  */
 export const getLoginInputField = () =>
     createSelector(selectUserLoginReducer(), state =>
-        state.get('loginInputField').toObject()
+        toObject(state['loginInputField'])
     );
 
 /**
@@ -23,7 +24,7 @@ export const getLoginInputField = () =>
  */
 export const getIsLoadingUser = () =>
     createSelector(selectUserLoginReducer(), state =>
-        state.get('isLoadingUserLogin')
+        state['isLoadingUserLogin']
     );
 
 /**
@@ -31,14 +32,14 @@ export const getIsLoadingUser = () =>
  * @return {object}
  */
 export const getLoginData = () =>
-    createSelector(selectUserLoginReducer(), state => state.get('success'));
+    createSelector(selectUserLoginReducer(), state => state['success']);
 
 export const getTextInputFocus = () =>
     createSelector(selectUserLoginReducer(), state =>
-        state.get('inputTextFocus').toObject()
+        toObject(state['inputTextFocus'])
     );
 
 export const getErrorMessage = () =>
     createSelector(selectUserLoginReducer(), state =>
-        state.get('errorMessage')
+        state['errorMessage']
     );

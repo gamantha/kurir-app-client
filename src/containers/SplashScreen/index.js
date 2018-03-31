@@ -16,10 +16,9 @@ import { createStructuredSelector } from 'reselect';
 import { images } from '../../assets';
 import Api from '../../services/api';
 import { reqRefreshToken } from '../UserLogin/reducer';
-import { getIsLoadingUser } from '../UserLogin/selectors';
 
 class SplashScreen extends Component {
-    componentWillMount() {
+    componentDidMount() {
         const { navigate } = this.props.navigation;
         let accessToken;
         AsyncStorage.getItem('accessToken')
@@ -57,11 +56,6 @@ class SplashScreen extends Component {
     }
 }
 
-const mapStateToProps = () =>
-    createStructuredSelector({
-        loading: getIsLoadingUser()
-    });
-
 const mapDispatchToProps = dispatch =>
     bindActionCreators(
         {
@@ -70,4 +64,4 @@ const mapDispatchToProps = dispatch =>
         dispatch
     );
 
-export default connect(mapStateToProps, mapDispatchToProps)(SplashScreen);
+export default connect(null, mapDispatchToProps)(SplashScreen);

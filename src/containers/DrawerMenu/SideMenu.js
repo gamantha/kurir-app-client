@@ -1,21 +1,39 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
-import { SafeAreaView, DrawerItems } from 'react-navigation';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { SafeAreaView, DrawerItems, NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
+
+import { logoutFlow } from '../UserLogin/reducer';
+import { clearTokenData } from '../../helpers/utils';
+
 import { images } from '../../assets';
 
 // initialize styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: '10%'
+        paddingTop: '10%',
+        justifyContent: 'space-around',
+        backgroundColor: '#CF2F3C'
     },
     headerContent: {
-        flex: 1
+        flex: 2,
+        paddingLeft: '10%',
+        paddingRight: '10%'
     },
     bodyContent: {
-        flex: 1,
+        flex: 4,
+        justifyContent: 'center',
+        paddingLeft: '10%',
+        paddingRight: '10%'
+    },
+    menuColor: {
+        color: '#FAFAFA',
+        fontWeight: '500'
+    },
+    itemMenu: {
         justifyContent: 'space-around',
-        marginTop: '10%'
+        height: 40
     },
     thumbnail: {
         justifyContent: 'center',
@@ -42,37 +60,136 @@ const styles = StyleSheet.create({
     role: {
         color: '#fff',
         fontSize: 12
+    },
+    registerKurir: {
+        flex: 0.7,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        paddingLeft: '10%',
+        paddingRight: '10%',
+        borderTopWidth: 0.3,
+        borderColor: '#000',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 5,
+            height: 5
+        }
     }
 });
 
-export default class SideMenu extends Component {
+class SideMenu extends Component {
+    handleLogout = () => {
+        clearTokenData();
+        this.props.logout();
+        this.props.clearState();
+    };
     render() {
         return (
-            <ScrollView style={styles.container}>
+            <View style={styles.container}>
                 <View style={styles.headerContent}>
                     <View style={styles.thumbnail}>
                         <Image source={images.facebook} style={styles.image} />
                     </View>
                     <View style={styles.usernameContainer}>
-                        <Text style={styles.username}>{'dummy username'}</Text>
+                        <Text style={styles.username}>
+                            {this.props.username || 'username'}
+                        </Text>
                         <Text> </Text>
-                        <Text style={styles.role}>{'(dummy role)'}</Text>
+                        <Text style={styles.role}>
+                            {this.props.role || 'role'}
+                        </Text>
                     </View>
                 </View>
                 <View style={styles.bodyContent}>
                     <SafeAreaView>
-                        <View>
-                            <Text>Main</Text>
-                        </View>
-                        <View>
-                            <Text>Second Main</Text>
-                        </View>
-                        <View>
-                            <Text>Third Main</Text>
-                        </View>
+                        <TouchableOpacity
+                            style={styles.itemMenu}
+                            onPress={() => this.props.toDashboard()}
+                        >
+                            <Text style={styles.menuColor}>Home</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.itemMenu}>
+                            <Text style={styles.menuColor}>Profile</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.itemMenu}>
+                            <Text style={styles.menuColor}>Order</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.itemMenu}>
+                            <Text style={styles.menuColor}>My Wallet</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.itemMenu}
+                            onPress={() => this.props.toChangePassword()}
+                        >
+                            <Text style={styles.menuColor}>
+                                Change Password
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.itemMenu}
+                            onPress={this.handleLogout}
+                        >
+                            <Text style={styles.menuColor}>Sign Out</Text>
+                        </TouchableOpacity>
                     </SafeAreaView>
                 </View>
-            </ScrollView>
+                <View style={styles.registerKurir}>
+                    <View
+                        style={{
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <Image
+                            source={images.regAsKurir}
+                            style={{ height: 40, width: 40 }}
+                        />
+                    </View>
+                    <TouchableOpacity
+                        onPress={() => this.props.registerAsKurir()}
+                        style={{
+                            flex: 1,
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <Text style={[styles.menuColor, { paddingLeft: 10 }]}>
+                            Register as Kurir
+                        </Text>
+                    </TouchableOpacity>
+                    <View
+                        style={{
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <Image source={images.caretRight} />
+                    </View>
+                </View>
+            </View>
         );
     }
 }
+
+const mapDispatchToProps = dispatch => ({
+    toDashboard: () =>
+        dispatch(
+            NavigationActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({ routeName: 'Main' })]
+            })
+        ),
+    logout: () =>
+        dispatch(
+            NavigationActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({ routeName: 'Login' })]
+            })
+        ),
+    clearState: () => dispatch(logoutFlow()),
+    registerAsKurir: () =>
+        dispatch(NavigationActions.navigate({ routeName: 'RegisterKurir' })),
+    toChangePassword: () =>
+        dispatch(NavigationActions.navigate({ routeName: 'NewPassword' }))
+});
+
+const mapStateToProps = state => state.userLogin;
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideMenu);

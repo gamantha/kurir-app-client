@@ -41,3 +41,21 @@ export function validateName(inputvalue) {
     const pattern = /([^a-zA-Z0-9_ -])/g;
     return !pattern.test(inputvalue);
 }
+
+// Get Token
+export const getTokenData = async () => {
+    let token = await AsyncStorage.getItem('accessToken');
+
+    if (!token) {
+        return token;
+    }
+    return null;
+};
+export function toObject(arr) {
+    let obj = {};
+    if (Array.isArray(arr)) {
+        arr.forEach((item, index) => (obj[index] = item));
+        return obj;
+    }
+    return arr;
+}

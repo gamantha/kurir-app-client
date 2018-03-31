@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { toObject } from "../../helpers/utils";
 
 /**
  * Subscribe to userRegister main reducer
@@ -7,7 +8,7 @@ import { createSelector } from 'reselect';
  * @return Object
  */
 export const selectUserRegistrationReducer = () => state =>
-    state.get('userRegister');
+    state['userRegister'];
 
 /**
  * Getter for isLoading object state in reducer
@@ -15,12 +16,12 @@ export const selectUserRegistrationReducer = () => state =>
  */
 export const getIsLoading = () =>
     createSelector(selectUserRegistrationReducer(), state =>
-        state.get('isLoading')
+        state['isLoading']
     );
 
 export const getErrorMessage = () =>
     createSelector(selectUserRegistrationReducer(), state =>
-        state.get('errorMessage')
+        state['errorMessage']
     );
 /**
  * Getter for inputFields object state in reducer
@@ -28,7 +29,7 @@ export const getErrorMessage = () =>
  */
 export const getInputFields = () =>
     createSelector(selectUserRegistrationReducer(), state =>
-        state.get('inputFields').toObject()
+        toObject(state['inputFields'])
     );
 
 /**
@@ -37,7 +38,7 @@ export const getInputFields = () =>
  */
 export const getInputFieldValidation = () =>
     createSelector(selectUserRegistrationReducer(), state =>
-        state.get('inputFieldValidations').toObject()
+        toObject(state['inputFieldValidations'])
     );
 
 /**
@@ -46,5 +47,5 @@ export const getInputFieldValidation = () =>
  */
 export const getRegisterUser = () =>
     createSelector(selectUserRegistrationReducer(), state =>
-        state.get('registeredUser').toJS()
+        state['registeredUser']
     );

@@ -1,5 +1,3 @@
-import { fromJS } from 'immutable';
-
 import {
     UPDATE_LOGIN_INPUT_FIELD,
     IS_LOADING_USER_LOGIN,
@@ -13,7 +11,7 @@ import {
     CLEAR_ERROR_MESSAGE
 } from './constants';
 
-const initialState = fromJS({
+const initialState = {
     loginInputField: {
         password: '',
         username: ''
@@ -24,23 +22,44 @@ const initialState = fromJS({
     inputTextFocus: {
         username: '#FFFFFF',
         password: '#FFFFFF'
-    }
-});
+    },
+    userId: '',
+    username: '',
+    email: '',
+    role: ''
+};
 
 export default function userLoginReducer(state = initialState, action) {
     switch (action.type) {
         case UPDATE_LOGIN_INPUT_FIELD:
-            return state.setIn(['loginInputField', action.field], action.value);
+            var newField = [];
+            newField[action.field] = action.value;
+            return {
+                ...state,
+                loginInputField: { ...state['loginInputField'], ...newField }
+            };
         case IS_LOADING_USER_LOGIN:
-            return state.set('isLoadingUserLogin', action.status);
+            return { ...state, isLoadingUserLogin: action.status };
         case LOGIN_SUCCESS:
-            return state.set('success', action.payload);
+            return {
+                ...state,
+                success: true,
+                userId: action.payload.id,
+                username: action.payload.username,
+                email: action.payload.email,
+                role: action.payload.role
+            };
         case LOGIN_ERROR:
-            return state.set('errorMessage', action.payload);
+            return { ...state, errorMessage: action.payload };
         case TEXT_INPUT_FOCUS:
-            return state.setIn(['inputTextFocus', action.field], action.style);
+            var newField = [];
+            newField[action.field] = action.value;
+            return {
+                ...state,
+                inputTextFocus: { ...state['inputTextFocus'], ...newField }
+            };
         case CLEAR_ERROR_MESSAGE:
-            return state.set('errorMessage', '');
+            return { ...state, errorMessage: '' };
 
         case LOGOUT:
             return initialState;
