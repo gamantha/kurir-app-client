@@ -44,7 +44,7 @@ class Api {
             this.config.headers,
             headers
         );
-
+        console.log('DATa', data);
         return this.client
             .request(
                 {

@@ -22,7 +22,10 @@ const initialState = {
     inputTextFocus: {
         username: '#FFFFFF',
         password: '#FFFFFF'
-    }
+    },
+    userId: '',
+    username: '',
+    email: ''
 };
 
 export default function userLoginReducer(state = initialState, action) {
@@ -30,23 +33,31 @@ export default function userLoginReducer(state = initialState, action) {
         case UPDATE_LOGIN_INPUT_FIELD:
             var newField = [];
             newField[action.field] = action.value;
-            return { ...state,
-                     loginInputField: {...state['loginInputField'], ...newField }
+            return {
+                ...state,
+                loginInputField: { ...state['loginInputField'], ...newField }
             };
         case IS_LOADING_USER_LOGIN:
-            return { ...state, 'isLoadingUserLogin' : action.status };
+            return { ...state, isLoadingUserLogin: action.status };
         case LOGIN_SUCCESS:
-            return { ...state, 'success' : action.payload };
+            return {
+                ...state,
+                success: true,
+                userId: action.payload.id,
+                username: action.payload.username,
+                email: action.payload.email
+            };
         case LOGIN_ERROR:
-            return { ...state, 'errorMessage' : action.payload };
+            return { ...state, errorMessage: action.payload };
         case TEXT_INPUT_FOCUS:
             var newField = [];
             newField[action.field] = action.value;
-            return { ...state,
-                     inputTextFocus: { ...state['inputTextFocus'], ...newField }
-            }
+            return {
+                ...state,
+                inputTextFocus: { ...state['inputTextFocus'], ...newField }
+            };
         case CLEAR_ERROR_MESSAGE:
-            return { ...state, 'errorMessage' : '' };
+            return { ...state, errorMessage: '' };
 
         case LOGOUT:
             return initialState;
