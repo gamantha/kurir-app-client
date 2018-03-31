@@ -9,7 +9,7 @@ import UserLogin from '../containers/UserLogin';
 import ForgotPassword from '../containers/ForgotPassword';
 import SendPackage from '../containers/SendPackage';
 import DrawerStack from '../containers/DrawerMenu';
-// import SideMenu from '../containers/DrawerMenu/SideMenu';
+import SideMenu from '../containers/DrawerMenu/sidemenu';
 
 // Navigation components
 import DashboardNavbar from './DashboardNavbar';
