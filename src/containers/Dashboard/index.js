@@ -13,22 +13,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { images } from '../../assets';
 import styles from '../../helpers/styles';
-import { logoutFlow } from '../UserLogin/reducer';
-import { clearTokenData } from '../../helpers/utils';
+
 import Swiper from 'react-native-swiper';
 
 const { width, height } = Dimensions.get('window');
-class Dashboard extends Component {
-    handleLogout = () => {
-        clearTokenData();
-        this.props.logout();
-        const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({ routeName: 'Login' })]
-        });
-        this.props.screenProps.rootNavigation.dispatch(resetAction);
-    };
 
+class Dashboard extends Component {
     handleSendPackage = dispatch => {
         const resetToPackageInfo = NavigationActions.navigate({
             routeName: 'SendPackage',
@@ -222,14 +212,6 @@ class Dashboard extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch =>
-    bindActionCreators(
-        {
-            logout: logoutFlow
-        },
-        dispatch
-    );
-
 var style1 = {
     wrapper: {},
     slide1: {
@@ -267,4 +249,4 @@ var style1 = {
     }
 };
 
-export default connect(null, mapDispatchToProps)(Dashboard);
+export default connect(null, null)(Dashboard);
