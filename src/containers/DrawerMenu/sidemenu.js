@@ -91,9 +91,13 @@ class SideMenu extends Component {
                         <Image source={images.facebook} style={styles.image} />
                     </View>
                     <View style={styles.usernameContainer}>
-                        <Text style={styles.username}>{'dummy username'}</Text>
+                        <Text style={styles.username}>
+                            {this.props.username || 'username'}
+                        </Text>
                         <Text> </Text>
-                        <Text style={styles.role}>{'(dummy role)'}</Text>
+                        <Text style={styles.role}>
+                            {this.props.role || 'role'}
+                        </Text>
                     </View>
                 </View>
                 <View style={styles.bodyContent}>
@@ -186,4 +190,6 @@ const mapDispatchToProps = dispatch => ({
         dispatch(NavigationActions.navigate({ routeName: 'NewPassword' }))
 });
 
-export default connect(null, mapDispatchToProps)(SideMenu);
+const mapStateToProps = state => state.userLogin;
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideMenu);

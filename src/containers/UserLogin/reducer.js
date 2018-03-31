@@ -25,7 +25,8 @@ const initialState = {
     },
     userId: '',
     username: '',
-    email: ''
+    email: '',
+    role: ''
 };
 
 export default function userLoginReducer(state = initialState, action) {
@@ -45,7 +46,8 @@ export default function userLoginReducer(state = initialState, action) {
                 success: true,
                 userId: action.payload.id,
                 username: action.payload.username,
-                email: action.payload.email
+                email: action.payload.email,
+                role: action.payload.role
             };
         case LOGIN_ERROR:
             return { ...state, errorMessage: action.payload };
