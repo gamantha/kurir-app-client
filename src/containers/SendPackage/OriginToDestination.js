@@ -11,6 +11,13 @@ import { NavigationActions } from 'react-navigation';
 
 import { images } from '../../assets';
 import styles from '../../helpers/styles';
+import Toast from 'react-native-simple-toast';
+import Api from '../../services/api';
+import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { updateField, requestSendPackage } from './reducer';
 
 const resetAction = NavigationActions.reset({
     index: 0,
@@ -24,14 +31,54 @@ class OriginToDestination extends Component {
             isActiveWeight: true,
             weightUnit: 'KG'
         };
+
     }
 
+    componentWillReceiveProps(nextProps) {
+        const { message, success } = nextProps;
+        if (message !== '') {
+            Toast.show(message);
+        }
+    }
+
+    componentWillUnmount() {
+        BackHandler.addEventListener('addEventListener', () =>
+            BackHandler.exitApp()
+        );
+    }
     handleActiveWeight = fieldName =>
         this.setState({
             isActiveWeight: !this.state.isActiveWeight,
             weightUnit: fieldName
         });
+    
+    updateField = (field, value) => {
+        this.props.updateField(field, value);
+    };
+
+    handleFocus = (field, value) => {
+        this.props.handleFocus(field, value);
+    };
+
+    handlePress = () => {
+        this.props.handleSendPackage();
+    };
+
     render() {
+        const {
+            sendPackage,
+            inputFocus,
+            from,
+            approachWeight,
+            to,
+            textInputWeight,
+            textInputfrom,
+            textInputTo
+        } =
+            this.props || {};
+
+        const disableButton = from !== '' && to !== '' && approachWeight !== '';
+
         const { isActiveWeight } = this.state;
         return (
             <ScrollView>
@@ -66,9 +113,22 @@ class OriginToDestination extends Component {
                             <View style={styles.inputTextContainer}>
                                 <TextInput
                                     style={styles.inputText}
-                                    onFocus={() => {}}
-                                    onBlur={() => {}}
-                                    onChangeText={value => {}}
+                                    onFocus={() =>
+                                        this.handleFocus(
+                                            'textInputfrom',
+                                            '#F8E7E9'
+                                        )
+                                    }
+                                    onBlur={() =>
+                                        this.handleFocus(
+                                            'textInputfrom',
+                                            '#FFFFFF'
+                                        )
+                                    }
+                                    onChangeText={value =>
+                                        this.updateField('from', value)
+                                    }
+                                    value={from}
                                     autoCapitalize="none"
                                     autoCorrect={false}
                                     underlineColorAndroid="transparent"
@@ -103,9 +163,22 @@ class OriginToDestination extends Component {
                                 >
                                     <TextInput
                                         style={styles.inputText}
-                                        onFocus={() => {}}
-                                        onBlur={() => {}}
-                                        onChangeText={value => {}}
+                                        onFocus={() =>
+                                            this.handleFocus(
+                                                'textInputWeight',
+                                                '#F8E7E9'
+                                            )
+                                        }
+                                        onBlur={() =>
+                                            this.handleFocus(
+                                                'textInputWeight',
+                                                '#FFFFFF'
+                                            )
+                                        }
+                                        onChangeText={value =>
+                                            this.updateField('approachWeight', value)
+                                        }
+                                        value={approachWeight}
                                         autoCapitalize="none"
                                         autoCorrect={false}
                                         underlineColorAndroid="transparent"
@@ -183,14 +256,27 @@ class OriginToDestination extends Component {
                             ]}
                         >
                             <Text style={{ marginTop: 10, marginBottom: 5 }}>
-                                Address
+                                To
                             </Text>
                             <View style={styles.inputTextContainer}>
                                 <TextInput
                                     style={styles.inputText}
-                                    onFocus={() => {}}
-                                    onBlur={() => {}}
-                                    onChangeText={value => {}}
+                                    onFocus={() =>
+                                        this.handleFocus(
+                                            'textInputTo',
+                                            '#F8E7E9'
+                                        )
+                                    }
+                                    onBlur={() =>
+                                        this.handleFocus(
+                                            'textInputTo',
+                                            '#FFFFFF'
+                                        )
+                                    }
+                                    onChangeText={value =>
+                                        this.updateField('to', value)
+                                    }
+                                    value={to}
                                     autoCapitalize="none"
                                     autoCorrect={false}
                                     underlineColorAndroid="transparent"
@@ -230,11 +316,8 @@ class OriginToDestination extends Component {
                             ]}
                         >
                             <TouchableOpacity
-                                onPress={() =>
-                                    this.props.navigation.navigate(
-                                        'ReceiverInfo'
-                                    )
-                                }
+                                onPress={this.handlePress}
+
                                 style={[
                                     styles.touchAbleButton,
                                     { width: '45%' }
@@ -339,4 +422,13 @@ class OriginToDestination extends Component {
     }
 }
 
-export default OriginToDestination;
+
+const mapDispatchToProps = dispatch => ({
+    updateField: (field, value) => dispatch(updateField(field, value)),
+    handleFocus: (field, value) => dispatch(updateField(field, value)),
+    handleSendPackage: () => dispatch(requestSendPackage())
+});
+
+const mapStateProps = state => state.sendPackage;
+
+export default connect(mapStateProps, mapDispatchToProps)(OriginToDestination);
