@@ -13,5 +13,7 @@ export const images = {
     slider1: require('./images/kurir-1.jpg'),
     slider2: require('./images/kurir-2.jpg'),
     slider3: require('./images/kurir-3.jpg'),
-    receiver: require('./images/receiver-detail.png')
+    receiver: require('./images/receiver-detail.png'),
+    regAsKurir: require('./images/reg-as-kurir.png'),
+    caretRight: require('./images/caret-right-white-icon.png')
 };

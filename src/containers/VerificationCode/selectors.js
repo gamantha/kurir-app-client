@@ -7,14 +7,14 @@ import { createSelector } from 'reselect';
  * @return {Object}
  */
 export const selectVerificationCodeReducer = () => state =>
-    state.get('verificationCode');
+    state['verificationCode'];
 
 /**
  * Getter for isLoading object state in reducer
  * @return {object}
  */
 export const getCode = () =>
-    createSelector(selectVerificationCodeReducer(), state => state.get('code'));
+    createSelector(selectVerificationCodeReducer(), state => state['code']);
 
 /**
  * Getter for isLoading object state in reducer
@@ -22,7 +22,7 @@ export const getCode = () =>
  */
 export const getIsLoading = () =>
     createSelector(selectVerificationCodeReducer(), state =>
-        state.get('isLoading')
+        state['isLoading']
     );
 
 /**
@@ -31,5 +31,5 @@ export const getIsLoading = () =>
  */
 export const getMessage = () =>
     createSelector(selectVerificationCodeReducer(), state =>
-        state.get('statusMessage').toJS()
+        state['statusMessage']
     );

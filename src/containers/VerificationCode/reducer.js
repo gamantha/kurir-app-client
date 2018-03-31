@@ -1,18 +1,17 @@
-import { fromJS } from 'immutable';
 import { IS_LOADING, STATUS_MESSAGE, SET_CODE, VERIFY } from './constants';
 
 /**
  * Initial state for application
  * @type {Map}
  */
-const initialState = fromJS({
+const initialState = {
     isLoading: false,
     code: '',
     statusMessage: {
         status: '',
         message: ''
     }
-});
+};
 
 /**
  * Set all object map value corresponding with the action type
@@ -26,11 +25,11 @@ const initialState = fromJS({
 export default function verificationCodeReducer(state = initialState, action) {
     switch (action.type) {
         case SET_CODE:
-            return state.set('code', action.payload);
+            return { ...state, 'code': action.payload };
         case IS_LOADING:
-            return state.set('isLoading', action.status);
+            return { ...state, 'isLoading': action.status };
         case STATUS_MESSAGE:
-            return state.set('statusMessage', fromJS(action.payload));
+            return { ...state, 'statusMessage': action.payload };
         default:
             return state;
     }
