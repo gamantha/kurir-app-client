@@ -113,7 +113,10 @@ class SideMenu extends Component {
                         <TouchableOpacity style={styles.itemMenu}>
                             <Text style={styles.menuColor}>My Wallet</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.itemMenu}>
+                        <TouchableOpacity
+                            style={styles.itemMenu}
+                            onPress={() => this.props.toChangePassword()}
+                        >
                             <Text style={styles.menuColor}>
                                 Change Password
                             </Text>
@@ -178,7 +181,9 @@ const mapDispatchToProps = dispatch => ({
         ),
     clearState: () => dispatch(logoutFlow()),
     registerAsKurir: () =>
-        dispatch(NavigationActions.navigate({ routeName: 'RegisterKurir' }))
+        dispatch(NavigationActions.navigate({ routeName: 'RegisterKurir' })),
+    toChangePassword: () =>
+        dispatch(NavigationActions.navigate({ routeName: 'NewPassword' }))
 });
 
 export default connect(null, mapDispatchToProps)(SideMenu);
