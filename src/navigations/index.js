@@ -10,7 +10,9 @@ import ForgotPassword from '../containers/ForgotPassword';
 import SendPackage from '../containers/SendPackage';
 import History from '../containers/History';
 import DrawerStack from '../containers/DrawerMenu';
-import SideMenu from '../containers/DrawerMenu/SideMenu';
+import SideMenu from '../containers/DrawerMenu/sidemenu';
+import RegisterKurir from '../containers/RegisterKurir';
+import NewPassword from '../containers/NewPassword';
 
 // Navigation components
 import DashboardNavbar from './DashboardNavbar';
@@ -73,6 +75,22 @@ const AppNavigator = StackNavigator({
     SideMenu: {
         screen: ({ navigation }) => (
             <SideMenu screenProps={{ rootNavigation: navigation }} />
+        ),
+        navigationOptions: {
+            header: null
+        }
+    },
+    RegisterKurir: {
+        screen: ({ navigation }) => (
+            <RegisterKurir screenProps={{ rootNavigation: navigation }} />
+        ),
+        navigationOptions: {
+            header: null
+        }
+    },
+    NewPassword: {
+        screen: ({ navigation }) => (
+            <NewPassword screenProps={{ rootNavigation: navigation }} />
         ),
         navigationOptions: {
             header: null

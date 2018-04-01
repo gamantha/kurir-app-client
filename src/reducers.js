@@ -1,11 +1,13 @@
-import { combineReducers } from 'redux-immutable';
+import { combineReducers } from 'redux';
 import { AsyncStorage } from 'react-native';
 import { persistReducer } from 'redux-persist';
 import forgotPasswordReducer from './containers/ForgotPassword/reducer';
 import userRegisterReducer from './containers/UserRegister/reducer';
 import userLoginReducer from './containers/UserLogin/reducer';
 import verificationCodeReducer from './containers/VerificationCode/reducer';
+import newPasswordReducer from './containers/NewPassword/reducer';
 import navReducer from './navigations/reducer';
+import registerKurirReducer from './containers/RegisterKurir/reducer';
 /**
  * Combine all reducers each containers
  * Into one Javascript Object
@@ -16,7 +18,9 @@ const rootReducer = combineReducers({
     userLogin: userLoginReducer,
     forgotPassword: forgotPasswordReducer,
     verificationCode: verificationCodeReducer,
-    navigation: navReducer
+    newPassword: newPasswordReducer,
+    navigation: navReducer,
+    registerKurir: registerKurirReducer
 });
 
 export default rootReducer;
