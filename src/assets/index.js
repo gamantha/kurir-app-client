@@ -17,5 +17,6 @@ export const images = {
     regAsKurir: require('./images/reg-as-kurir.png'),
     caretRight: require('./images/caret-right-white-icon.png'),
     destination: require('./images/destination-icon.png'),
-    origin: require('./images/origin-icon.png')
+    origin: require('./images/origin-icon.png'),
+    bookingConfirmation: require('./images/booking-confirmation.svg')
 };
