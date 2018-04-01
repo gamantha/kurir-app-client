@@ -25,12 +25,33 @@ const styles = StyleSheet.create({
         padding: 10
     },
     title: {
-        fontSize: 12
+        fontSize: 12,
     },
     content: {
         color: '#000000',
-        fontSize: 18,
-        fontWeight: 'bold'
+        fontSize: 15,
+        fontWeight: 'bold',
+        marginTop: 5,
+        marginBottom: 10
+    },
+    contentTicketId: {
+        color: '#000000',
+        fontSize: 25,
+        fontWeight: 'bold',
+        marginBottom: 10
+    },
+    button: {
+        alignItems: 'center',
+        borderRadius: 80,
+        minWidth: 100,
+        marginTop: 5
+    },
+    buttonTitle: {
+        fontSize: 13,
+        color: '#ffffff',
+        fontWeight: 'bold',
+        paddingHorizontal: 10,
+        paddingVertical: 5
     }
 });
 
@@ -59,6 +80,8 @@ export default class ShipmentDetail extends Component{
         super(props)
         this.renderTicket = this._renderTiket.bind(this)
         this.renderDetail = this._renderDetail.bind(this)
+        this.color = ''
+        this.title = ''
     }
 
     /**
@@ -67,11 +90,12 @@ export default class ShipmentDetail extends Component{
      * @return react.Elements
      */
     _renderTiket({...params}){
+        this.setColorAndTitle(params.ticketStatus)
         return(
             <View style={{}}>
                 <View style={[styles.item, styles.firstItem]}>
                     <Text style={styles.title}>{'TICKET'}</Text>
-                    <Text style={styles.content}>{'#'+params.ticketId}</Text>
+                    <Text style={styles.contentTicketId}>{'#'+params.ticketId}</Text>
                 </View>
                 <View style={styles.item}>
                     <Text style={styles.title}>{'SENDER NAME'}</Text>
@@ -99,7 +123,9 @@ export default class ShipmentDetail extends Component{
                 </View>
                 <View style={[styles.item, styles.lastItem]}>
                     <Text style={styles.title}>{'STATUS'}</Text>
-                    <Text style={styles.content}>{params.ticketStatus}</Text>
+                    <View style={[styles.button, {backgroundColor: this.color}]}>
+                        <Text style={styles.buttonTitle}>{this.title}</Text>
+                    </View>
                 </View>
             </View>
         );
@@ -143,10 +169,32 @@ export default class ShipmentDetail extends Component{
            title == null ?
             <View>
             </View> :
-            <View style={[styles.item, {padding: 0, marginHorizontal:0, marginVertical: 5, backgroundColor: 'grey'}]}>
+            <View style={[styles.item, {padding: 0, marginHorizontal:0, marginVertical: 5, backgroundColor: '#efefef'}]}>
                 <Text style={styles.sectionTitle}>{title}</Text>
             </View>
        );
+    }
+
+    /**
+     * set background color and title for button status
+     * @param int status
+     * @return void
+     */
+    setColorAndTitle(status){
+        switch(status){
+            case 0:
+                this.color = '#afafaf';
+                this.title = 'Need to send to drop point';
+                break
+            case 1:
+                this.color = '#ffaf30';
+                this.title = 'Active';
+                break
+            case 2:
+                this.color = '#81d129';
+                this.title = 'Completed';
+                break
+        }
     }
 
     render(){
