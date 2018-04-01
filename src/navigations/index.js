@@ -10,7 +10,7 @@ import ForgotPassword from '../containers/ForgotPassword';
 import SendPackage from '../containers/SendPackage';
 import History from '../containers/History';
 import DrawerStack from '../containers/DrawerMenu';
-import SideMenu from '../containers/DrawerMenu/sidemenu';
+import SideMenu from '../containers/DrawerMenu/SideMenu';
 import RegisterKurir from '../containers/RegisterKurir';
 import NewPassword from '../containers/NewPassword';
 
