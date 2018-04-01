@@ -152,6 +152,11 @@ class SummaryPackage extends Component {
                             }}
                         >
                             <TouchableOpacity
+                                onPress={() =>
+                                    this.props.navigation.navigate(
+                                        'BookingConfirmation'
+                                    )
+                                }
                                 style={{
                                     width: '83%',
                                     top: 20,

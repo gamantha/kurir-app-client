@@ -5,6 +5,7 @@ import { StackNavigator, withNavigation } from 'react-navigation';
 import TransportPackageNavbar from '../../navigations/TransportPackageNavbar';
 import SearchPackage from './SearchPackage';
 import SummaryPackage from './SummaryPackage';
+import BookingConfirmation from './BookingConfirmation';
 
 const width = Dimensions.get('window').width / 5;
 
@@ -15,6 +16,9 @@ const TransportPackage = StackNavigator(
         },
         SummaryPackage: {
             screen: SummaryPackage
+        },
+        BookingConfirmation: {
+            screen: BookingConfirmation
         }
     },
     {
