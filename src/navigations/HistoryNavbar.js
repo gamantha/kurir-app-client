@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
     boxContainer: {
         marginBottom: 5,
         paddingHorizontal: 25,
         borderBottomWidth: 3,
-        borderBottomColor: '#dddddd'
+        borderBottomColor: '#dddddd',
+        backgroundColor: '#ffffff'
     },
     boxIcon: {
         flexDirection: 'row',
@@ -16,24 +19,28 @@ const styles = StyleSheet.create({
     },
     boxTextChange: {
         flexDirection: 'row',
-        marginVertical:10,
+        marginVertical: 10,
         alignItems: 'flex-start'
     },
     textChange: {
         fontSize: 16,
         color: '#333'
-    },
+    }
 });
 
-const HistoryNavbar = () => (
+const HistoryNavbar = ({ title, goBack }) => (
     <View style={styles.boxContainer}>
-        <View style={styles.boxIcon}>
-            <Icon size={20} color="#333" name="arrow-left"/>
-        </View>
-        <View style= {styles.boxTextChange}>
-            <Text style= {styles.textChange}>History</Text>
+        <TouchableOpacity onPress={() => goBack()} style={styles.boxIcon}>
+            <Icon size={20} color="#333" name="arrow-left" />
+        </TouchableOpacity>
+        <View style={styles.boxTextChange}>
+            <Text style={styles.textChange}>{title}</Text>
         </View>
     </View>
 );
 
-export default HistoryNavbar;
+const mapDispatchToProps = dispatch => ({
+    goBack: () => dispatch(NavigationActions.back())
+});
+
+export default connect(null, mapDispatchToProps)(HistoryNavbar);

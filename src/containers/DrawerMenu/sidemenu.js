@@ -114,6 +114,12 @@ class SideMenu extends Component {
                         <TouchableOpacity style={styles.itemMenu}>
                             <Text style={styles.menuColor}>Order</Text>
                         </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.itemMenu}
+                            onPress={() => this.props.toHistory()}
+                        >
+                            <Text style={styles.menuColor}>History</Text>
+                        </TouchableOpacity>
                         <TouchableOpacity style={styles.itemMenu}>
                             <Text style={styles.menuColor}>My Wallet</Text>
                         </TouchableOpacity>
@@ -187,7 +193,9 @@ const mapDispatchToProps = dispatch => ({
     registerAsKurir: () =>
         dispatch(NavigationActions.navigate({ routeName: 'RegisterKurir' })),
     toChangePassword: () =>
-        dispatch(NavigationActions.navigate({ routeName: 'NewPassword' }))
+        dispatch(NavigationActions.navigate({ routeName: 'NewPassword' })),
+    toHistory: () =>
+        dispatch(NavigationActions.navigate({ routeName: 'History' }))
 });
 
 const mapStateToProps = state => state.userLogin;
