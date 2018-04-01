@@ -8,8 +8,9 @@ import UserRegister from '../containers/UserRegister';
 import UserLogin from '../containers/UserLogin';
 import ForgotPassword from '../containers/ForgotPassword';
 import SendPackage from '../containers/SendPackage';
+import History from '../containers/History';
 import DrawerStack from '../containers/DrawerMenu';
-import SideMenu from '../containers/DrawerMenu/sidemenu';
+import SideMenu from '../containers/DrawerMenu/SideMenu';
 import RegisterKurir from '../containers/RegisterKurir';
 import NewPassword from '../containers/NewPassword';
 
@@ -58,6 +59,14 @@ const AppNavigator = StackNavigator({
     SendPackage: {
         screen: ({ navigation }) => (
             <SendPackage screenProps={{ rootNavigation: navigation }} />
+        ),
+        navigationOptions: {
+            header: null
+        }
+    },
+    History: {
+        screen: ({ navigation }) => (
+            <History screenProps={{ rootNavigation: navigation }} />
         ),
         navigationOptions: {
             header: null
