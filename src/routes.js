@@ -11,7 +11,6 @@ import ForgotPassword from './containers/ForgotPassword';
 import ChangePassword from './components/changePassword';
 import EditProfile from './components/EditProfile';
 import NewPassword from './containers/NewPassword';
-import SearchPackage from './containers/TransportPackage/SearchPackage';
 
 // Navigation components
 import DashboardNavbar from './navigations/DashboardNavbar';
