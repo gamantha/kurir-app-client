@@ -29,6 +29,16 @@ class Dashboard extends Component {
         dispatch(resetToPackageInfo);
     };
 
+    handleTransportPackage = dispatch => {
+        const resetToPackageInfo = NavigationActions.navigate({
+            routeName: 'TransportPackage',
+            action: NavigationActions.navigate({
+                routeName: 'SearchPackage'
+            })
+        });
+        dispatch(resetToPackageInfo);
+    };
+
     render() {
         const { dispatch } = this.props.screenProps.rootNavigation;
 
@@ -164,7 +174,7 @@ class Dashboard extends Component {
                     }}
                 >
                     <TouchableOpacity
-                        onPress={this.handleLogout}
+                        onPress={() => this.handleTransportPackage(dispatch)}
                         style={[
                             styles.container,
                             {
