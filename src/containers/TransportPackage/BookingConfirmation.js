@@ -48,12 +48,12 @@ class BookingConfirmation extends Component {
                                 marginTop: 20,
                                 marginLeft: 30,
                                 marginRight: 30,
-                                marginBottom: 30,
+                                marginBottom: 10,
                                 justifyContent: 'center',
                                 alignItems: 'center',
                             }}
                         >
-                            <Image source={images.bookingConfirmation} style={{width: 40}} />
+                            <Image source={images.bookingConfirmation} style={{height: 80, width: 80}} />
                         </View>
                             
                         <View
