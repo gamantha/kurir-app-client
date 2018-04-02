@@ -14,7 +14,7 @@ const sagaMiddleWare = createSagaMiddleware();
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['navigation'],
+    blacklist: ['navigation', 'sendPackage'],
     whilelist: ['userRegister', 'userLogin'],
     stateReconciler: autoMergeLevel2
 };
@@ -35,5 +35,3 @@ export const store = createStore(
 export const persistor = persistStore(store);
 
 sagaMiddleWare.run(rootSaga);
-
-// export const persistor = persistStore(store);

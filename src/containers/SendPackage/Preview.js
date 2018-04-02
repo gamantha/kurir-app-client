@@ -10,6 +10,9 @@ import {
     Image
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
+
+import { requestSendPackage, updateField } from './reducer';
 
 import { images } from '../../assets';
 
@@ -62,7 +65,34 @@ const resetAction = NavigationActions.reset({
 });
 
 class Preview extends Component {
+    componentWillMount() {
+        this.props.updateField('route', 'preview-info');
+    }
+    componentWillReceiveProps(nextProps) {
+        if (
+            nextProps.sendPackage.summary &&
+            nextProps.sendPackage.summary !== this.props.sendPackage.summary
+        ) {
+            this.props.navigation.navigate({ routeName: 'Confirmation' });
+        }
+    }
+    handlePress = () => {
+        this.props.sendRequest();
+    };
+
     render() {
+        const { sendPackage, user } = this.props;
+        const { username } = user;
+        const {
+            origin,
+            destination,
+            name,
+            email,
+            phone,
+            approximateWeight,
+            description
+        } = sendPackage;
+
         return (
             <ScrollView>
                 <View style={styles.infoContainer}>
@@ -84,7 +114,7 @@ class Preview extends Component {
                             </View>
                             <View>
                                 <Text style={styles.boldFont}>
-                                    Kun Yahya Mustofa
+                                    {username || ''}
                                 </Text>
                             </View>
                         </View>
@@ -94,7 +124,7 @@ class Preview extends Component {
                             </View>
                             <View>
                                 <Text style={styles.boldFont}>
-                                    Bandung, Jawa Barat, Indonesia
+                                    {origin || ''}
                                 </Text>
                             </View>
                         </View>
@@ -104,7 +134,7 @@ class Preview extends Component {
                             </View>
                             <View>
                                 <Text style={styles.boldFont}>
-                                    Jogjakarta, Jawa Tengah, Indonesia
+                                    {destination || ''}
                                 </Text>
                             </View>
                         </View>
@@ -114,7 +144,7 @@ class Preview extends Component {
                             </View>
                             <View>
                                 <Text style={styles.boldFont}>
-                                    Desti Suraya Istiqomah
+                                    {name || ''}
                                 </Text>
                             </View>
                         </View>
@@ -124,7 +154,7 @@ class Preview extends Component {
                             </View>
                             <View>
                                 <Text style={styles.boldFont}>
-                                    Desti123@gmail.com
+                                    {email || ''}
                                 </Text>
                             </View>
                         </View>
@@ -134,7 +164,7 @@ class Preview extends Component {
                             </View>
                             <View>
                                 <Text style={styles.boldFont}>
-                                    +6285990928765
+                                    {phone || ''}
                                 </Text>
                             </View>
                         </View>
@@ -156,7 +186,9 @@ class Preview extends Component {
                                 <Text>Weight</Text>
                             </View>
                             <View>
-                                <Text style={styles.boldFont}>10 KG</Text>
+                                <Text style={styles.boldFont}>
+                                    {approximateWeight || ''} KG
+                                </Text>
                             </View>
                         </View>
                     </View>
@@ -172,9 +204,7 @@ class Preview extends Component {
                             </View>
                             <View>
                                 <Text style={styles.boldFont}>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua
+                                    {description || ''}
                                 </Text>
                             </View>
                         </View>
@@ -219,11 +249,7 @@ class Preview extends Component {
                                     </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    onPress={() =>
-                                        this.props.navigation.navigate(
-                                            'Confirmation'
-                                        )
-                                    }
+                                    onPress={() => this.handlePress()}
                                     style={{
                                         borderColor: '#BD303f',
                                         justifyContent: 'center',
@@ -247,4 +273,14 @@ class Preview extends Component {
     }
 }
 
-export default Preview;
+const mapStateProps = state => ({
+    sendPackage: state.sendPackage,
+    user: state.userLogin
+});
+
+const mapDispatchToProps = dispatch => ({
+    sendRequest: () => dispatch(requestSendPackage()),
+    updateField: (field, value) => dispatch(updateField(field, value))
+});
+
+export default connect(mapStateProps, mapDispatchToProps)(Preview);

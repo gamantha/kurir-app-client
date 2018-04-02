@@ -7,16 +7,17 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
-
-import { images } from '../../assets';
-import styles from '../../helpers/styles';
 import Toast from 'react-native-simple-toast';
-import Api from '../../services/api';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
+
 import { updateField, requestSendPackage } from './reducer';
+import Api from '../../services/api';
+import { images } from '../../assets';
+import styles from '../../helpers/styles';
+import { getDistanceFromLatLonInKm } from '../../helpers/utils';
 
 const resetAction = NavigationActions.reset({
     index: 0,
@@ -28,9 +29,13 @@ class OriginToDestination extends Component {
         super(props);
         this.state = {
             isActiveWeight: true,
-            weightUnit: 'KG'
+            weightUnit: 'KG',
+            priceEstimation: ''
         };
+    }
 
+    componentWillMount() {
+        this.props.updateField('route', 'origin-destination');
     }
 
     componentWillReceiveProps(nextProps) {
@@ -40,17 +45,43 @@ class OriginToDestination extends Component {
         }
     }
 
-    componentWillUnmount() {
-        BackHandler.addEventListener('addEventListener', () =>
-            BackHandler.exitApp()
+    getEstimationPrice = () => {
+        if (!this.props.originCoord) {
+            return Toast.show('From can not be empty!');
+        }
+        if (!this.props.approximateWeight) {
+            return Toast.show('Approximate Weight can not be empty!');
+        }
+        if (!this.props.destinationCoord) {
+            return Toast.show('To can not be empty!');
+        }
+        const origin = this.props.originCoord.split(',');
+        const destination = this.props.destinationCoord.split(',');
+        const distance = getDistanceFromLatLonInKm(
+            origin[0],
+            origin[1],
+            destination[0],
+            destination[1]
         );
-    }
+
+        const price =
+            100 * Number(distance) * Number(this.props.approximateWeight);
+
+        this.props.updateField('cost', price);
+    };
+
     handleActiveWeight = fieldName =>
         this.setState({
             isActiveWeight: !this.state.isActiveWeight,
             weightUnit: fieldName
         });
-    
+
+    handleSearch = field => {
+        this.props.updateField('active', field);
+        this.props.navigation.navigate({
+            routeName: 'Search'
+        });
+    };
     updateField = (field, value) => {
         this.props.updateField(field, value);
     };
@@ -66,17 +97,20 @@ class OriginToDestination extends Component {
     render() {
         const {
             sendPackage,
-            inputFocus,
-            from,
+            query,
+            origin,
+            destination,
             approximateWeight,
-            to,
+            itemName,
+            inputFocus,
             textInputApproximateWeight,
             textInputfrom,
-            textInputTo
+            textInputTo,
+            cost
         } =
             this.props || {};
 
-        const disableButton = from !== '' && to !== '' && approximateWeight !== '';
+        const disableButton = query !== '' && approximateWeight !== '';
 
         const { isActiveWeight } = this.state;
         return (
@@ -112,22 +146,8 @@ class OriginToDestination extends Component {
                             <View style={styles.inputTextContainer}>
                                 <TextInput
                                     style={styles.inputText}
-                                    onFocus={() =>
-                                        this.handleFocus(
-                                            'textInputfrom',
-                                            '#F8E7E9'
-                                        )
-                                    }
-                                    onBlur={() =>
-                                        this.handleFocus(
-                                            'textInputfrom',
-                                            '#FFFFFF'
-                                        )
-                                    }
-                                    onChangeText={value =>
-                                        this.updateField('from', value)
-                                    }
-                                    value={from}
+                                    onFocus={() => this.handleSearch('origin')}
+                                    value={origin}
                                     autoCapitalize="none"
                                     autoCorrect={false}
                                     underlineColorAndroid="transparent"
@@ -175,7 +195,10 @@ class OriginToDestination extends Component {
                                             )
                                         }
                                         onChangeText={value =>
-                                            this.updateField('approximateWeight', value)
+                                            this.updateField(
+                                                'approximateWeight',
+                                                value
+                                            )
                                         }
                                         value={approximateWeight}
                                         autoCapitalize="none"
@@ -255,27 +278,42 @@ class OriginToDestination extends Component {
                             ]}
                         >
                             <Text style={{ marginTop: 10, marginBottom: 5 }}>
+                                Item Name
+                            </Text>
+                            <View style={styles.inputTextContainer}>
+                                <TextInput
+                                    style={styles.inputText}
+                                    onChangeText={text =>
+                                        this.updateField('itemName', text)
+                                    }
+                                    value={itemName}
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    underlineColorAndroid="transparent"
+                                />
+                            </View>
+                        </View>
+
+                        <View
+                            style={[
+                                styles.container,
+                                {
+                                    marginLeft: 30,
+                                    marginRight: 30,
+                                    justifyContent: 'center'
+                                }
+                            ]}
+                        >
+                            <Text style={{ marginTop: 10, marginBottom: 5 }}>
                                 To
                             </Text>
                             <View style={styles.inputTextContainer}>
                                 <TextInput
                                     style={styles.inputText}
                                     onFocus={() =>
-                                        this.handleFocus(
-                                            'textInputTo',
-                                            '#F8E7E9'
-                                        )
+                                        this.handleSearch('destination')
                                     }
-                                    onBlur={() =>
-                                        this.handleFocus(
-                                            'textInputTo',
-                                            '#FFFFFF'
-                                        )
-                                    }
-                                    onChangeText={value =>
-                                        this.updateField('to', value)
-                                    }
-                                    value={to}
+                                    value={destination}
                                     autoCapitalize="none"
                                     autoCorrect={false}
                                     underlineColorAndroid="transparent"
@@ -315,8 +353,8 @@ class OriginToDestination extends Component {
                             ]}
                         >
                             <TouchableOpacity
-                                onPress={this.handlePress}
-
+                                disabled={origin === '' && destination === ''}
+                                onPress={this.getEstimationPrice}
                                 style={[
                                     styles.touchAbleButton,
                                     { width: '45%' }
@@ -350,7 +388,13 @@ class OriginToDestination extends Component {
                                         textAlign: 'right'
                                     }}
                                 >
-                                    Approx cost: Rp. 12.000
+                                    Approx cost: Rp.{' '}
+                                    {Math.floor(cost)
+                                        .toString()
+                                        .replace(
+                                            /\B(?=(\d{3})+(?!\d))/g,
+                                            ','
+                                        ) || 0}
                                 </Text>
                             </View>
                             <View
@@ -401,6 +445,12 @@ class OriginToDestination extends Component {
                                 <Text style={styles.textButton}>Back</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
+                                disabled={
+                                    origin === '' &&
+                                    destination === '' &&
+                                    approximateWeight === '' &&
+                                    itemName === ''
+                                }
                                 onPress={() =>
                                     this.props.navigation.navigate(
                                         'PackageInfo'
@@ -420,7 +470,6 @@ class OriginToDestination extends Component {
         );
     }
 }
-
 
 const mapDispatchToProps = dispatch => ({
     updateField: (field, value) => dispatch(updateField(field, value)),

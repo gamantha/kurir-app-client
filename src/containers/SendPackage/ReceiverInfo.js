@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
 
 import { images } from '../../assets';
 import styles from '../../helpers/styles';
+
+import { updateField } from './reducer';
 
 const resetAction = NavigationActions.reset({
     index: 0,
@@ -12,7 +15,11 @@ const resetAction = NavigationActions.reset({
 });
 
 class ReceiverInfo extends Component {
+    componentWillMount() {
+        this.props.updateField('route', 'receiver-info');
+    }
     render() {
+        const { name, email, phone, description, updateField } = this.props;
         return (
             <View
                 style={{
@@ -22,10 +29,9 @@ class ReceiverInfo extends Component {
                     backgroundColor: '#fff'
                 }}
             >
-                <View style={{ flex: 0.05 }} />
                 <View
                     style={{
-                        flex: 0.8,
+                        flex: 1,
                         borderColor: 'red'
                     }}
                 >
@@ -45,7 +51,10 @@ class ReceiverInfo extends Component {
                                 style={styles.inputText}
                                 onFocus={() => {}}
                                 onBlur={() => {}}
-                                onChangeText={value => {}}
+                                onChangeText={value =>
+                                    updateField('name', value)
+                                }
+                                value={name}
                                 autoCapitalize="none"
                                 autoCorrect={false}
                                 underlineColorAndroid="transparent"
@@ -69,7 +78,10 @@ class ReceiverInfo extends Component {
                                 style={styles.inputText}
                                 onFocus={() => {}}
                                 onBlur={() => {}}
-                                onChangeText={value => {}}
+                                onChangeText={value =>
+                                    updateField('email', value)
+                                }
+                                value={email}
                                 autoCapitalize="none"
                                 autoCorrect={false}
                                 underlineColorAndroid="transparent"
@@ -93,7 +105,37 @@ class ReceiverInfo extends Component {
                                 style={styles.inputText}
                                 onFocus={() => {}}
                                 onBlur={() => {}}
-                                onChangeText={value => {}}
+                                onChangeText={value =>
+                                    updateField('phone', value)
+                                }
+                                value={phone}
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                underlineColorAndroid="transparent"
+                            />
+                        </View>
+                    </View>
+
+                    <View
+                        style={[
+                            styles.container,
+                            {
+                                marginLeft: 30,
+                                marginRight: 30,
+                                justifyContent: 'center'
+                            }
+                        ]}
+                    >
+                        <Text style={{ marginBottom: 5 }}>Description</Text>
+                        <View style={styles.inputTextContainer}>
+                            <TextInput
+                                style={styles.inputText}
+                                onFocus={() => {}}
+                                onBlur={() => {}}
+                                onChangeText={value =>
+                                    updateField('description', value)
+                                }
+                                value={description}
                                 autoCapitalize="none"
                                 autoCorrect={false}
                                 underlineColorAndroid="transparent"
@@ -129,6 +171,12 @@ class ReceiverInfo extends Component {
                             <Text style={styles.textButton}>Cancel</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
+                            disabled={
+                                name === '' &&
+                                email === '' &&
+                                phone === '' &&
+                                description === ''
+                            }
                             onPress={() =>
                                 this.props.navigation.navigate('Preview')
                             }
@@ -138,10 +186,15 @@ class ReceiverInfo extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={{ flex: 0.3 }} />
             </View>
         );
     }
 }
 
-export default ReceiverInfo;
+const mapStateProps = state => state.sendPackage;
+
+const mapDispatchToProps = dispatch => ({
+    updateField: (field, value) => dispatch(updateField(field, value))
+});
+
+export default connect(mapStateProps, mapDispatchToProps)(ReceiverInfo);

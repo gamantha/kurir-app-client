@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
 
 import { images } from '../../assets';
 import styles from '../../helpers/styles';
+
+import { updateField } from './reducer';
 
 const resetAction = NavigationActions.reset({
     index: 0,
@@ -12,7 +15,12 @@ const resetAction = NavigationActions.reset({
 });
 
 class PackageInfo extends Component {
+    componentWillMount() {
+        this.props.updateField('route', 'package-info');
+    }
     render() {
+        const { country, city, address } = this.props;
+
         return (
             <View
                 style={{
@@ -45,7 +53,10 @@ class PackageInfo extends Component {
                                 style={styles.inputText}
                                 onFocus={() => {}}
                                 onBlur={() => {}}
-                                onChangeText={value => {}}
+                                onChangeText={value =>
+                                    this.props.updateField('country', value)
+                                }
+                                value={country}
                                 autoCapitalize="none"
                                 autoCorrect={false}
                                 underlineColorAndroid="transparent"
@@ -69,7 +80,10 @@ class PackageInfo extends Component {
                                 style={styles.inputText}
                                 onFocus={() => {}}
                                 onBlur={() => {}}
-                                onChangeText={value => {}}
+                                onChangeText={value =>
+                                    this.props.updateField('city', value)
+                                }
+                                value={city}
                                 autoCapitalize="none"
                                 autoCorrect={false}
                                 underlineColorAndroid="transparent"
@@ -93,7 +107,10 @@ class PackageInfo extends Component {
                                 style={styles.inputText}
                                 onFocus={() => {}}
                                 onBlur={() => {}}
-                                onChangeText={value => {}}
+                                onChangeText={value =>
+                                    this.props.updateField('address', value)
+                                }
+                                value={address}
                                 autoCapitalize="none"
                                 autoCorrect={false}
                                 underlineColorAndroid="transparent"
@@ -127,6 +144,9 @@ class PackageInfo extends Component {
                             <Text style={styles.textButton}>Back</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
+                            disabled={
+                                country === '' && city === '' && address === ''
+                            }
                             onPress={() =>
                                 this.props.navigation.navigate('ReceiverInfo')
                             }
@@ -142,4 +162,10 @@ class PackageInfo extends Component {
     }
 }
 
-export default PackageInfo;
+const mapStateProps = state => state.sendPackage;
+
+const mapDispatchToProps = dispatch => ({
+    updateField: (field, value) => dispatch(updateField(field, value))
+});
+
+export default connect(mapStateProps, mapDispatchToProps)(PackageInfo);
