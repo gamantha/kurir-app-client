@@ -6,6 +6,7 @@ import TransportPackageNavbar from '../../navigations/TransportPackageNavbar';
 import SearchPackage from './SearchPackage';
 import SummaryPackage from './SummaryPackage';
 import BookingConfirmation from './BookingConfirmation';
+import AvailablePackage from './AvailablePackage';
 
 const width = Dimensions.get('window').width / 5;
 
@@ -19,6 +20,9 @@ const TransportPackage = StackNavigator(
         },
         BookingConfirmation: {
             screen: BookingConfirmation
+        },
+        AvailablePackage: {
+            screen: AvailablePackage
         }
     },
     {

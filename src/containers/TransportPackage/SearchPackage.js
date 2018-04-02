@@ -97,7 +97,7 @@ class SearchPackage extends Component {
                             <TouchableOpacity
                                 onPress={() =>
                                     this.props.navigation.navigate(
-                                        'SummaryPackage'
+                                        'AvailablePackage'
                                     )
                                 }
                                 style={{
