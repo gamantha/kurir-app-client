@@ -44,7 +44,6 @@ class Api {
             this.config.headers,
             headers
         );
-        console.log('DATa', data);
         return this.client
             .request(
                 {
@@ -68,8 +67,7 @@ class Api {
                                 : { 'Content-Type': 'multipart/form' }
                     ),
                     timeout: 60 * 1000,
-                    paramsSerializer: params => querystring.stringify(params),
-                    onUploadProgress: data.config.onUploadProgress || null
+                    paramsSerializer: params => querystring.stringify(params)
                 },
                 data.config
             )

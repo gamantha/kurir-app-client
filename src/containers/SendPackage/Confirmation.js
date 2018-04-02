@@ -10,7 +10,9 @@ import {
     Image
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
 
+import { clearState } from './reducer';
 import { images } from '../../assets';
 
 const WIDTH = Dimensions.get('window').width / 5;
@@ -25,13 +27,14 @@ const styles = StyleSheet.create({
 
 class Confirmation extends React.Component {
     handleFinish = () => {
-        const toDashboard = NavigationActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({ routeName: 'Main' })]
-        });
-        this.props.screenProps.rootNavigation.dispatch(toDashboard);
+        this.props.clearState();
+        this.props.toDashboard();
     };
     render() {
+        const { summary } = this.props;
+        const ticketNumber = summary.ticketNumber
+            ? '#' + summary.ticketNumber
+            : '';
         return (
             <View style={styles.container}>
                 <View
@@ -45,7 +48,7 @@ class Confirmation extends React.Component {
                 >
                     <Text>TICKET NUMBER</Text>
                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-                        #2826137122
+                        {ticketNumber || ''}
                     </Text>
                 </View>
                 <View
@@ -65,14 +68,13 @@ class Confirmation extends React.Component {
                     <View>
                         <Text style={{ fontSize: 18 }}>TO</Text>
                         <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-                            #2826137122
+                            {summary['ReceiverId'] || ''}
                         </Text>
                     </View>
                     <View>
                         <Text style={{ fontSize: 18 }}>ADDRESS</Text>
                         <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-                            Jl. KH. Ahmad Dahlan no. 72, Bandung, Jawa-Barat,
-                            Indonesia.
+                            {summary['address'] || ''}
                         </Text>
                     </View>
                 </View>
@@ -110,4 +112,17 @@ class Confirmation extends React.Component {
     }
 }
 
-export default Confirmation;
+const mapStateProps = state => state.sendPackage;
+
+const mapDispatchToProps = dispatch => ({
+    toDashboard: () =>
+        dispatch(
+            NavigationActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({ routeName: 'Main' })]
+            })
+        ),
+    clearState: () => dispatch(clearState())
+});
+
+export default connect(mapStateProps, mapDispatchToProps)(Confirmation);

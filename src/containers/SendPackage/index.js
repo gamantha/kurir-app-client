@@ -8,6 +8,7 @@ import PackageInfo from './PackageInfo';
 import ReceiverInfo from './ReceiverInfo';
 import Preview from './Preview';
 import Confirmation from './Confirmation';
+import Search from './search';
 
 const width = Dimensions.get('window').width / 2.5;
 
@@ -27,6 +28,9 @@ const SendPackage = StackNavigator(
         },
         Confirmation: {
             screen: Confirmation
+        },
+        Search: {
+            screen: Search
         }
     },
     {

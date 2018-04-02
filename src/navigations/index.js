@@ -13,6 +13,7 @@ import DrawerStack from '../containers/DrawerMenu';
 import SideMenu from '../containers/DrawerMenu/SideMenu';
 import RegisterKurir from '../containers/RegisterKurir';
 import NewPassword from '../containers/NewPassword';
+import TransportPackage from '../containers/TransportPackage';
 
 // Navigation components
 import DashboardNavbar from './DashboardNavbar';
@@ -91,6 +92,14 @@ const AppNavigator = StackNavigator({
     NewPassword: {
         screen: ({ navigation }) => (
             <NewPassword screenProps={{ rootNavigation: navigation }} />
+        ),
+        navigationOptions: {
+            header: null
+        }
+    },
+    TransportPackage: {
+        screen: ({ navigation }) => (
+                <TransportPackage screenProps={{ rootNavigation: navigation }} />
         ),
         navigationOptions: {
             header: null

@@ -47,5 +47,22 @@ export default StyleSheet.create({
         textAlign: 'center',
         fontSize: 16,
         fontWeight: 'bold'
-    }
+    },
+     
+    InputImageStyle: {
+        margin: 5,
+        height: 25,
+        width: 25,
+        resizeMode : 'stretch',
+    },
+
+    SectionStyle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#BD303f',
+        borderRadius: 50,
+        paddingLeft: 10,
+        height: 50,
+    },
 });

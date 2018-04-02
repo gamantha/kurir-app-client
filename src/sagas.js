@@ -5,6 +5,7 @@ import registerUserSagas from './containers/UserRegister/sagas';
 import forgotPasswordSagas from './containers/ForgotPassword/sagas';
 import verifycationCodeSagas from './containers/VerificationCode/sagas';
 import newPasswordSagas from './containers/NewPassword/sagas';
+import sendPackageSagas from './containers/SendPackage/sagas';
 import uploadImageSagas from './containers/RegisterKurir/sagas';
 
 export default function* rootSaga() {
@@ -14,6 +15,7 @@ export default function* rootSaga() {
         all(uploadImageSagas),
         all(forgotPasswordSagas),
         all(verifycationCodeSagas),
-        all(newPasswordSagas)
+        all(newPasswordSagas),
+        all(sendPackageSagas),
     ]);
 }

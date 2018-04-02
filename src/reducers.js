@@ -7,6 +7,7 @@ import userLoginReducer from './containers/UserLogin/reducer';
 import verificationCodeReducer from './containers/VerificationCode/reducer';
 import newPasswordReducer from './containers/NewPassword/reducer';
 import navReducer from './navigations/reducer';
+import sendPackageReducer from './containers/SendPackage/reducer';
 import registerKurirReducer from './containers/RegisterKurir/reducer';
 /**
  * Combine all reducers each containers
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     verificationCode: verificationCodeReducer,
     newPassword: newPasswordReducer,
     navigation: navReducer,
+    sendPackage: sendPackageReducer,
     registerKurir: registerKurirReducer
 });
 
