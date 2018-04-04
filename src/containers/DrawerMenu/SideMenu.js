@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     },
     thumbnail: {
         justifyContent: 'center',
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: '#fff',
         borderRadius: 100,
         height: 100,
@@ -88,7 +88,7 @@ class SideMenu extends Component {
             <View style={styles.container}>
                 <View style={styles.headerContent}>
                     <View style={styles.thumbnail}>
-                        <Image source={images.facebook} style={styles.image} />
+                        <Image source={images.placeholder} style={styles.image} />
                     </View>
                     <View style={styles.usernameContainer}>
                         <Text style={styles.username}>

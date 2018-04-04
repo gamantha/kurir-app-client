@@ -18,5 +18,6 @@ export const images = {
     caretRight: require('./images/caret-right-white-icon.png'),
     destination: require('./images/destination-icon.png'),
     origin: require('./images/origin-icon.png'),
-    bookingConfirmation: require('./images/booking-confirmation.png')
+    bookingConfirmation: require('./images/booking-confirmation.png'),
+    placeholder: require('./images/placeholder.png')
 };
