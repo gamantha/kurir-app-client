@@ -34,22 +34,35 @@ import { saveTokenData, clearTokenData } from '../../helpers/utils';
 function* watchLoginFlow(payload) {
     yield put(setIsLogin(true));
     try {
-        const response = yield call(Api.post, payload);
-        const { meta, data } = response.data;
+        const { data: response } = yield call(Api.post, payload);
+        const { meta, data } = response;
         if (meta.success && data && data.User.isEmailValidated) {
             yield put({ type: LOGIN_SUCCESS, payload: data.User });
             const { accessToken, refreshToken, User } = data;
             rootApi.setAuthorizationToken(accessToken);
             saveTokenData(accessToken, refreshToken, User);
+            yield put(
+                NavigationActions.reset({
+                    index: 0,
+                    actions: [NavigationActions.navigate({ routeName: 'Main' })]
+                })
+            );
             yield put(updateLoginInputField('password', ''));
         }
-        if (data.User.isEmailValidated === false) {
+        if (data && data.User && data.User.isEmailValidated === false) {
             yield put({
                 type: LOGIN_ERROR,
                 payload: 'Verify your email first!'
             });
         }
+        if (!meta.success) {
+            yield put({
+                type: LOGIN_ERROR,
+                payload: meta.message
+            });
+        }
     } catch (error) {
+        console.log('Errr', error);
         if (error.response && error.response.data) {
             yield put({
                 type: LOGIN_ERROR,

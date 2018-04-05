@@ -77,7 +77,7 @@ class OnboardingComponent extends React.Component {
                             marginLeft: 3,
                             marginRight: 3,
                             marginTop: 3,
-                            marginBottom: 300
+                            marginBottom: 320
                         }}
                     />
                 }
@@ -91,7 +91,7 @@ class OnboardingComponent extends React.Component {
                             marginLeft: 3,
                             marginRight: 3,
                             marginTop: 3,
-                            marginBottom: 300
+                            marginBottom: 320
                         }}
                     />
                 }

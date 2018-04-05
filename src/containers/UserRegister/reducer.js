@@ -43,37 +43,43 @@ const initialState = {
 export default function userRegistrationReducer(state = initialState, action) {
     switch (action.type) {
         case IS_LOADING:
-            return { ...state, 'isLoading': action.status };
+            return { ...state, isLoading: action.status };
         case SET_ERROR_MESSAGE:
-            return { ...state, 'errorMessage': action.payload };
+            return { ...state, errorMessage: action.payload };
         case UPDATE_SINGLE_INPUT_FIELD:
             var newField = [];
             newField[action.field] = action.value;
-            return { ...state,
-                    inputFields: { ...state['inputFields'], ...newField }
-            }
+            return {
+                ...state,
+                inputFields: { ...state['inputFields'], ...newField }
+            };
         case INPUT_FIELD_VALIDATION:
             var newField = [];
             newField[action.field] = action.value;
-            return { ...state,
-                     inputFieldValidations: { ...state['inputFieldValidations'], ...newField }
+            return {
+                ...state,
+                inputFieldValidations: {
+                    ...state['inputFieldValidations'],
+                    ...newField
+                }
             };
         case CLEAR_ERROR_MESSAGE:
-            return state.set('errorMessage', '');
+            return { ...state, errorMessage: '' };
         case USER_REGISTRATION_SUCCESS:
-            return { ...state,
-                     inputFields: {
-                        email: '',
-                        username: '',
-                        password: '',
-                        repassword: ''
-                    },
-                    inputFieldValidations: {
-                        email: null,
-                        username: null,
-                        password: null,
-                        repassword: null
-                    }
+            return {
+                ...state,
+                inputFields: {
+                    email: '',
+                    username: '',
+                    password: '',
+                    repassword: ''
+                },
+                inputFieldValidations: {
+                    email: null,
+                    username: null,
+                    password: null,
+                    repassword: null
+                }
             };
         default:
             return state;

@@ -43,16 +43,9 @@ class UserLogin extends Component {
 
     componentWillReceiveProps(nextProps) {
         const { success, errorMessage } = nextProps;
-        if (errorMessage !== '' && errorMessage !== this.props.errorMessage) {
+        if (errorMessage !== '') {
             Toast.show(errorMessage);
             this.props.clearErrorMessage();
-        }
-        if (success && this.props.success !== success) {
-            const navigateAction = NavigationActions.reset({
-                index: 0,
-                actions: [NavigationActions.navigate({ routeName: 'Main' })]
-            });
-            this.props.navigation.dispatch(navigateAction);
         }
     }
 

@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         paddingRight: '10%'
     },
     bodyContent: {
-        flex: 4,
+        flex: 8,
         justifyContent: 'center',
         paddingLeft: '10%',
         paddingRight: '10%'
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         fontSize: 12
     },
     registerKurir: {
-        flex: 0.7,
+        flex: 1.5,
         flexDirection: 'row',
         justifyContent: 'space-around',
         paddingLeft: '10%',
@@ -88,7 +88,7 @@ class SideMenu extends Component {
             <View style={styles.container}>
                 <View style={styles.headerContent}>
                     <View style={styles.thumbnail}>
-                        <Image source={images.facebook} style={styles.image} />
+                        <Image source={images.profile} style={styles.image} />
                     </View>
                     <View style={styles.usernameContainer}>
                         <Text style={styles.username}>
@@ -96,7 +96,7 @@ class SideMenu extends Component {
                         </Text>
                         <Text> </Text>
                         <Text style={styles.role}>
-                            {this.props.role || 'role'}
+                            {`(${this.props.role})` || 'role'}
                         </Text>
                     </View>
                 </View>

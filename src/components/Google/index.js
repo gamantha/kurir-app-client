@@ -12,6 +12,7 @@ const googleRegister = (navigation, authenticate, action, socialType) => {
             ? { iosClientId: config.GOOGLE_CLIENT_ID_IOS }
             : { webClientId: config.GOOGLE_CLIENT_ID_ANDROID };
     GoogleSignin.configure(clientId).then(() => {
+        console.log('Client ID', clientId);
         GoogleSignin.signIn()
             .then(user => {
                 if (user && user.idToken) {
@@ -19,6 +20,7 @@ const googleRegister = (navigation, authenticate, action, socialType) => {
                 }
             })
             .catch(err => {
+                console.log('WRONG', err, err.response);
                 Toast.show('WRONG SIGNIN ' + err);
             })
             .done();
