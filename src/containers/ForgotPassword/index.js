@@ -6,7 +6,8 @@ import {
     ImageBackground,
     Image,
     TextInput,
-    Button
+    Button,
+    BackHandler
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import { connect } from 'react-redux';
@@ -20,6 +21,15 @@ import styles from '../../helpers/styles';
 import { images } from '../../assets';
 
 class ForgotPasswordInput extends Component {
+
+    componentDidMount() {
+        BackHandler.addEventListener('addEventListener', () =>
+            this.props.navigation.navigate(
+                'Login'
+            )
+        );
+    }
+
     componentWillReceiveProps(nextProps) {
         const { statusMessage } = nextProps;
         const { message } = statusMessage;
@@ -27,6 +37,15 @@ class ForgotPasswordInput extends Component {
             Toast.show(message);
         }
     }
+
+    componentWillUnmount() {
+        BackHandler.addEventListener('addEventListener', () =>
+            this.props.navigation.navigate(
+                'Login'
+            )
+        );
+    }
+
     setEmail = email => {
         this.props.setEmail(email);
     };

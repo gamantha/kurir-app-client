@@ -30,6 +30,12 @@ class NewPassword extends Component {
         super(props);
     }
 
+    componentDidMount() {
+        BackHandler.addEventListener('addEventListener', () =>
+            this.props.toDashboard()
+        );
+    }
+
     componentWillReceiveProps(nextProps) {
         const { message, success } = nextProps;
         if (message !== '') {
@@ -39,7 +45,7 @@ class NewPassword extends Component {
 
     componentWillUnmount() {
         BackHandler.addEventListener('addEventListener', () =>
-            BackHandler.exitApp()
+            this.props.toDashboard()
         );
     }
 
@@ -271,7 +277,14 @@ class NewPassword extends Component {
 const mapDispatchToProps = dispatch => ({
     updateField: (field, value) => dispatch(updateField(field, value)),
     handleFocus: (field, value) => dispatch(updateField(field, value)),
-    handleNewPassword: () => dispatch(requestNewPassword())
+    handleNewPassword: () => dispatch(requestNewPassword()),
+    toDashboard: () =>
+        dispatch(
+            NavigationActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({ routeName: 'Main' })]
+            })
+        )
 });
 
 const mapStateProps = state => state.newPassword;
