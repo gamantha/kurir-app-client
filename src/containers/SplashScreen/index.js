@@ -56,12 +56,8 @@ class SplashScreen extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch =>
-    bindActionCreators(
-        {
-            refreshToken: reqRefreshToken
-        },
-        dispatch
-    );
+const mapDispatchToProps = dispatch => ({
+    refreshToken: refToken => dispatch(reqRefreshToken(refToken))
+});
 
 export default connect(null, mapDispatchToProps)(SplashScreen);
