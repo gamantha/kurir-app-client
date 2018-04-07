@@ -64,13 +64,6 @@ class UserRegister extends React.Component {
             Toast.show(errorMessage);
             this.props.clearErrorMessage();
         }
-        if (
-            registerData.createdAt &&
-            this.props.registerData.createdAt !== registerData.createdAt
-        ) {
-            this.props.navigation.navigate('Login');
-            Toast.show('Please confirm your email first!');
-        }
     }
 
     componentWillUnmount() {
@@ -341,14 +334,14 @@ class UserRegister extends React.Component {
                                 paddingTop: 16
                             }}
                         >
-                            <Text
+                            {/* <Text
                                 style={{
                                     textAlign: 'center',
                                     paddingBottom: 24
                                 }}
                             >
                                 Link your social media profiles
-                            </Text>
+                            </Text> */}
                             <View
                                 style={{
                                     paddingBottom: 24,
@@ -356,7 +349,7 @@ class UserRegister extends React.Component {
                                     justifyContent: 'space-around'
                                 }}
                             >
-                                <Facebook
+                                {/* <Facebook
                                     navigation={this.props.navigation}
                                     authenticate={this.props.socialOauth}
                                     action="register"
@@ -367,7 +360,7 @@ class UserRegister extends React.Component {
                                     authenticate={this.props.socialOauth}
                                     action="register"
                                     socialType="google"
-                                />
+                                /> */}
                             </View>
 
                             {isLoading ? (

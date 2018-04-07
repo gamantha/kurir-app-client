@@ -68,6 +68,7 @@ export default function userRegistrationReducer(state = initialState, action) {
         case USER_REGISTRATION_SUCCESS:
             return {
                 ...state,
+                errorMessage: action.payload,
                 inputFields: {
                     email: '',
                     username: '',
