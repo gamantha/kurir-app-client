@@ -85,7 +85,7 @@ class UserLogin extends Component {
         const disableButton = username !== '' && password !== '';
 
         return (
-            <View style={styles.container} behaviour="padding">
+            <KeyboardAvoidingView style={styles.container} behaviour="padding">
                 <View style={styles.container}>
                     <View
                         style={{
@@ -293,7 +293,7 @@ class UserLogin extends Component {
                         </ImageBackground>
                     </View>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         );
     }
 }

@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     },
     thumbnail: {
         justifyContent: 'center',
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: '#fff',
         borderRadius: 100,
         height: 100,
