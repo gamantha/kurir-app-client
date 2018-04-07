@@ -113,6 +113,6 @@ function* watchRefreshToken(data) {
 
 export default [
     takeLatest(LOGIN, watchLoginFlow),
-    takeLatest(REFRESH_TOKEN, watchRefreshToken),
+    takeEvery(REFRESH_TOKEN, watchRefreshToken),
     take(LOGOUT, watchLogoutFlow)
 ];

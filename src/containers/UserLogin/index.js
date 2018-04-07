@@ -85,7 +85,7 @@ class UserLogin extends Component {
         const disableButton = username !== '' && password !== '';
 
         return (
-            <KeyboardAvoidingView style={styles.container} behaviour="padding">
+            <View style={styles.container} behaviour="padding">
                 <View style={styles.container}>
                     <View
                         style={{
@@ -94,11 +94,11 @@ class UserLogin extends Component {
                             alignItems: 'center'
                         }}
                     >
-                        <Animated.Image
+                        <Image
                             source={images.logo}
                             style={{
-                                width: this.imageHeight,
-                                height: this.imageHeight
+                                width: 100,
+                                height: 100
                             }}
                         />
                     </View>
@@ -109,7 +109,7 @@ class UserLogin extends Component {
                             justifyContent: 'space-around'
                         }}
                     >
-                        <Animated.View
+                        <View
                             style={[
                                 styles.container,
                                 { marginLeft: 20, marginRight: 20 }
@@ -166,7 +166,7 @@ class UserLogin extends Component {
                                     underlineColorAndroid="transparent"
                                 />
                             </View>
-                        </Animated.View>
+                        </View>
                     </View>
                     <View
                         style={{
@@ -174,9 +174,9 @@ class UserLogin extends Component {
                             justifyContent: 'flex-end'
                         }}
                     >
-                        <Text style={{ textAlign: 'center' }}>
+                        {/* <Text style={{ textAlign: 'center' }}>
                             You can also login with ...
-                        </Text>
+                        </Text> */}
                     </View>
                     <View
                         style={{
@@ -205,7 +205,7 @@ class UserLogin extends Component {
                                         alignItems: 'center'
                                     }}
                                 >
-                                    <Facebook
+                                    {/* <Facebook
                                         navigation={this.props.navigation}
                                         authenticate={this.props.socialOauth}
                                         action="login"
@@ -216,7 +216,7 @@ class UserLogin extends Component {
                                         authenticate={this.props.socialOauth}
                                         action="login"
                                         socialType="google"
-                                    />
+                                    /> */}
                                 </View>
                                 {isLoading ? (
                                     <ActivityIndicator
@@ -293,7 +293,7 @@ class UserLogin extends Component {
                         </ImageBackground>
                     </View>
                 </View>
-            </KeyboardAvoidingView>
+            </View>
         );
     }
 }
