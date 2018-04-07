@@ -47,9 +47,7 @@ class RootView extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    navigation: state['navigation']
-});
+const mapStateToProps = state => ({ navigation: state.navigation });
 
 // export const selectUserLoginReducer = () => state => state.get('userLogin');
 

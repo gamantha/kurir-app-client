@@ -52,12 +52,6 @@ class UserRegister extends React.Component {
         );
     }
 
-    componentDidMount() {
-        BackHandler.addEventListener('addEventListener', () =>
-            BackHandler.exitApp()
-        );
-    }
-
     componentWillReceiveProps(nextProps) {
         const { registerData, errorMessage } = nextProps;
         if (errorMessage !== '') {

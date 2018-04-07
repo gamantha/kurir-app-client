@@ -35,24 +35,12 @@ class UserLogin extends Component {
         this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
     }
 
-    componentDidMount() {
-        BackHandler.addEventListener('addEventListener', () =>
-            BackHandler.exitApp()
-        );
-    }
-
     componentWillReceiveProps(nextProps) {
         const { success, errorMessage } = nextProps;
         if (errorMessage !== '') {
             Toast.show(errorMessage);
             this.props.clearErrorMessage();
         }
-    }
-
-    componentWillUnmount() {
-        BackHandler.addEventListener('addEventListener', () =>
-            BackHandler.exitApp()
-        );
     }
 
     onClickLogin = () => {
@@ -83,7 +71,6 @@ class UserLogin extends Component {
             this.props || {};
         const { username, password } = loginInputField;
         const disableButton = username !== '' && password !== '';
-
         return (
             <KeyboardAvoidingView style={styles.container} behaviour="padding">
                 <View style={styles.container}>
@@ -255,9 +242,7 @@ class UserLogin extends Component {
                                         </Text>
                                         <TouchableOpacity
                                             onPress={() =>
-                                                this.props.navigation.navigate(
-                                                    'Register'
-                                                )
+                                                this.props.toRegister()
                                             }
                                         >
                                             <Text
@@ -298,17 +283,21 @@ class UserLogin extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch =>
-    bindActionCreators(
-        {
-            updateLoginInputField: actions.updateLoginInputField,
-            loginFlow: actions.loginFlow,
-            textInputFocus: actions.textInputFocus,
-            clearErrorMessage: actions.clearErrorMessage,
-            socialOauth: socialOauth
-        },
-        dispatch
-    );
+const mapDispatchToProps = dispatch => ({
+    updateLoginInputField: (field, value) =>
+        dispatch(actions.updateLoginInputField(field, value)),
+    loginFlow: payload => dispatch(actions.loginFlow(payload)),
+    textInputFocus: (field, value) =>
+        dispatch(actions.textInputFocus(field, value)),
+    clearErrorMessage: () => dispatch(actions.clearErrorMessage()),
+    socialOauth: () => dispatch(socialOauth()),
+    toRegister: () =>
+        dispatch(
+            NavigationActions.navigate({
+                routeName: 'Register'
+            })
+        )
+});
 
 const mapStateToProps = () =>
     createStructuredSelector({

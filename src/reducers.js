@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { AsyncStorage } from 'react-native';
 import { persistReducer } from 'redux-persist';
+import splashScreenReducer from './containers/SplashScreen/reducer';
 import forgotPasswordReducer from './containers/ForgotPassword/reducer';
 import userRegisterReducer from './containers/UserRegister/reducer';
 import userLoginReducer from './containers/UserLogin/reducer';
@@ -15,6 +16,7 @@ import registerKurirReducer from './containers/RegisterKurir/reducer';
  * @type {Maps}
  */
 const rootReducer = combineReducers({
+    splash: splashScreenReducer,
     userRegister: userRegisterReducer,
     userLogin: userLoginReducer,
     forgotPassword: forgotPasswordReducer,
