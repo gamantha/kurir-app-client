@@ -19,5 +19,5 @@ export const images = {
     destination: require('./images/destination-icon.png'),
     origin: require('./images/origin-icon.png'),
     bookingConfirmation: require('./images/booking-confirmation.png'),
-    placeholder: require('./images/placeholder.png')
+    profile: require('./images/profile.png')
 };

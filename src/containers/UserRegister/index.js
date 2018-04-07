@@ -60,7 +60,7 @@ class UserRegister extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const { registerData, errorMessage } = nextProps;
-        if (errorMessage !== '' && errorMessage !== this.props.errorMessage) {
+        if (errorMessage !== '') {
             Toast.show(errorMessage);
             this.props.clearErrorMessage();
         }

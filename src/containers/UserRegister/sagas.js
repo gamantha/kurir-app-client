@@ -67,6 +67,7 @@ function* watchSocialOauth({ tokenId, action, socialType }) {
     try {
         const response = yield call(url, { tokenId });
         const { meta, data } = response.data;
+        console.log('RESPONSE', response);
         if (meta.success && data) {
             if (data.User && data.User.isEmailValidated) {
                 yield put({ type: LOGIN_SUCCESS, payload: meta.success });
@@ -82,6 +83,7 @@ function* watchSocialOauth({ tokenId, action, socialType }) {
         }
         yield put(setErrorMessage(response.data.meta.message));
     } catch (error) {
+        console.log('ERRORR SOCIAL_OAUTH', error);
         if (error.response && error.response.data) {
             yield put(setErrorMessage(error.response.data.meta.message));
         } else {
