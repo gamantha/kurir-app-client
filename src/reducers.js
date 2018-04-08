@@ -5,7 +5,6 @@ import splashScreenReducer from './containers/SplashScreen/reducer';
 import forgotPasswordReducer from './containers/ForgotPassword/reducer';
 import userRegisterReducer from './containers/UserRegister/reducer';
 import userLoginReducer from './containers/UserLogin/reducer';
-import verificationCodeReducer from './containers/VerificationCode/reducer';
 import newPasswordReducer from './containers/NewPassword/reducer';
 import navReducer from './navigations/reducer';
 import sendPackageReducer from './containers/SendPackage/reducer';
@@ -20,7 +19,6 @@ const rootReducer = combineReducers({
     userRegister: userRegisterReducer,
     userLogin: userLoginReducer,
     forgotPassword: forgotPasswordReducer,
-    verificationCode: verificationCodeReducer,
     newPassword: newPasswordReducer,
     navigation: navReducer,
     sendPackage: sendPackageReducer,

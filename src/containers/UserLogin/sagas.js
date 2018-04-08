@@ -62,7 +62,6 @@ function* watchLoginFlow(payload) {
             });
         }
     } catch (error) {
-        console.log('Errr', error);
         if (error.response && error.response.data) {
             yield put({
                 type: LOGIN_ERROR,

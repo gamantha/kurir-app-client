@@ -3,6 +3,7 @@ import Toast from 'react-native-simple-toast';
 import {
     Animated,
     ActivityIndicator,
+    Dimensions,
     View,
     Text,
     TextInput,
@@ -29,10 +30,11 @@ import { socialOauth } from '../UserRegister/reducer';
 import { images } from '../../assets';
 import styles, { IMAGE_HEIGHT, IMAGE_HEIGHT_SMALL } from '../../helpers/styles';
 
+const HEIGHT = Dimensions.get('window').width;
+
 class UserLogin extends Component {
     constructor(props) {
         super(props);
-        this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -72,7 +74,7 @@ class UserLogin extends Component {
         const { username, password } = loginInputField;
         const disableButton = username !== '' && password !== '';
         return (
-            <KeyboardAvoidingView style={styles.container} behaviour="padding">
+            <ScrollView>
                 <View style={styles.container}>
                     <View
                         style={{
@@ -84,8 +86,8 @@ class UserLogin extends Component {
                         <Image
                             source={images.logo}
                             style={{
-                                width: 100,
-                                height: 100
+                                width: 120,
+                                height: 120
                             }}
                         />
                     </View>
@@ -99,11 +101,19 @@ class UserLogin extends Component {
                         <View
                             style={[
                                 styles.container,
-                                { marginLeft: 20, marginRight: 20 }
+                                {
+                                    marginLeft: 20,
+                                    marginRight: 20
+                                }
                             ]}
                         >
                             <Text>User Name</Text>
-                            <View style={styles.inputTextContainer}>
+                            <View
+                                style={[
+                                    styles.inputTextContainer,
+                                    { marginBottom: 30 }
+                                ]}
+                            >
                                 <TextInput
                                     style={[
                                         styles.inputText,
@@ -165,34 +175,39 @@ class UserLogin extends Component {
                             You can also login with ...
                         </Text> */}
                     </View>
-                    <View
+                    {/* <View
                         style={{
-                            flex: 2
+                            flex: 2,
+                            borderWidth: 1,
+                            borderColor: 'green'
+                        }}
+                    > */}
+                    <ImageBackground
+                        source={images.baseline}
+                        style={{
+                            position: 'relative',
+                            height: HEIGHT,
+                            justifyContent: 'space-around'
                         }}
                     >
-                        <ImageBackground
-                            source={images.baseline}
-                            style={styles.imageBackground}
+                        <View
+                            style={[
+                                styles.container,
+                                {
+                                    marginLeft: 30,
+                                    marginRight: 30,
+                                    backgroundColor: 'rgba(52, 52, 52, 0)'
+                                }
+                            ]}
                         >
                             <View
-                                style={[
-                                    styles.container,
-                                    {
-                                        flex: 0.8,
-                                        marginLeft: 30,
-                                        marginRight: 30,
-                                        backgroundColor: 'rgba(52, 52, 52, 0)'
-                                    }
-                                ]}
+                                style={{
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-around',
+                                    alignItems: 'center'
+                                }}
                             >
-                                <View
-                                    style={{
-                                        flexDirection: 'row',
-                                        justifyContent: 'space-around',
-                                        alignItems: 'center'
-                                    }}
-                                >
-                                    {/* <Facebook
+                                {/* <Facebook
                                         navigation={this.props.navigation}
                                         authenticate={this.props.socialOauth}
                                         action="login"
@@ -204,64 +219,52 @@ class UserLogin extends Component {
                                         action="login"
                                         socialType="google"
                                     /> */}
-                                </View>
-                                {isLoading ? (
-                                    <ActivityIndicator
-                                        size="large"
-                                        color="#00ff00"
-                                    />
-                                ) : (
-                                    <TouchableOpacity
-                                        style={styles.touchAbleButton}
-                                        onPress={() => {
-                                            this.onClickLogin();
-                                        }}
-                                        disabled={!disableButton}
-                                    >
-                                        <Text style={styles.textButton}>
-                                            LOGIN
-                                        </Text>
-                                    </TouchableOpacity>
-                                )}
+                            </View>
+                            {isLoading ? (
+                                <ActivityIndicator
+                                    size="large"
+                                    color="#00ff00"
+                                />
+                            ) : (
+                                <TouchableOpacity
+                                    style={{
+                                        backgroundColor: '#BD303f',
+                                        borderWidth: 1,
+                                        borderRadius: 50,
+                                        borderColor: '#BC2938',
+                                        height: 50,
+                                        justifyContent: 'center',
+                                        marginLeft: 20,
+                                        marginRight: 20
+                                    }}
+                                    onPress={() => {
+                                        this.onClickLogin();
+                                    }}
+                                    disabled={!disableButton}
+                                >
+                                    <Text style={styles.textButton}>LOGIN</Text>
+                                </TouchableOpacity>
+                            )}
 
+                            <View
+                                style={{
+                                    top: -80,
+                                    flexDirection: 'column',
+                                    justifyContent: 'space-between'
+                                }}
+                            >
                                 <View
                                     style={{
-                                        flex: 0.4,
-                                        flexDirection: 'column',
-                                        justifyContent: 'space-between'
+                                        flexDirection: 'row',
+                                        justifyContent: 'center',
+                                        marginBottom: 30
                                     }}
                                 >
-                                    <View
-                                        style={{
-                                            flexDirection: 'row',
-                                            justifyContent: 'center'
-                                        }}
-                                    >
-                                        <Text style={{ textAlign: 'center' }}>
-                                            Not registered yet ?
-                                        </Text>
-                                        <TouchableOpacity
-                                            onPress={() =>
-                                                this.props.toRegister()
-                                            }
-                                        >
-                                            <Text
-                                                style={{
-                                                    textAlign: 'center',
-                                                    color: '#2C36FB'
-                                                }}
-                                            >
-                                                {' '}
-                                                Sign up!
-                                            </Text>
-                                        </TouchableOpacity>
-                                    </View>
+                                    <Text style={{ textAlign: 'center' }}>
+                                        Not registered yet ?
+                                    </Text>
                                     <TouchableOpacity
-                                        onPress={() =>
-                                            this.props.navigation.navigate(
-                                                'Password'
-                                            )
-                                        }
+                                        onPress={() => this.props.toRegister()}
                                     >
                                         <Text
                                             style={{
@@ -270,15 +273,33 @@ class UserLogin extends Component {
                                             }}
                                         >
                                             {' '}
-                                            Forgot Password ?
+                                            Sign up!
                                         </Text>
                                     </TouchableOpacity>
                                 </View>
+                                <TouchableOpacity
+                                    onPress={() =>
+                                        this.props.navigation.navigate(
+                                            'Password'
+                                        )
+                                    }
+                                >
+                                    <Text
+                                        style={{
+                                            textAlign: 'center',
+                                            color: '#2C36FB'
+                                        }}
+                                    >
+                                        {' '}
+                                        Forgot Password ?
+                                    </Text>
+                                </TouchableOpacity>
                             </View>
-                        </ImageBackground>
-                    </View>
+                        </View>
+                    </ImageBackground>
+                    {/* </View> */}
                 </View>
-            </KeyboardAvoidingView>
+            </ScrollView>
         );
     }
 }

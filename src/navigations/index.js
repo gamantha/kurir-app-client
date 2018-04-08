@@ -14,6 +14,8 @@ import SideMenu from '../containers/DrawerMenu/SideMenu';
 import RegisterKurir from '../containers/RegisterKurir';
 import NewPassword from '../containers/NewPassword';
 import TransportPackage from '../containers/TransportPackage';
+import VerificationCode from '../containers/ForgotPassword/verification-code';
+import NewForgotPassword from '../containers/ForgotPassword/new-password';
 
 // Navigation components
 import DashboardNavbar from './DashboardNavbar';
@@ -45,6 +47,18 @@ const AppNavigator = StackNavigator({
     },
     Password: {
         screen: ForgotPassword,
+        navigationOptions: {
+            header: null
+        }
+    },
+    VerificationCode: {
+        screen: VerificationCode,
+        navigationOptions: {
+            header: null
+        }
+    },
+    NewForgotPassword: {
+        screen: NewForgotPassword,
         navigationOptions: {
             header: null
         }
@@ -99,7 +113,7 @@ const AppNavigator = StackNavigator({
     },
     TransportPackage: {
         screen: ({ navigation }) => (
-                <TransportPackage screenProps={{ rootNavigation: navigation }} />
+            <TransportPackage screenProps={{ rootNavigation: navigation }} />
         ),
         navigationOptions: {
             header: null

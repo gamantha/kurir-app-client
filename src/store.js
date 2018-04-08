@@ -14,7 +14,7 @@ const sagaMiddleWare = createSagaMiddleware();
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['navigation', 'sendPackage'],
+    blacklist: ['navigation', 'sendPackage', 'forgotPassword'],
     whilelist: ['userRegister', 'userLogin'],
     stateReconciler: autoMergeLevel2
 };

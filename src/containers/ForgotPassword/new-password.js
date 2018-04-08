@@ -1,42 +1,33 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect';
 import {
-    View,
-    TouchableOpacity,
+    ActivityIndicator,
     Text,
-    ImageBackground,
-    Image,
     TextInput,
-    Button,
-    BackHandler
+    View,
+    ImageBackground,
+    TouchableOpacity
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
-import { connect } from 'react-redux';
 
 import * as actions from './reducer';
+
 import styles from '../../helpers/styles';
 import { images } from '../../assets';
+// import NewPasswordInput from '../newPassword';
 
-class ForgotPassword extends Component {
-    componentDidMount() {
-        BackHandler.addEventListener('addEventListener', () =>
-            this.props.navigation.navigate('Login')
-        );
-    }
-
+class NewPassword extends Component {
     componentWillReceiveProps(nextProps) {
         const { message } = nextProps;
         if (message) {
             Toast.show(message);
         }
     }
-
-    componentWillUnmount() {
-        BackHandler.addEventListener('addEventListener', () =>
-            this.props.navigation.navigate('Login')
-        );
-    }
     render() {
-        const { email } = this.props;
+        const { message, loading, newPassword, email } = this.props;
+
         return (
             <View style={styles.container}>
                 <View
@@ -53,7 +44,7 @@ class ForgotPassword extends Component {
                     >
                         <View
                             style={{
-                                flex: 0.3,
+                                flex: 1,
                                 justifyContent: 'flex-end'
                             }}
                         >
@@ -63,33 +54,8 @@ class ForgotPassword extends Component {
                                     fontWeight: 'bold'
                                 }}
                             >
-                                Forgot Password
+                                Enter your new password:
                             </Text>
-                        </View>
-                        <View
-                            style={{
-                                flex: 0.6,
-                                flexDirection: 'row'
-                            }}
-                        >
-                            <View
-                                style={{
-                                    flex: 0.8,
-                                    justifyContent: 'flex-start',
-                                    alignItems: 'flex-start'
-                                }}
-                            >
-                                <Text style={{ fontSize: 16 }}>
-                                    Enter Your email address and we will send a
-                                    verification number through your email
-                                </Text>
-                            </View>
-
-                            <View
-                                style={{
-                                    flex: 0.2
-                                }}
-                            />
                         </View>
                     </View>
                 </View>
@@ -110,25 +76,17 @@ class ForgotPassword extends Component {
                     >
                         <View
                             style={{
-                                flex: 0.2,
-                                flexDirection: 'row',
-                                alignItems: 'flex-end'
-                            }}
-                        >
-                            <Text style={{ fontSize: 16 }}>Email:</Text>
-                        </View>
-                        <View
-                            style={{
                                 flex: 0.5,
                                 justifyContent: 'space-around'
                             }}
                         >
                             <TextInput
+                                placeholder="your new password"
                                 style={[styles.inputText, { flex: 0.5 }]}
                                 onChangeText={text =>
-                                    this.props.setEmail('email', text)
+                                    this.props.updateField('newPassword', text)
                                 }
-                                value={email}
+                                value={newPassword}
                                 autoCapitalize="none"
                                 underlineColorAndroid="transparent"
                             />
@@ -145,11 +103,11 @@ class ForgotPassword extends Component {
                                         styles.touchAbleButton,
                                         { height: 45 }
                                     ]}
-                                    onPress={this.props.forgotPassword}
+                                    onPress={this.props.requestNewPassword}
                                     disabled={!(email.length > 0)}
                                 >
                                     <Text style={styles.textButton}>
-                                        SEND EMAIL
+                                        SUBMIT
                                     </Text>
                                 </TouchableOpacity>
                             )}
@@ -168,10 +126,11 @@ class ForgotPassword extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    setEmail: (field, email) => dispatch(actions.updateField(field, email)),
-    forgotPassword: () => dispatch(actions.forgotPassword())
+    updateField: (field, password) =>
+        dispatch(actions.updateField(field, password)),
+    requestNewPassword: () => dispatch(actions.requestNewPassword())
 });
 
 const mapStateToProps = state => state.forgotPassword;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);
+export default connect(mapStateToProps, mapDispatchToProps)(NewPassword);

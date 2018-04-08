@@ -1,47 +1,111 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
-import { FORGOT_PASSWORD, STATUS_MESSAGE } from './constants';
-import { showLoading } from './reducer';
+import { put, call, select, takeLatest } from 'redux-saga/effects';
+import { NavigationActions } from 'react-navigation';
+import {
+    FORGOT_PASSWORD,
+    VERIFY,
+    NEW_PASSWORD,
+    STATUS_MESSAGE
+} from './reducer';
 import Api from '../../services/forgotpassword';
 
-/**
- * Api call for forgot password
- * Email will be use to send the verification code
- *
- * @param  Object email - registered user email
- * @return Object
- */
-function* watchForgotPassword({ payload: { email } }) {
-    put(showLoading(true));
+function* watchForgotPassword() {
     try {
-        const response = yield call(Api.post, { email });
-        const { meta, data } = response.data;
-        let payload;
-        payload.message = data.msg;
+        const { forgotPassword } = yield select();
+        const { email } = forgotPassword;
+        const { data: response } = yield call(Api.getCode, { email });
+        const { meta, data } = response;
         if (meta.success && data) {
-            payload.status = true;
-            yield put({ type: STATUS_MESSAGE, payload });
+            yield put({ type: STATUS_MESSAGE, payload: meta.message });
+            yield put(
+                NavigationActions.navigate({ routeName: 'VerificationCode' })
+            );
         } else {
-            payload.status = false;
-            yield put({ type: STATUS_MESSAGE, payload });
+            yield put({ type: STATUS_MESSAGE, payload: meta.message });
         }
     } catch (error) {
-        let payload = {
-            message: '',
-            status: null
-        };
         if (error.response && error.response.data) {
             yield put({
                 type: STATUS_MESSAGE,
-                payload: error.response.data.meta
+                payload: error.response.data.meta.message
             });
         } else {
             yield put({ type: STATUS_MESSAGE, payload: error.message });
         }
     } finally {
-        yield put(showLoading(false));
+        //
     }
 }
 
-const forgotPasswordSagas = [takeLatest(FORGOT_PASSWORD, watchForgotPassword)];
+function* watchVerify() {
+    try {
+        const { forgotPassword } = yield select();
+        const { email, veriCode } = forgotPassword;
+        const response = yield call(Api.checkCode, { email, veriCode });
+        const { meta, data } = response.data;
+        if (meta.success && data) {
+            yield put(
+                NavigationActions.navigate({ routeName: 'NewForgotPassword' })
+            );
+            yield put({
+                type: STATUS_MESSAGE,
+                payload: data.msg
+            });
+        } else {
+            yield put({
+                type: STATUS_MESSAGE,
+                payload: data.msg
+            });
+        }
+    } catch (error) {
+        if (error.response && error.response.data) {
+            yield put({
+                type: STATUS_MESSAGE,
+                payload: error.response.data.meta.message
+            });
+        } else {
+            yield put({ type: STATUS_MESSAGE, payload: error.message });
+        }
+    } finally {
+        //
+    }
+}
 
-export default forgotPasswordSagas;
+function* watchNewPassword() {
+    try {
+        const { forgotPassword } = yield select();
+        const { newPassword } = forgotPassword;
+        const response = yield call(Api.newPassword, {
+            new_password: newPassword
+        });
+        const { meta, data } = response.data;
+        if (meta.success && data) {
+            yield put(NavigationActions.navigate({ routeName: 'Login' }));
+            yield put({
+                type: STATUS_MESSAGE,
+                payload: data.msg
+            });
+        } else {
+            yield put({
+                type: STATUS_MESSAGE,
+                payload: data.msg
+            });
+        }
+    } catch (error) {
+        if (error.response && error.response.data) {
+            yield put({
+                type: STATUS_MESSAGE,
+                payload: error.response.data.meta.message
+            });
+        } else {
+            yield put({ type: STATUS_MESSAGE, payload: error.message });
+        }
+    } finally {
+        //
+    }
+}
+
+export default [
+    takeLatest(FORGOT_PASSWORD, watchForgotPassword),
+    takeLatest(VERIFY, watchVerify),
+    takeLatest(NEW_PASSWORD, watchNewPassword)
+];
