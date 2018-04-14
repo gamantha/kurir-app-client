@@ -40,7 +40,7 @@ class SplashScreen extends Component {
                         if (exp < Math.floor(Date.now() / 1000) - 300) {
                             this.props.refreshToken(refreshToken);
                         } else {
-                            navigate('EditProfile');
+                            navigate('Main');
                         }
                     }
                 })
