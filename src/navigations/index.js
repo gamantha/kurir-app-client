@@ -16,6 +16,7 @@ import NewPassword from '../containers/NewPassword';
 import TransportPackage from '../containers/TransportPackage';
 import VerificationCode from '../containers/ForgotPassword/verification-code';
 import NewForgotPassword from '../containers/ForgotPassword/new-password';
+import EditProfile from '../components/EditProfile';
 
 // Navigation components
 import DashboardNavbar from './DashboardNavbar';
@@ -118,7 +119,13 @@ const AppNavigator = StackNavigator({
         navigationOptions: {
             header: null
         }
-    }
+    },
+    EditProfile: {
+        screen: EditProfile,
+        navigationOptions: {
+            header: null
+        }
+    },
 });
 
 export default AppNavigator;

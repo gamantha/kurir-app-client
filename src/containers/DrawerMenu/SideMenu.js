@@ -114,7 +114,7 @@ class SideMenu extends Component {
                         <TouchableOpacity style={styles.itemMenu}>
                             <Text style={styles.menuColor}>Order</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
+                        {/* <TouchableOpacity
                             style={styles.itemMenu}
                             onPress={() => this.props.toHistory()}
                         >
@@ -122,7 +122,7 @@ class SideMenu extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.itemMenu}>
                             <Text style={styles.menuColor}>My Wallet</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                         <TouchableOpacity
                             style={styles.itemMenu}
                             onPress={() => this.props.toChangePassword()}
@@ -131,11 +131,14 @@ class SideMenu extends Component {
                                 Change Password
                             </Text>
                         </TouchableOpacity>
+                        <TouchableOpacity style={styles.itemMenu}>
+                            <Text style={styles.menuColor}>Help</Text>
+                        </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.itemMenu}
-                            onPress={this.handleLogout}
+                            onPress={() => this.props.registerAsKurir()}
                         >
-                            <Text style={styles.menuColor}>Sign Out</Text>
+                            <Text style={styles.menuColor}>Register as Kurir</Text>
                         </TouchableOpacity>
                     </SafeAreaView>
                 </View>
@@ -151,14 +154,14 @@ class SideMenu extends Component {
                         />
                     </View>
                     <TouchableOpacity
-                        onPress={() => this.props.registerAsKurir()}
+                        onPress={this.handleLogout}
                         style={{
                             flex: 1,
                             justifyContent: 'center'
                         }}
                     >
                         <Text style={[styles.menuColor, { paddingLeft: 10 }]}>
-                            Register as Kurir
+                            Sign Out
                         </Text>
                     </TouchableOpacity>
                     <View
