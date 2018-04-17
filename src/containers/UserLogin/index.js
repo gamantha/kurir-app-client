@@ -15,7 +15,8 @@ import {
     KeyboardAvoidingView,
     ScrollView,
     Easing,
-    BackHandler
+    BackHandler,
+    Alert
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -43,6 +44,25 @@ class UserLogin extends Component {
             Toast.show(errorMessage);
             this.props.clearErrorMessage();
         }
+    }
+      
+    handleBackButton = () => {
+        Alert.alert(
+            'Exit App',
+            'Exiting the application?', 
+            [{ text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            { text: 'OK', onPress: () => BackHandler.exitApp() },
+            ], { cancelable: true }
+        )
+        return true;
+    } 
+      
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    }
+    
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     }
 
     onClickLogin = () => {
