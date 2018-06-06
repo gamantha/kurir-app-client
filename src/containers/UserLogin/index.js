@@ -24,6 +24,7 @@ import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import Facebook from '../../components/Facebook';
 import Google from '../../components/Google';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import * as actions from './reducer';
 import * as selectors from './selectors';
@@ -36,7 +37,31 @@ const HEIGHT = Dimensions.get('window').width;
 class UserLogin extends Component {
     constructor(props) {
         super(props);
+        
+        this.state = {
+            icEye: 'visibility-off',
+            password: true
+        }
     }
+
+    changePwdType = () => {
+        let newState;
+        if (this.state.password) {
+            newState = {
+                icEye: 'visibility',
+                password: false
+            }
+        } else {
+            newState = {
+                icEye: 'visibility-off',
+                password: true
+            }
+        }
+
+        // set new state value
+        this.setState(newState)
+
+    };
 
     componentWillReceiveProps(nextProps) {
         const { success, errorMessage } = nextProps;
@@ -177,10 +202,16 @@ class UserLogin extends Component {
                                         )
                                     }
                                     value={password}
-                                    secureTextEntry
+                                    secureTextEntry={this.state.password}
                                     autoCapitalize="none"
                                     autoCorrect={false}
                                     underlineColorAndroid="transparent"
+                                />
+                                <Icon style={styles.iconEye}
+                                    name={this.state.icEye}
+                                    size={20}
+                                    color={this.props.iconColor}
+                                    onPress={this.changePwdType}
                                 />
                             </View>
                         </View>

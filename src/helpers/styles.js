@@ -65,4 +65,10 @@ export default StyleSheet.create({
         paddingLeft: 10,
         height: 50,
     },
+
+    iconEye: {
+        position: 'absolute',
+        top: 15,
+        right: 10,
+    },
 });
