@@ -106,9 +106,7 @@ class OnboardingComponent extends React.Component {
                     />
                     <Text style={styles.headline}>Find a Traveler</Text>
                     <Text style={styles.body}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
+                        Specify a time you want your package to be shipped and we'll find a traveller who will carry your package.
                     </Text>
                     <TouchableOpacity
                         onPress={() => this.refs.swiper.scrollBy(1)}
@@ -144,11 +142,9 @@ class OnboardingComponent extends React.Component {
                         source={images.handoff}
                         resizeMode="contain"
                     />
-                    <Text style={styles.headline}>Hand off the Item</Text>
+                    <Text style={styles.headline}>Handoff the Package</Text>
                     <Text style={styles.body}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
+                        Deliver or bring the package to our nearest drop point to start the process.
                     </Text>
                     <TouchableOpacity
                         onPress={() => this.refs.swiper.scrollBy(1)}
@@ -186,9 +182,7 @@ class OnboardingComponent extends React.Component {
                     />
                     <Text style={styles.headline}>Track the Package</Text>
                     <Text style={styles.body}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
+                        Follow your package as it travels, get notification at every stops and when it reached its destination.
                     </Text>
                     <TouchableOpacity
                         onPress={() => this.props.navigation.navigate('Login')}
